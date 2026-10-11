@@ -1,0 +1,11 @@
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+# PENDAHULUAN
+
+## Latar Belakang
+Latar belakang penelitian...
+
+## Perumusan Masalah
+Akar permasalahan...

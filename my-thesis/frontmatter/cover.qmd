@@ -1,0 +1,27 @@
+# {-}
+
+\begin{titlepage}
+\begin{center}
+  \textbf{\large ANALISIS PENURUNAN TEKANAN DAN TRANSFER KALOR HEAT PIPE DI REAKTOR ANTARIKSA MENGGUNAKAN PYTHON}\\[2cm]
+  \textbf{SKRIPSI}\\[1.5cm]
+  {\small untuk memenuhi sebagian persyaratan\\untuk memperoleh derajat Sarjana\\
+  Program Studi Teknik Nuklir / Teknik Fisika}\\[2cm]
+  
+  \includegraphics[width=5.5cm]{figures/ugm-logo.png}\\[2cm]
+  
+  {\small Diajukan oleh}\\[0.5cm]
+  \textbf{MUHAMMAD NAUFAL TAMIMI}\\
+  20/456315/TK/50445\\[1.5cm]
+  
+  Kepada\\
+  \textbf{DEPARTEMEN TEKNIK NUKLIR DAN TEKNIK FISIKA}\\
+  \textbf{FAKULTAS TEKNIK}\\
+  \textbf{UNIVERSITAS GADJAH MADA}\\
+  \textbf{YOGYAKARTA}\\
+  \textbf{2026}
+\end{center}
+\end{titlepage}
+
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{2}

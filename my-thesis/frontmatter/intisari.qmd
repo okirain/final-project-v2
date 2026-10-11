@@ -1,0 +1,8 @@
+# INTISARI {-}
+
+\begin{singlespace}
+Abstrak ditulis dengan maksimum 200 kata yang disusun dalam tiga alinea...
+
+\vspace{1em}
+\noindent \textbf{Kata kunci:} radiografi neutron, kolimator, Serpent, fluks.
+\end{singlespace}
