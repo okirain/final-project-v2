@@ -1,8 +1,36 @@
-# INTISARI {-}
-
+```{=latex}
+\phantomsection\addcontentsline{toc}{chapter}{INTISARI}
+\thispagestyle{plain}
 \begin{singlespace}
-Abstrak ditulis dengan maksimum 200 kata yang disusun dalam tiga alinea...
+\begin{center}
+{\bfseries\MakeUppercase{\judul}}\\[0.4cm]
+\nama\\[0.2cm]
+\nim\\[0.5cm]
+Diajukan kepada Departemen Teknik Nuklir dan Teknik Fisika Fakultas Teknik\\
+Universitas Gadjah Mada pada tanggal \tglujian\\
+untuk memenuhi sebagian persyaratan untuk memperoleh derajat\\
+Sarjana Program Studi \prodi\\[0.6cm]
+{\bfseries INTISARI}
+\end{center}
+\setlength{\parindent}{1.27cm}
+```
 
-\vspace{1em}
-\noindent \textbf{Kata kunci:} radiografi neutron, kolimator, Serpent, fluks.
+Abstrak ditulis dengan maksimum 200 kata yang disusun dalam tiga alinea. Alinea pertama berisi tentang latar belakang secara ringkas.
+
+Alinea kedua berisi tentang metodologi secara ringkas.
+
+Alinea ketiga berisi tentang hasil dan kesimpulan secara ringkas.
+
+```{=latex}
+\vspace{0.3cm}
+\noindent\textbf{\textit{Kata kunci:}} \textit{kata kunci 1, kata kunci 2, kata kunci 3, kata kunci 4}
+
+\bigskip
+\noindent
+\begin{tabular}{@{}l@{\hspace{0.3cm}}l@{\hspace{0.3cm}}l}
+Pembimbing Utama      & : & \pembimbingutama \\[4pt]
+Pembimbing Pendamping & : & \pembimbingpendamping \\
+\end{tabular}
 \end{singlespace}
+\clearpage
+```

@@ -1,0 +1,12 @@
+# KATA PENGANTAR {.unnumbered}
+
+Kata Pengantar berisikan uraian yang mengantar pada para pembaca skripsi kepada permasalahan yang diteliti. Dalam Kata Pengantar dapat pula disertakan ucapan terima kasih dan apresiasi penulis kepada pihak-pihak yang telah membantu dalam menyelesaikan tugas akhirnya. Ucapan terima kasih disampaikan secara singkat dan harus diungkapkan dengan serius dalam tata bahasa yang benar. Gunakan kata "penulis", bukan "saya".
+
+```{=latex}
+\vspace{1cm}
+\begin{flushright}
+\kotatanggal\\[1.2cm]
+Penulis
+\end{flushright}
+\clearpage
+```

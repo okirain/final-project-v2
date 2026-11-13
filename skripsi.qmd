@@ -1,0 +1,40 @@
+---
+lang: id
+---
+
+{{< include frontmatter/halaman-judul.qmd >}}
+
+{{< include frontmatter/pernyataan.qmd >}}
+
+{{< include frontmatter/pengesahan.qmd >}}
+
+{{< include frontmatter/persembahan.qmd >}}
+
+{{< include frontmatter/kata-pengantar.qmd >}}
+
+{{< include frontmatter/daftar.qmd >}}
+
+{{< include frontmatter/lambang.qmd >}}
+
+{{< include frontmatter/intisari.qmd >}}
+
+{{< include frontmatter/abstract.qmd >}}
+
+{{< include chapters/bab1-pendahuluan.qmd >}}
+
+{{< include chapters/bab2-tinjauan-pustaka.qmd >}}
+
+{{< include chapters/bab3-dasar-teori.qmd >}}
+
+{{< include chapters/bab4-pelaksanaan-penelitian.qmd >}}
+
+{{< include chapters/bab5-hasil-pembahasan.qmd >}}
+
+{{< include chapters/bab6-kesimpulan-saran.qmd >}}
+
+{{< include appendices/daftar-pustaka.qmd >}}
+
+{{< include appendices/lampiran-a.qmd >}}
+
+{{< include appendices/lampiran-b.qmd >}}
+ 
