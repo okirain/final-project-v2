@@ -1,5 +1,0 @@
-create a function that returns latent heat as a function density (thing)
-integrate using numerical integration from 0 to z
-the values that change include density, and heat flux (W/m2)
-
-calculate the pressure drop
