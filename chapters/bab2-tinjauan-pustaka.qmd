@@ -35,3 +35,39 @@ Massa blok teras tercatat sebesar 50,8 kg dengan estimasi massa reaktor sebesar 
 Reaktivitas berlebih (*excess reactivity*) bernilai 4023 pcm, estimasi umur operasi mencapai 28
 tahun, serta koefisien reaktivitas rongga (*void*) dan temperatur bernilai negatif.
 Parameter-parameter tersebut menetapkan batasan geometris dan termal bagi *retrofit* Mark 2.
+
+## Teori Pipa Kalor dan Batas Operasional
+
+Pipa kalor (*heat pipe*) mentransportasikan kalor melalui penguapan fluida kerja di dalam
+evaporator, aliran uap menuju kondensor, kondensasi, serta aliran balik cairan melalui sumbu
+(*wick*) atau lintasan berbantuan gravitasi (*gravity-assisted path*). Kapasitas transfer kalor
+(*heat throughput*) maksimum ditentukan oleh sejumlah batas yang saling bersaing
+[@chi1976; @cotter1965; @busse1973; @levy1968; @faghri2016; @zohuri2016; @dunn2012]:
+
+* **Batas viskos:** penurunan tekanan uap menjadi sebanding dengan tekanan uap lokal pada temperatur
+rendah.
+* **Batas sonik:** kecepatan uap mencapai kondisi sonik pada keluaran evaporator.
+* **Batas *entrainment*:** tegangan geser uap menghalangi cairan untuk mengalir kembali melalui
+permukaan sumbu.
+* **Batas kapiler:** tekanan kapiler yang tersedia tidak mencukupi untuk mengatasi penurunan tekanan
+cairan dan uap serta tinggi tekan gravitasi (*gravity head*).
+* **Batas pendidihan:** pendidihan nukleat (*nucleate boiling*) di dalam sumbu menghambat aliran
+balik cairan.
+* **Batas banjir (*flooding*):** pada termosifon berbantuan gravitasi, aliran berlawanan arah
+(*counter-current*) antara uap dan cairan menyebabkan terjadinya banjir (*flooding*).
+
+Batas pengendali (*controlling limit*) bergantung pada temperatur, jenis fluida, struktur sumbu, dan
+orientasi. Untuk natrium pada rentang temperatur 500–800 °C, tekanan uapnya berubah hingga beberapa
+orde magnitudo, sehingga transisi antara batas viskos, kapiler, *entrainment*, dan banjir
+berlangsung sangat kuat. Oleh karena itu, perangkat desain (*design tool*) harus mengevaluasi
+seluruh batas tersebut dan memilih nilai minimumnya.
+
+## Kesenjangan Penelitian
+
+Literatur terbuka telah menyediakan korelasi batas-batas pipa kalor (*heat pipe*) serta data
+pengujian KRUSTY, namun belum terdapat perangkat satu dimensi yang terbuka dan dapat direproduksi
+(*reproducible*) yang (i) mengimplementasikan keseluruhan rangkaian batas analitik, (ii) tervalidasi
+terhadap kurva kapasitas transfer kalor (*throughput curve*) KRUSTY, dan (iii) menerapkan kerangka
+kerja yang sama pada geometri pin ISR dengan saluran berukuran 0,6 cm dan daya 8,2 kWth per pin.
+Penelitian ini mengisi kesenjangan tersebut sekaligus memberikan landasan kuantitatif bagi penentuan
+keputusan arsitektur ISR Mark 2.
