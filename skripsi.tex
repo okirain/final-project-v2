@@ -205,6 +205,7 @@
 \usepackage{xcolor}
 \usepackage{array}
 \usepackage{indentfirst}
+\usepackage{microtype}
 
 % Alinea rata kiri-kanan, awal alinea menjorok 1,27 cm (sama dengan templat)
 \setlength{\parindent}{1.27cm}
@@ -347,359 +348,175 @@
 
 
 \setstretch{1.43}
-% Bagian Awal memakai angka Romawi kecil (i, ii, ...). Halaman ini = i (nomor tidak dicetak).
-\pagenumbering{roman}
-\thispagestyle{empty}
-\phantomsection\addcontentsline{toc}{chapter}{HALAMAN JUDUL}
-\begin{singlespace}
-\begin{center}
-\vspace*{0.5cm}
-{\bfseries\MakeUppercase{\judul}\par}
-\vspace{1.2cm}
-{\bfseries SKRIPSI\par}
-\vspace{1cm}
-untuk memenuhi sebagian persyaratan\\
-untuk memperoleh derajat Sarjana\\
-Program Studi \prodi
-\vspace{1.2cm}
-
-\logougm
-
-\vspace{1.2cm}
-Diajukan oleh\\
-\MakeUppercase{\nama}\\
-\nim
-\vspace{1.2cm}
-
-Kepada\\
-{\bfseries DEPARTEMEN TEKNIK NUKLIR DAN TEKNIK FISIKA}\\
-{\bfseries FAKULTAS TEKNIK}\\
-{\bfseries UNIVERSITAS GADJAH MADA}\\
-{\bfseries YOGYAKARTA}\\
-{\bfseries \tahun}
-\end{center}
-\end{singlespace}
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{PERNYATAAN BEBAS PLAGIARISME}
-\begin{center}
-{\bfseries PERNYATAAN BEBAS PLAGIASI}
-\end{center}
-\vspace{0.3cm}
-\begin{spacing}{1.15}
-Saya yang bertanda tangan di bawah ini:
-
-\medskip
-\begin{tabular}{@{}l@{\hspace{1.6cm}}l@{\hspace{0.4cm}}l}
-Nama            & : & \nama \\[3pt]
-NIM             & : & \nim \\[3pt]
-Tahun terdaftar & : & \tahundaftar \\[3pt]
-Program Studi   & : & \prodi \\[3pt]
-Fakultas        & : & Teknik \\
-\end{tabular}
-
-\medskip
-menyatakan bahwa dokumen ilmiah skripsi ini tidak terdapat bagian dari karya
-ilmiah lain yang telah diajukan untuk memperoleh gelar akademik di suatu lembaga
-Pendidikan Tinggi, dan juga tidak terdapat karya atau pendapat yang pernah ditulis
-atau diterbitkan oleh orang/lembaga lain, kecuali yang secara tertulis disitasi dalam
-dokumen ini dan disebutkan sumbernya secara lengkap dalam daftar pustaka.
-
-Dengan demikian saya menyatakan bahwa dokumen ilmiah ini bebas dari unsur-unsur
-plagiasi dan apabila dokumen ilmiah Skripsi ini di kemudian hari terbukti merupakan
-plagiasi dari hasil karya penulis lain dan/atau dengan sengaja mengajukan karya atau
-pendapat yang merupakan hasil karya penulis lain, maka penulis bersedia menerima
-sanksi akademik dan/atau sanksi hukum yang berlaku.
-\end{spacing}
-
-\vspace{0.8cm}
-\begin{flushright}
-\begin{minipage}{6.5cm}
-\kotatanggal\\[0.3cm]
-\fcolorbox{red}{red!8}{\parbox[c][2.6cm][c]{5.9cm}{\small Materai ASLI (e-Meterai)\\[2pt] Rp. 10 000\\[2pt] dan tanda tangan}}\\[0.3cm]
-\nama\\
-NIM. \nim
-\end{minipage}
-\end{flushright}
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{HALAMAN PENGESAHAN}
-\begin{singlespace}
-\begin{center}
-{\bfseries HALAMAN PENGESAHAN}\\[0.4cm]
-SKRIPSI\\[0.4cm]
-{\bfseries\MakeUppercase{\judul}}
-\end{center}
-\vspace{0.6cm}
-
-\renewcommand{\arraystretch}{1.9}
-\noindent
-\begin{tabular}{@{}p{4.6cm}@{}l@{\hspace{0.3cm}}l}
-Nama Mahasiswa         & : & \nama \\
-Nomor Mahasiswa        & : & \nim \\
-Pembimbing Utama       & : & \pembimbingutama \\
-Pembimbing Pendamping  & : & \pembimbingpendamping \\
-\end{tabular}
-
-\vspace{0.5cm}
-\begin{center}
-Skripsi ini telah dipertahankan di depan Tim Penguji\\
-pada tanggal \textit{\tglujian}
-\end{center}
-
-\noindent
-\begin{tabular}{@{}p{4.6cm}@{}l@{\hspace{0.3cm}}l}
-Ketua Sidang    & : & \ketuasidang \\
-Penguji Utama   & : & \pengujiutama \\
-Anggota Penguji & : & \anggotapenguji \\
-\end{tabular}
-\renewcommand{\arraystretch}{1}
-
-\vspace{0.5cm}
-\begin{center}
-Skripsi ini telah diterima dan dinyatakan memenuhi\\
-syarat kelulusan pada tanggal \tglpengesahan
-
-\vspace{0.8cm}
-Ketua Departemen Teknik Nuklir dan Teknik Fisika\\
-Fakultas Teknik UGM\\[2.2cm]
-\underline{\ketuadepartemen}\\
-NIP. \nipketua
-\end{center}
-\end{singlespace}
-\clearpage
-
-% Halaman persembahan & motto -- ada di templat 2023/2025. Hapus berkas ini dan baris
-% include-nya di skripsi.qmd bila tidak dipakai.
-\phantomsection\addcontentsline{toc}{chapter}{HALAMAN PERSEMBAHAN}
-\vspace*{1cm}
-\begin{center}
-\itshape \ldots{} Karya ini kupersembahkan untuk \ldots{} \ldots{}
-\end{center}
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{MOTTO}
-\vspace*{1cm}
-\begin{center}
-\itshape \ldots{} Motto hari ini adalah \ldots{} \ldots{}
-\end{center}
-\clearpage
-
-\chapter*{KATA PENGANTAR}\label{kata-pengantar}
-\addcontentsline{toc}{chapter}{KATA PENGANTAR}
-
-Kata Pengantar berisikan uraian yang mengantar pada para pembaca skripsi
-kepada permasalahan yang diteliti. Dalam Kata Pengantar dapat pula
-disertakan ucapan terima kasih dan apresiasi penulis kepada pihak-pihak
-yang telah membantu dalam menyelesaikan tugas akhirnya. Ucapan terima
-kasih disampaikan secara singkat dan harus diungkapkan dengan serius
-dalam tata bahasa yang benar. Gunakan kata ``penulis'', bukan ``saya''.
-
-\vspace{1cm}
-\begin{flushright}
-\kotatanggal\\[1.2cm]
-Penulis
-\end{flushright}
-\clearpage
-
-% Urutan: Daftar Isi, Daftar Tabel, Daftar Gambar (lalu Daftar Lambang & Singkatan).
-\begin{singlespace}
-\renewcommand{\contentsname}{DAFTAR ISI}
-\tableofcontents
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{DAFTAR TABEL}
-\renewcommand{\listtablename}{DAFTAR TABEL}
-\listoftables
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
-\renewcommand{\listfigurename}{DAFTAR GAMBAR}
-\listoffigures
-\clearpage
-\end{singlespace}
-
-\chapter*{DAFTAR LAMBANG DAN
-SINGKATAN}\label{daftar-lambang-dan-singkatan}
-\addcontentsline{toc}{chapter}{DAFTAR LAMBANG DAN SINGKATAN}
-
-\textbf{Lambang Romawi}
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}clc@{}}
-\toprule\noalign{}
-Lambang & Kuantitas & Satuan \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\(A\) & Luas penampang & m² \\
-\(D_v\) & Diameter ruang uap & m \\
-\(f\) & Faktor gesek Darcy & -- \\
-\(g_{\mathrm{eff}}\) & Percepatan efektif & m/s² \\
-\(h_{fg}\) & Kalor laten penguapan & J/kg \\
-\(K\) & Permeabilitas sumbu kapiler & m² \\
-\(L\) & Panjang pipa kalor & m \\
-\(\dot m\) & Laju aliran massa & kg/s \\
-\(P\) & Tekanan & Pa \\
-\(Q\) & Laju transportasi kalor & W \\
-\(r_c\) & Jari-jari pori efektif & m \\
-\(R_c\) & Resistansi termal kondenser & K/W \\
-\(T\) & Temperatur & K \\
-\(u\) & Kecepatan uap & m/s \\
-\(x\) & Koordinat aksial & m \\
-\end{longtable}
-}
-
-\textbf{Lambang Yunani}
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}clc@{}}
-\toprule\noalign{}
-Lambang & Kuantitas & Satuan \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\(\theta\) & Sudut kontak atau kemiringan, sesuai konteks & ° \\
-\(\mu\) & Viskositas dinamis & Pa·s \\
-\(\rho\) & Densitas & kg/m³ \\
-\(\sigma\) & Tegangan permukaan & N/m \\
-\end{longtable}
-}
-
-\textbf{Subskrip dan Singkatan}
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}cl@{}}
-\toprule\noalign{}
-Lambang & Deskripsi \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\(c\) & Kondenser atau kapiler, sesuai konteks \\
-\(e\) & Evaporator \\
-\(l\) & Fasa cair \\
-\(v\) & Fasa uap \\
-CFD & \emph{Computational Fluid Dynamics} \\
-HPCR & \emph{Heat Pipe Cooled Reactor} \\
-NIM & Nomor Induk Mahasiswa \\
-UGM & Universitas Gadjah Mada \\
-\end{longtable}
-}
-
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{INTISARI}
-\thispagestyle{plain}
-\begin{singlespace}
-\begin{center}
-{\bfseries\MakeUppercase{\judul}}\\[0.4cm]
-\nama\\[0.2cm]
-\nim\\[0.5cm]
-Diajukan kepada Departemen Teknik Nuklir dan Teknik Fisika Fakultas Teknik\\
-Universitas Gadjah Mada pada tanggal \tglujian\\
-untuk memenuhi sebagian persyaratan untuk memperoleh derajat\\
-Sarjana Program Studi \prodi\\[0.6cm]
-{\bfseries INTISARI}
-\end{center}
-\setlength{\parindent}{1.27cm}
-
-\textbf{DESIGN AND ANALYSIS OF A PASSIVE HEAT-PIPE COOLING RETROFIT FOR
-THE INDONESIAN SPACE REACTOR (ISR MARK 2)}
-
-\textbf{Nama Lengkap Mahasiswa}\\
-\textbf{xx/yyyyyy/TK/zzzzz}
-
-Diajukan kepada Departemen Teknik Nuklir dan Teknik Fisika, Fakultas
-Teknik, Universitas Gadjah Mada, untuk memenuhi sebagian persyaratan
-penelitian program Sarjana Teknik Nuklir.
-
-Reaktor Antariksa Indonesia (ISR) berdaya 500 kWth menggunakan pendingin
-Na-78K yang dipompa aktif dan memiliki 61 pin bahan bakar dengan kanal
-pendingin berdiameter 0,6 cm. Studi ini mengembangkan simulator pipa
-kalor satu dimensi berbasis jaringan resistansi termal dan batas
-operasional analitik, memvalidasinya terhadap data uji KRUSTY, lalu
-mengevaluasi retrofit pendingin pipa kalor pasif untuk ISR Mark 2.
-Simulator diimplementasikan dalam Julia dan diuji pada rentang 550--800
-\(^\circ\)C; kesalahan maksimum terhadap data throughput KRUSTY adalah
-12,5 \%, dengan titik operasi 295 W pada 601,5 \(^\circ\)C dan beda suhu
-evaporator--kondensor 15,8 K. Untuk kanal 0,6 cm, batas pipa kalor
-terbaik hanya 231 W per pin, sehingga 8,2 kW per pin tidak dapat
-dicapai. Diperlukan diameter pipa 2,3--6,8 cm, bergantung pada fluida
-dan suhu. Opsi A dengan natrium pada 1.200 K dan kanal 2,5 cm mencapai
-9,13 kW per pin, tetapi menghilangkan 56,4 \% volume bahan bakar dan
-menurunkan estimasi umur menjadi 12,2 tahun. Opsi B memerlukan kisi
-teras baru dengan pitch 5,07 cm, sedangkan Opsi C hanya layak sebagai
-demonstrator pasif berdaya rendah.
-
-\textbf{Kata kunci:} pipa kalor, reaktor antariksa, KRUSTY, ISR,
-natrium, pendinginan pasif
-
-\vspace{0.3cm}
-\noindent\textbf{\textit{Kata kunci:}} \textit{kata kunci 1, kata kunci 2, kata kunci 3, kata kunci 4}
-
-\bigskip
-\noindent
-\begin{tabular}{@{}l@{\hspace{0.3cm}}l@{\hspace{0.3cm}}l}
-Pembimbing Utama      & : & \pembimbingutama \\[4pt]
-Pembimbing Pendamping & : & \pembimbingpendamping \\
-\end{tabular}
-\end{singlespace}
-\clearpage
-
-\phantomsection\addcontentsline{toc}{chapter}{ABSTRACT}
-\thispagestyle{plain}
-\begin{singlespace}
-\begin{center}
-{\bfseries\MakeUppercase{\judulinggris}}\\[0.4cm]
-\nama\\[0.2cm]
-\nim\\[0.5cm]
-Submitted to the Department of Nuclear Engineering and Engineering Physics\\
-Faculty of Engineering Universitas Gadjah Mada on \textit{\tglujianinggris}\\
-in partial fulfillment of the requirement for the Degree of\\
-Bachelor of Engineering in \prodien\\[0.6cm]
-{\bfseries ABSTRACT}
-\end{center}
-\selectlanguage{english}
-
-Teks dalam bahasa Inggris sangat disarankan dicek tata bahasanya
-misalnya dengan grammarly.com dan cek similarity misalnya dengan
-aplikasi TURNITIN.
-
-First paragraph: background, briefly.
-
-Second paragraph: methodology, briefly.
-
-Third paragraph: results and conclusion, briefly.
-
-\selectlanguage{indonesian}
-\vspace{0.3cm}
-\noindent\textbf{\textit{Keywords:}} \textit{Keyword 1, keyword 2, keyword 3, keyword 4}
-
-\bigskip
-\noindent
-\begin{tabular}{@{}l@{\hspace{0.3cm}}l@{\hspace{0.3cm}}l}
-Supervisor    & : & \pembimbingutama \\[4pt]
-Co-supervisor & : & \pembimbingpendamping \\
-\end{tabular}
-\end{singlespace}
-\clearpage
-
-\clearpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\chapter{PENDAHULUAN}\label{pendahuluan}
+\chapter{PENDAHULUAN}\label{sec-intro}
 
 \section{Latar Belakang}\label{latar-belakang}
 
-Latar belakang penelitian\ldots{}
+Reaktor nuklir antariksa menawarkan rapat daya yang tinggi, umur operasi
+yang panjang, serta tidak bergantung pada penyinaran matahari, sehingga
+menjadikannya solusi yang menarik untuk misi antariksa jauh, penyediaan
+daya di permukaan planet, maupun aplikasi terestrial di wilayah
+terpencil. Konsep Indonesian Space Reactor (ISR) merupakan reaktor
+spektrum cepat berdaya 500 kWth yang dirancang untuk menyuplai daya
+sekurang-kurangnya 500 kWth selama lebih dari sepuluh tahun pada kondisi
+daya penuh {[}\textbf{khandaq2020?}{]}. Desain dasar ISR Mark 1
+menggunakan 61 pin bahan bakar UN anular dengan pengayaan 55\% U-235,
+kelongsong Mo-30Re, blok teras heksagonal berbahan Mo-30Re, serta
+pendingin Na-78K yang dipompa secara aktif dengan temperatur masuk dan
+keluar masing-masing sebesar 750 K dan 950 K. Setiap pin bahan bakar
+memiliki saluran pendingin internal berbahan renium berukuran 0,6 cm.
+Daya rata-rata teras per pin adalah sekitar 8,2 kWth.
+
+Untai pendingin yang dipompa secara aktif memerlukan komponen tambahan
+berupa pompa elektromagnetik, sistem perpipaan, penukar kalor,
+akumulator, serta katup kendali. Komponen-komponen tersebut menambah
+massa parasitik, mengonsumsi daya pemompaan, dan menimbulkan modus
+kegagalan titik tunggal (single-point failure modes). Arsitektur
+pendinginan pipa kalor (heat pipe) pasif menghilangkan kebutuhan akan
+pompa dan untai primer, mendistribusikan fungsi perpindahan kalor ke
+banyak pipa yang saling independen, serta dapat meningkatkan keandalan
+sistem melalui redundansi. Program Kilopower/KRUSTY telah
+mendemonstrasikan reaktor berpendingin pipa kalor natrium pada
+temperatur sekitar 800\(^\circ\)C dan menghasilkan data tingkat sistem
+nuklir pertama bagi reaktor pipa kalor {[}\textbf{gibson2020?},
+\textbf{poston2020design?}, \textbf{poston2020results?}{]}. Data
+tersebut menjadi tolok ukur (benchmark) yang unik bagi simulator pipa
+kalor non-CFD.
 
 \section{Perumusan Masalah}\label{perumusan-masalah}
 
-Akar permasalahan\ldots{}
+Konsep ISR Mark 2 menggantikan untai Na-78K yang dipompa dengan pipa
+kalor (heat pipe) pasif yang ditempatkan di dalam, atau menggantikan,
+saluran pin bahan bakar yang telah ada. Pertanyaan utamanya adalah
+apakah satu pipa kalor tunggal mampu mentransportasikan daya sebesar 8,2
+kWth melalui saluran berukuran 0,6 cm yang ada. Jawabannya bergantung
+pada fluida kerja (natrium, kalium, atau litium), diameter selubung
+(envelope), arsitektur sumbu (wick), serta temperatur uap. Apabila batas
+kapasitas pipa tunggal berada di bawah 8,2 kWth, perubahan arsitektur
+yang konkret harus diidentifikasi: memperbesar saluran pusat,
+menambahkan pipa kalor interstisial, atau menurunkan peringkat daya
+(down-rate) teras.
+
+Pertanyaan kedua berkaitan dengan tingkat ketelitian (fidelity) model
+rekayasa sederhana. Simulasi CFD dan simulasi dua fasa penuh memerlukan
+biaya komputasi yang tinggi sehingga tidak sesuai untuk eksplorasi ruang
+desain (design-space exploration). Jaringan parameter terpusat
+(lumped-parameter network) satu dimensi yang dipadukan dengan
+batas-batas operasional analitik dapat memberikan estimasi yang cepat,
+transparan, dan dapat direproduksi (reproducible) apabila divalidasi
+terhadap data eksperimental maupun empiris. Pengujian KRUSTY menyediakan
+titik acuan (anchor) yang diperlukan: sekitar 30 W pada 500 °C, 300 W
+pada 600 °C, 500 W pada 700 °C, dan lebih dari 600 W pada 800 °C, dengan
+daya sekitar 325 W per pipa yang terukur di dekat temperatur
+600\(^\circ\)C {[}\textbf{poston2020results?}{]}.
+
+\section{Batasan Masalah}\label{batasan-masalah}
+
+Penelitian ini dibatasi pada model pipa kalor (heat pipe) satu dimensi
+non-CFD. Model tersebut menggunakan batas-batas analitik yang meliputi
+batas viskos, sonik, entrainment, kapiler, pendidihan, dan banjir
+(flooding), jaringan resistansi termal terpusat (lumped thermal
+resistance network), serta model sirip transien aksial. Fluida kerja
+yang digunakan adalah natrium, kalium, dan litium. Ruang desain ISR
+mencakup diameter selubung (envelope) mulai dari 0,6 cm hingga beberapa
+sentimeter, tiga arsitektur sumbu (wick)---yaitu kasa (screen), sinter
+(sintered), dan anular/arterial---serta temperatur uap dari 900 K hingga
+1200 K. Penelitian ini tidak melakukan analisis neutronik, kinerja bahan
+bakar, kompatibilitas material, maupun analisis massa tingkat sistem
+penuh dan radiator. Penalti reaktivitas dan estimasi massa yang
+digunakan merupakan nilai penyaringan orde pertama (first-order
+screening values). Struktur sumbu KRUSTY tidak dilaporkan secara lengkap
+dalam literatur terbuka, sehingga digunakan sumbu ekuivalen yang
+dikalibrasi terhadap kurva kapasitas transfer kalor (throughput curve)
+yang telah dipublikasikan; kalibrasi ini dinyatakan secara eksplisit dan
+ketidakpastiannya dibahas.
+
+\section{Tujuan Penelitian}\label{tujuan-penelitian}
+
+Tujuan dari penelitian ini adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Mengimplementasikan simulator pipa kalor (\emph{heat pipe}) satu
+  dimensi yang dapat direproduksi (\emph{reproducible}) menggunakan
+  Julia dengan batas-batas operasional analitik dan jaringan termal
+  terpusat (\emph{lumped thermal network}).
+\item
+  Memvalidasi simulator terhadap data kapasitas transfer kalor
+  (\emph{throughput}) pipa kalor KRUSTY dalam batas toleransi \(\pm\)
+  15\% pada rentang temperatur 550--800 °C.
+\item
+  Mengkuantifikasi kelayakan \emph{retrofit} pipa kalor pasif untuk ISR
+  berdaya 500 kWth pada daya 8,2 kWth per pin.
+\item
+  Membandingkan performa natrium, kalium, dan litium serta
+  mengidentifikasi batas-batas pengendali (\emph{controlling limits})
+  dan diameter selubung (\emph{envelope}) yang diperlukan.
+\item
+  Merumuskan rekomendasi arsitektur yang konkret di antara opsi
+  pembesaran saluran, penambahan pipa interstisial, dan penurunan
+  peringkat daya (\emph{down-rating}).
+\item
+  Mengestimasi keuntungan pengurangan massa parasitik dan peningkatan
+  keandalan dari penghilangan untai pompa elektromagnetik.
+\end{enumerate}
+
+\section{Manfaat Penelitian}\label{manfaat-penelitian}
+
+Penelitian ini menyediakan perangkat penyaringan desain
+(\emph{design-screening tool}) yang terbuka dan dapat direproduksi untuk
+reaktor antariksa berpendingin pipa kalor. Studi ini memberikan landasan
+kuantitatif bagi program ISR dalam memilih antara \emph{retrofit} pasif
+siap pasang (\emph{drop-in passive retrofit}), teras dengan saluran yang
+diperbesar, atau kisi teras (\emph{lattice}) baru. Selain itu,
+penelitian ini mendemonstrasikan bagaimana data pengujian KRUSTY dapat
+digunakan untuk mengkalibrasi dan memvalidasi model rekayasa cepat, yang
+bermanfaat bagi studi reaktor antariksa Indonesia pada masa mendatang.
+
+\chapter{TINJAUAN PUSTAKA}\label{sec-literature-review}
+
+\section{Program Kilopower dan
+KRUSTY}\label{program-kilopower-dan-krusty}
+
+Proyek Kilopower mengembangkan sistem daya fisi berukuran kecil untuk
+aplikasi antariksa. Pengujian KRUSTY menggunakan delapan pipa kalor
+(\emph{heat pipe}) natrium berbahan Haynes 230 dengan diameter luar 1,27
+cm, ketebalan dinding 0,089 cm, panjang total sekitar 100 cm, dan
+inventori natrium sekitar 15 g {[}\textbf{poston2020design?}{]}.
+Pipa-pipa kalor tersebut hanya memiliki sumbu (\emph{wick}) pada ujung
+bawahnya yang menghubungkan kolam natrium (\emph{sodium pool}) dengan
+evaporator; sementara bagian pipa selebihnya beroperasi sebagai
+termosifon berbantuan gravitasi (\emph{gravity-assisted thermosiphon}).
+Reaktor ini mendemonstrasikan daya nominal sebesar 4 kWth pada
+temperatur sekitar 800 °C, dengan masing-masing pipa kalor memindahkan
+daya sekitar 325 W di dekat temperatur 600 °C.
+
+Kurva batas pipa kalor KRUSTY merupakan target validasi utama dalam
+penelitian ini. Model kapasitas transfer kalor (\emph{throughput})
+empiris yang telah dipublikasikan menunjukkan batas viskos/banjir
+(\emph{viscous/flooding limit}) pada temperatur rendah sekitar 30 W pada
+500 °C, batas sekitar 300 W pada 600 °C, sekitar 500 W pada 700 °C,
+serta kapasitas di atas 600 W pada 800 °C
+{[}\textbf{poston2020results?}{]}. Pipa-pipa kalor tersebut bukanlah
+perangkat kapiler sepanjang penuh (\emph{full-length capillary
+devices}); kinerjanya didominasi oleh interaksi antara kolam natrium,
+sumbu evaporator, dan aliran balik berbantuan gravitasi
+(\emph{gravity-assisted return}). Fenomena fisika ini direpresentasikan
+dalam model yang digunakan pada penelitian ini melalui sumbu ekuivalen
+(\emph{equivalent wick}) dan batas banjir Wallis (\emph{Wallis flooding
+limit}) yang dikalibrasi terhadap kurva terpublikasi tersebut.
+
+Terjemahan ini mempertahankan konsistensi peristilahan dari bagian
+sebelumnya (\emph{pipa kalor}, \emph{sumbu}, \emph{kapasitas transfer
+kalor}, \emph{batas viskos/banjir}, dan \emph{sumbu ekuivalen}),
+menggunakan istilah baku ketenaganukliran seperti \emph{sistem daya
+fisi} dan \emph{inventori natrium}, serta menerapkan kaidah tanda koma
+desimal sesuai EYD V.
 
 \chapter*{DAFTAR PUSTAKA}\label{daftar-pustaka}
 \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}

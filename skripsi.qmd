@@ -2,6 +2,7 @@
 lang: id
 ---
 
+<!-- 
 {{< include frontmatter/halaman-judul.qmd >}}
 
 {{< include frontmatter/pernyataan.qmd >}}
@@ -19,7 +20,7 @@ lang: id
 {{< include frontmatter/intisari.qmd >}}
 
 {{< include frontmatter/abstract.qmd >}}
-
+-->
 {{< include chapters/bab1-pendahuluan.qmd >}}
 
 {{< include chapters/bab2-tinjauan-pustaka.qmd >}}

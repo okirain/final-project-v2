@@ -1,2 +1,5 @@
 .quarto/
 .commandcode/
+
+/.quarto/
+**/*.quarto_ipynb

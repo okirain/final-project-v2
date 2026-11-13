@@ -1,11 +1,94 @@
-\clearpage
+```{=latex}
 \pagenumbering{arabic}
 \setcounter{page}{1}
+```
 
-# PENDAHULUAN
+# PENDAHULUAN {#sec-intro}
 
 ## Latar Belakang
-Latar belakang penelitian...
+Reaktor nuklir antariksa menawarkan rapat daya yang tinggi, umur operasi yang panjang, serta tidak
+bergantung pada penyinaran matahari, sehingga menjadikannya solusi yang menarik untuk misi antariksa
+jauh, penyediaan daya di permukaan planet, maupun aplikasi terestrial di wilayah terpencil. Konsep
+Indonesian Space Reactor (ISR) merupakan reaktor spektrum cepat berdaya 500 kWth yang dirancang
+untuk menyuplai daya sekurang-kurangnya 500 kWth selama lebih dari sepuluh tahun pada kondisi daya
+penuh [@khandaq2020]. Desain dasar ISR Mark 1 menggunakan 61 pin bahan bakar UN anular dengan
+pengayaan 55% U-235, kelongsong Mo-30Re, blok teras heksagonal berbahan Mo-30Re, serta pendingin
+Na-78K yang dipompa secara aktif dengan temperatur masuk dan keluar masing-masing sebesar 750 K dan
+950 K. Setiap pin bahan bakar memiliki saluran pendingin internal berbahan renium berukuran 0,6 cm.
+Daya rata-rata teras per pin adalah sekitar 8,2 kWth.
+
+Untai pendingin yang dipompa secara aktif memerlukan komponen tambahan berupa pompa elektromagnetik,
+sistem perpipaan, penukar kalor, akumulator, serta katup kendali. Komponen-komponen tersebut
+menambah massa parasitik, mengonsumsi daya pemompaan, dan menimbulkan modus kegagalan titik tunggal
+(single-point failure modes). Arsitektur pendinginan pipa kalor (heat pipe) pasif menghilangkan
+kebutuhan akan pompa dan untai primer, mendistribusikan fungsi perpindahan kalor ke banyak pipa yang
+saling independen, serta dapat meningkatkan keandalan sistem melalui redundansi. Program
+Kilopower/KRUSTY telah mendemonstrasikan reaktor berpendingin pipa kalor natrium pada temperatur
+sekitar 800$^\circ$C dan menghasilkan data tingkat sistem nuklir pertama bagi reaktor pipa kalor
+[@gibson2020; @poston2020design; @poston2020results]. Data tersebut menjadi tolok ukur (benchmark)
+yang unik bagi simulator pipa kalor non-CFD.
 
 ## Perumusan Masalah
-Akar permasalahan...
+
+Konsep ISR Mark 2 menggantikan untai Na-78K yang dipompa dengan pipa kalor (heat pipe) pasif yang
+ditempatkan di dalam, atau menggantikan, saluran pin bahan bakar yang telah ada. Pertanyaan utamanya
+adalah apakah satu pipa kalor tunggal mampu mentransportasikan daya sebesar 8,2 kWth melalui saluran
+berukuran 0,6 cm yang ada. Jawabannya bergantung pada fluida kerja (natrium, kalium, atau litium),
+diameter selubung (envelope), arsitektur sumbu (wick), serta temperatur uap. Apabila batas kapasitas
+pipa tunggal berada di bawah 8,2 kWth, perubahan arsitektur yang konkret harus diidentifikasi:
+memperbesar saluran pusat, menambahkan pipa kalor interstisial, atau menurunkan peringkat daya
+(down-rate) teras.
+
+Pertanyaan kedua berkaitan dengan tingkat ketelitian (fidelity) model rekayasa sederhana. Simulasi
+CFD dan simulasi dua fasa penuh memerlukan biaya komputasi yang tinggi sehingga tidak sesuai untuk
+eksplorasi ruang desain (design-space exploration). Jaringan parameter terpusat (lumped-parameter
+network) satu dimensi yang dipadukan dengan batas-batas operasional analitik dapat memberikan
+estimasi yang cepat, transparan, dan dapat direproduksi (reproducible) apabila divalidasi terhadap
+data eksperimental maupun empiris. Pengujian KRUSTY menyediakan titik acuan (anchor) yang
+diperlukan: sekitar 30 W pada 500 °C, 300 W pada 600 °C, 500 W pada 700 °C, dan lebih dari 600 W
+pada 800 °C, dengan daya sekitar 325 W per pipa yang terukur di dekat temperatur 600$^\circ$C
+[@poston2020results].
+
+## Batasan Masalah
+
+Penelitian ini dibatasi pada model pipa kalor (heat pipe) satu dimensi non-CFD. Model tersebut
+menggunakan batas-batas analitik yang meliputi batas viskos, sonik, entrainment, kapiler,
+pendidihan, dan banjir (flooding), jaringan resistansi termal terpusat (lumped thermal resistance
+network), serta model sirip transien aksial. Fluida kerja yang digunakan adalah natrium, kalium,
+dan litium. Ruang desain ISR mencakup diameter selubung (envelope) mulai dari 0,6 cm hingga beberapa
+sentimeter, tiga arsitektur sumbu (wick)—yaitu kasa (screen), sinter (sintered), dan
+anular/arterial—serta temperatur uap dari 900 K hingga 1200 K. Penelitian ini tidak melakukan
+analisis neutronik, kinerja bahan bakar, kompatibilitas material, maupun analisis massa tingkat
+sistem penuh dan radiator. Penalti reaktivitas dan estimasi massa yang digunakan merupakan nilai
+penyaringan orde pertama (first-order screening values). Struktur sumbu KRUSTY tidak dilaporkan
+secara lengkap dalam literatur terbuka, sehingga digunakan sumbu ekuivalen yang dikalibrasi terhadap
+kurva kapasitas transfer kalor (throughput curve) yang telah dipublikasikan; kalibrasi ini
+dinyatakan secara eksplisit dan ketidakpastiannya dibahas.
+
+## Tujuan Penelitian
+
+Tujuan dari penelitian ini adalah:
+
+1. Mengimplementasikan simulator pipa kalor (*heat pipe*) satu dimensi yang dapat direproduksi
+(*reproducible*) menggunakan Julia dengan batas-batas operasional analitik dan jaringan termal
+terpusat (*lumped thermal network*).
+2. Memvalidasi simulator terhadap data kapasitas transfer kalor (*throughput*) pipa kalor KRUSTY
+dalam batas toleransi $\pm$ 15% pada rentang temperatur 550–800 °C.
+3. Mengkuantifikasi kelayakan *retrofit* pipa kalor pasif untuk ISR berdaya 500 kWth pada daya 8,2
+kWth per pin.
+4. Membandingkan performa natrium, kalium, dan litium serta mengidentifikasi batas-batas pengendali
+(*controlling limits*) dan diameter selubung (*envelope*) yang diperlukan.
+5. Merumuskan rekomendasi arsitektur yang konkret di antara opsi pembesaran saluran, penambahan pipa
+interstisial, dan penurunan peringkat daya (*down-rating*).
+6. Mengestimasi keuntungan pengurangan massa parasitik dan peningkatan keandalan dari penghilangan
+untai pompa elektromagnetik.
+
+## Manfaat Penelitian
+
+Penelitian ini menyediakan perangkat penyaringan desain (*design-screening tool*) yang terbuka dan
+dapat direproduksi untuk reaktor antariksa berpendingin pipa kalor. Studi ini memberikan landasan
+kuantitatif bagi program ISR dalam memilih antara *retrofit* pasif siap pasang
+(*drop-in passive retrofit*), teras dengan saluran yang diperbesar, atau kisi teras (*lattice*) baru.
+Selain itu, penelitian ini mendemonstrasikan bagaimana data pengujian KRUSTY dapat digunakan untuk
+mengkalibrasi dan memvalidasi model rekayasa cepat, yang bermanfaat bagi studi reaktor antariksa
+Indonesia pada masa mendatang.

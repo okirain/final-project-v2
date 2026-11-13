@@ -1,0 +1,37 @@
+# TINJAUAN PUSTAKA {#sec-literature-review}
+
+## Program Kilopower dan KRUSTY
+
+Proyek Kilopower mengembangkan sistem daya fisi berukuran kecil untuk aplikasi antariksa. Pengujian
+KRUSTY menggunakan delapan pipa kalor (*heat pipe*) natrium berbahan Haynes 230 dengan diameter luar
+1,27 cm, ketebalan dinding 0,089 cm, panjang total sekitar 100 cm, dan inventori natrium sekitar 15
+g [@poston2020design]. Pipa-pipa kalor tersebut hanya memiliki sumbu (*wick*) pada ujung bawahnya
+yang menghubungkan kolam natrium (*sodium pool*) dengan evaporator; sementara bagian pipa selebihnya
+beroperasi sebagai termosifon berbantuan gravitasi (*gravity-assisted thermosiphon*). Reaktor ini
+mendemonstrasikan daya nominal sebesar 4 kWth pada temperatur sekitar 800 °C, dengan masing-masing
+pipa kalor memindahkan daya sekitar 325 W di dekat temperatur 600 °C.
+
+Kurva batas pipa kalor KRUSTY merupakan target validasi utama dalam penelitian ini. Model kapasitas
+transfer kalor (*throughput*) empiris yang telah dipublikasikan menunjukkan batas viskos/banjir
+(*viscous/flooding limit*) pada temperatur rendah sekitar 30 W pada 500 °C, batas sekitar 300 W pada
+600 °C, sekitar 500 W pada 700 °C, serta kapasitas di atas 600 W pada 800 °C [@poston2020results].
+Pipa-pipa kalor tersebut bukanlah perangkat kapiler sepanjang penuh
+(*full-length capillary devices*); kinerjanya didominasi oleh interaksi antara kolam natrium, sumbu
+evaporator, dan aliran balik berbantuan gravitasi (*gravity-assisted return*). Fenomena fisika ini
+direpresentasikan dalam model yang digunakan pada penelitian ini melalui sumbu ekuivalen
+(*equivalent wick*) dan batas banjir Wallis (*Wallis flooding limit*) yang dikalibrasi terhadap
+kurva terpublikasi tersebut.
+
+## Desain Dasar Indonesian Space Reactor
+
+ISR Mark 1 merupakan reaktor cepat berdaya 500 kWth dengan 61 pin bahan bakar yang tersusun di dalam
+blok teras heksagonal berbahan Mo-30Re [@khandaq2020]. Bahan bakar yang digunakan adalah UN dengan
+tingkat pengayaan 55% U-235. Kelongsongnya berbentuk heksagonal berbahan Mo-30Re dengan tinggi 43,2
+cm dan lubang pusat berukuran 3,265 cm. Jarak antar-pin (*pin pitch*) adalah 3,4 cm, dengan tinggi
+teras aktif sekitar 25 cm. Setiap pin memiliki saluran pendingin berbahan renium dengan diameter
+masukan 0,6 cm dan ketebalan dinding 0,08 cm. Pendingin yang digunakan adalah Na-78K dengan
+temperatur masuk dan keluar masing-masing sebesar 750 K dan 950 K, serta temperatur rata-rata 850 K.
+Massa blok teras tercatat sebesar 50,8 kg dengan estimasi massa reaktor sebesar 447,12 kg.
+Reaktivitas berlebih (*excess reactivity*) bernilai 4023 pcm, estimasi umur operasi mencapai 28
+tahun, serta koefisien reaktivitas rongga (*void*) dan temperatur bernilai negatif.
+Parameter-parameter tersebut menetapkan batasan geometris dan termal bagi *retrofit* Mark 2.
