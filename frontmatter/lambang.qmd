@@ -42,3 +42,7 @@
 | HPCR | *Heat Pipe Cooled Reactor* |
 | NIM | Nomor Induk Mahasiswa |
 | UGM | Universitas Gadjah Mada |
+
+```{=latex}
+\clearpage
+```

@@ -188,9 +188,9 @@
 
 % Logo UGM berdiameter 5,5 cm. Simpan sebagai fig/logo-ugm.png
 \newcommand{\logougm}{%
-  \IfFileExists{fig/Lambang-UGM-hitam.png}%
-    {\includegraphics[width=5.5cm]{fig/logo-ugm.png}}%
-    {\fbox{\parbox[c][5.5cm][c]{5.5cm}{\centering\small Letakkan logo UGM\\(fig/logo-ugm.png)}}}%
+  \IfFileExists{figures/Lambang-UGM-hitam.png}%
+    {\includegraphics[width=5.5cm]{figures/Lambang-UGM-hitam.png}}%
+    {\fbox{\parbox[c][5.5cm][c]{5.5cm}{\centering\small Letakkan logo UGM\\(figures/Lambang-UGM-hitam.png)}}}%
 }
 % ============================================================
 % header.tex -- aturan tipografi mengikuti Template Skripsi 2023/2025 DTNTF UGM
@@ -589,6 +589,8 @@ UGM & Universitas Gadjah Mada \\
 \end{longtable}
 }
 
+\clearpage
+
 \phantomsection\addcontentsline{toc}{chapter}{INTISARI}
 \thispagestyle{plain}
 \begin{singlespace}
@@ -604,12 +606,36 @@ Sarjana Program Studi \prodi\\[0.6cm]
 \end{center}
 \setlength{\parindent}{1.27cm}
 
-Abstrak ditulis dengan maksimum 200 kata yang disusun dalam tiga alinea.
-Alinea pertama berisi tentang latar belakang secara ringkas.
+\textbf{DESIGN AND ANALYSIS OF A PASSIVE HEAT-PIPE COOLING RETROFIT FOR
+THE INDONESIAN SPACE REACTOR (ISR MARK 2)}
 
-Alinea kedua berisi tentang metodologi secara ringkas.
+\textbf{Nama Lengkap Mahasiswa}\\
+\textbf{xx/yyyyyy/TK/zzzzz}
 
-Alinea ketiga berisi tentang hasil dan kesimpulan secara ringkas.
+Diajukan kepada Departemen Teknik Nuklir dan Teknik Fisika, Fakultas
+Teknik, Universitas Gadjah Mada, untuk memenuhi sebagian persyaratan
+penelitian program Sarjana Teknik Nuklir.
+
+Reaktor Antariksa Indonesia (ISR) berdaya 500 kWth menggunakan pendingin
+Na-78K yang dipompa aktif dan memiliki 61 pin bahan bakar dengan kanal
+pendingin berdiameter 0,6 cm. Studi ini mengembangkan simulator pipa
+kalor satu dimensi berbasis jaringan resistansi termal dan batas
+operasional analitik, memvalidasinya terhadap data uji KRUSTY, lalu
+mengevaluasi retrofit pendingin pipa kalor pasif untuk ISR Mark 2.
+Simulator diimplementasikan dalam Julia dan diuji pada rentang 550--800
+\(^\circ\)C; kesalahan maksimum terhadap data throughput KRUSTY adalah
+12,5 \%, dengan titik operasi 295 W pada 601,5 \(^\circ\)C dan beda suhu
+evaporator--kondensor 15,8 K. Untuk kanal 0,6 cm, batas pipa kalor
+terbaik hanya 231 W per pin, sehingga 8,2 kW per pin tidak dapat
+dicapai. Diperlukan diameter pipa 2,3--6,8 cm, bergantung pada fluida
+dan suhu. Opsi A dengan natrium pada 1.200 K dan kanal 2,5 cm mencapai
+9,13 kW per pin, tetapi menghilangkan 56,4 \% volume bahan bakar dan
+menurunkan estimasi umur menjadi 12,2 tahun. Opsi B memerlukan kisi
+teras baru dengan pitch 5,07 cm, sedangkan Opsi C hanya layak sebagai
+demonstrator pasif berdaya rendah.
+
+\textbf{Kata kunci:} pipa kalor, reaktor antariksa, KRUSTY, ISR,
+natrium, pendinginan pasif
 
 \vspace{0.3cm}
 \noindent\textbf{\textit{Kata kunci:}} \textit{kata kunci 1, kata kunci 2, kata kunci 3, kata kunci 4}
