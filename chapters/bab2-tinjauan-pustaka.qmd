@@ -1,73 +1,194 @@
 # TINJAUAN PUSTAKA {#sec-literature-review}
 
-## Program Kilopower dan KRUSTY
+## Reaktor Nuklir Luar Angkasa
 
-Proyek Kilopower mengembangkan sistem daya fisi berukuran kecil untuk aplikasi antariksa. Pengujian
-KRUSTY menggunakan delapan pipa kalor (*heat pipe*) natrium berbahan Haynes 230 dengan diameter luar
-1,27 cm, ketebalan dinding 0,089 cm, panjang total sekitar 100 cm, dan inventori natrium sekitar 15
-g [@poston2020design]. Pipa-pipa kalor tersebut hanya memiliki sumbu (*wick*) pada ujung bawahnya
-yang menghubungkan kolam natrium (*sodium pool*) dengan evaporator; sementara bagian pipa selebihnya
-beroperasi sebagai termosifon berbantuan gravitasi (*gravity-assisted thermosiphon*). Reaktor ini
-mendemonstrasikan daya nominal sebesar 4 kWth pada temperatur sekitar 800 °C, dengan masing-masing
-pipa kalor memindahkan daya sekitar 325 W di dekat temperatur 600 °C.
+Reaktor fisi telah lama dipandang sebagai sumber daya yang paling sesuai
+untuk misi luar angkasa yang membutuhkan daya besar dan masa pakai panjang.
+El-Genk merangkum sejarah penempatan reaktor luar angkasa dan menunjukkan
+bahwa faktor penentu keberhasilannya bukan hanya kinerja neutronik, tetapi
+juga kesederhanaan sistem termal, massa, dan keandalan [@elgenk2009].
 
-Kurva batas pipa kalor KRUSTY merupakan target validasi utama dalam penelitian ini. Model kapasitas
-transfer kalor (*throughput*) empiris yang telah dipublikasikan menunjukkan batas viskos/banjir
-(*viscous/flooding limit*) pada temperatur rendah sekitar 30 W pada 500 °C, batas sekitar 300 W pada
-600 °C, sekitar 500 W pada 700 °C, serta kapasitas di atas 600 W pada 800 °C [@poston2020results].
-Pipa-pipa kalor tersebut bukanlah perangkat kapiler sepanjang penuh
-(*full-length capillary devices*); kinerjanya didominasi oleh interaksi antara kolam natrium, sumbu
-evaporator, dan aliran balik berbantuan gravitasi (*gravity-assisted return*). Fenomena fisika ini
-direpresentasikan dalam model yang digunakan pada penelitian ini melalui sumbu ekuivalen
-(*equivalent wick*) dan batas banjir Wallis (*Wallis flooding limit*) yang dikalibrasi terhadap
-kurva terpublikasi tersebut.
+SNAP-10A (1965) merupakan reaktor fisi pertama yang dioperasikan di orbit.
+Sistem ini menggunakan paduan NaK sebagai pendingin, konversi termoelektrik,
+dan menghasilkan sekitar 500 W listrik. Uni Soviet mengembangkan BUK dan
+TOPAZ untuk misi radar laut; TOPAZ-I menghasilkan sekitar 5–6 kWe dengan
+pendingin NaK dan moderator zirkonium hidrida, sedangkan TOPAZ-II
+menggunakan konversi termionik. Reaktor-reaktor tersebut membuktikan
+kelayakan pendingin logam cair, tetapi juga memperlihatkan kerumitan sistem
+pompa, radiator, dan kontrol.
 
-## Desain Dasar Indonesian Space Reactor
+Program SP-100 pada 1980-an merancang reaktor 100 kWe berpendingin litium
+dengan konversi Stirling, namun tidak pernah diterbangkan. Pada 1990–2000-an,
+konsep reaktor kecil seperti SAIR, S4, HOMER, dan HP-STMC beralih ke
+*heat pipe* logam alkali untuk menghilangkan pompa dan menyederhanakan
+sistem [@elgenk2004; @mason2011]. SAFE-400, misalnya, menggunakan modul
+*heat pipe* natrium untuk memindahkan 400 kWth dari teras ke radiator
+[@martin2004].
 
-ISR Mark 1 merupakan reaktor cepat berdaya 500 kWth dengan 61 pin bahan bakar yang tersusun di dalam
-blok teras heksagonal berbahan Mo-30Re [@khandaq2020]. Bahan bakar yang digunakan adalah UN dengan
-tingkat pengayaan 55% U-235. Kelongsongnya berbentuk heksagonal berbahan Mo-30Re dengan tinggi 43,2
-cm dan lubang pusat berukuran 3,265 cm. Jarak antar-pin (*pin pitch*) adalah 3,4 cm, dengan tinggi
-teras aktif sekitar 25 cm. Setiap pin memiliki saluran pendingin berbahan renium dengan diameter
-masukan 0,6 cm dan ketebalan dinding 0,08 cm. Pendingin yang digunakan adalah Na-78K dengan
-temperatur masuk dan keluar masing-masing sebesar 750 K dan 950 K, serta temperatur rata-rata 850 K.
-Massa blok teras tercatat sebesar 50,8 kg dengan estimasi massa reaktor sebesar 447,12 kg.
-Reaktivitas berlebih (*excess reactivity*) bernilai 4023 pcm, estimasi umur operasi mencapai 28
-tahun, serta koefisien reaktivitas rongga (*void*) dan temperatur bernilai negatif.
-Parameter-parameter tersebut menetapkan batasan geometris dan termal bagi *retrofit* Mark 2.
+Puncak dari jalur ini adalah KRUSTY (*Kilowatt Reactor Using Stirling
+TechnologY*), yang diuji secara nuklir pada Maret 2018. KRUSTY adalah
+prototipe reaktor Kilopower 1 kWe dengan teras U-8Mo berbentuk silinder
+padat, delapan *heat pipe* natrium Haynes 230 berdiameter 1,27 cm, dan dua
+konverter Stirling [@poston2020design]. Uji tersebut mendemonstrasikan
+operasi tunak pada 800 °C, kemampuan mengikuti beban, dan ketahanan
+terhadap kegagalan *heat pipe* individual [@poston2020results; @gibson2020].
 
-## Teori Pipa Kalor dan Batas Operasional
+## Indonesian Space Reactor (ISR)
 
-Pipa kalor (*heat pipe*) mentransportasikan kalor melalui penguapan fluida kerja di dalam
-evaporator, aliran uap menuju kondensor, kondensasi, serta aliran balik cairan melalui sumbu
-(*wick*) atau lintasan berbantuan gravitasi (*gravity-assisted path*). Kapasitas transfer kalor
-(*heat throughput*) maksimum ditentukan oleh sejumlah batas yang saling bersaing
-[@chi1976; @cotter1965; @busse1973; @levy1968; @faghri2016; @zohuri2016; @dunn2012]:
+Khandaq dkk. melakukan studi desain konseptual ISR dengan tujuan menyediakan
+setidaknya 500 kWth selama lebih dari sepuluh tahun [@khandaq2020]. ISR
+menggunakan spektrum neutron cepat, bahan bakar uranium nitrida (UN) dengan
+pengayaan U-235 sebesar 55%, dan 61 pin bahan bakar heksagonal. Setiap pin
+berongga dan memiliki kanal pendingin individual berdiameter dalam 0,6 cm
+yang dilapisi renium. Pendingin yang dipilih adalah Na-78K karena tetap
+cair pada suhu ruang sehingga memudahkan start-up, dengan suhu masuk 750 K
+dan suhu keluar 950 K.
 
-* **Batas viskos:** penurunan tekanan uap menjadi sebanding dengan tekanan uap lokal pada temperatur
-rendah.
-* **Batas sonik:** kecepatan uap mencapai kondisi sonik pada keluaran evaporator.
-* **Batas *entrainment*:** tegangan geser uap menghalangi cairan untuk mengalir kembali melalui
-permukaan sumbu.
-* **Batas kapiler:** tekanan kapiler yang tersedia tidak mencukupi untuk mengatasi penurunan tekanan
-cairan dan uap serta tinggi tekan gravitasi (*gravity head*).
-* **Batas pendidihan:** pendidihan nukleat (*nucleate boiling*) di dalam sumbu menghambat aliran
-balik cairan.
-* **Batas banjir (*flooding*):** pada termosifon berbantuan gravitasi, aliran berlawanan arah
-(*counter-current*) antara uap dan cairan menyebabkan terjadinya banjir (*flooding*).
+Parameter utama ISR dirangkum pada @tbl-isr. Reaktor memiliki reaktivitas
+berlebih 4023 pcm pada kondisi dingin bersih dan margin padam 4852 pcm.
+Estimasi massa total reaktor adalah 447,12 kg, dengan bahan bakar 155,65 kg.
+Koefisien reaktivitas suhu dan void bernilai negatif, sehingga reaktor
+memiliki umpan balik inherent yang stabil [@khandaq2020].
 
-Batas pengendali (*controlling limit*) bergantung pada temperatur, jenis fluida, struktur sumbu, dan
-orientasi. Untuk natrium pada rentang temperatur 500–800 °C, tekanan uapnya berubah hingga beberapa
-orde magnitudo, sehingga transisi antara batas viskos, kapiler, *entrainment*, dan banjir
-berlangsung sangat kuat. Oleh karena itu, perangkat desain (*design tool*) harus mengevaluasi
-seluruh batas tersebut dan memilih nilai minimumnya.
+| Parameter | Nilai | Satuan |
+|:----------|------:|:-------|
+| Daya termal | 500 | kWth |
+| Jumlah pin bahan bakar | 61 | - |
+| Pengayaan U-235 | 55 | % |
+| Tinggi aktif teras | 25 | cm |
+| Pitch / *flat-to-flat* pin | 3,4 | cm |
+| Diameter dalam kanal pendingin | 0,6 | cm |
+| Tebal dinding kanal renium | 0,08 | cm |
+| Suhu masuk / keluar Na-78K | 750 / 950 | K |
+| Massa reaktor | 447,12 | kg |
+| Reaktivitas berlebih | 4023 | pcm |
 
-## Kesenjangan Penelitian
+: Parameter utama ISR Mark 1 [@khandaq2020]. {#tbl-isr}
 
-Literatur terbuka telah menyediakan korelasi batas-batas pipa kalor (*heat pipe*) serta data
-pengujian KRUSTY, namun belum terdapat perangkat satu dimensi yang terbuka dan dapat direproduksi
-(*reproducible*) yang (i) mengimplementasikan keseluruhan rangkaian batas analitik, (ii) tervalidasi
-terhadap kurva kapasitas transfer kalor (*throughput curve*) KRUSTY, dan (iii) menerapkan kerangka
-kerja yang sama pada geometri pin ISR dengan saluran berukuran 0,6 cm dan daya 8,2 kWth per pin.
-Penelitian ini mengisi kesenjangan tersebut sekaligus memberikan landasan kuantitatif bagi penentuan
-keputusan arsitektur ISR Mark 2.
+Pada bagian diskusi, Khandaq dkk. menyatakan bahwa *heat pipe* natrium
+merupakan alternatif menjanjikan untuk menggantikan sistem pompa, karena
+dapat menghilangkan kebutuhan pompa dan menaikkan suhu operasi. Namun,
+mereka juga mencatat dua tantangan: jumlah *heat pipe* yang besar akan
+menambah kompleksitas, dan natrium padat pada suhu ruang memerlukan sistem
+pemanasan awal [@khandaq2020]. Kedua tantangan tersebut belum dikuantifikasi.
+
+## Prinsip dan Sejarah *Heat Pipe*
+
+*Heat pipe* adalah perangkat perpindahan panas yang memanfaatkan siklus
+penguapan–kondensasi tertutup. Panas masuk pada evaporator, menguapkan
+fluida kerja; uap mengalir menuju kondensor akibat gradien tekanan; uap
+mengembun dan melepaskan panas laten; kondensat kembali ke evaporator
+melalui wick atau gravitasi. Jika kondensat dikembalikan oleh gravitasi
+tanpa wick, perangkat disebut *thermosyphon* [@dunn2006].
+
+Gagasan *heat pipe* dipatenkan oleh Gaugler pada 1944, tetapi baru
+dikembangkan secara sistematis oleh Grover dan rekan-rekannya di Los Alamos
+pada 1963. Cotter merumuskan teori dasar aliran dan limit kapiler pada 1965
+[@cotter1965]. Sejak itu, *heat pipe* digunakan pada pendinginan elektronik,
+kontrol termal satelit, penukar panas, dan reaktor nuklir.
+
+Untuk aplikasi suhu tinggi, fluida kerja yang digunakan adalah logam alkali:
+natrium (titik didih 1156 K), kalium (1032 K), dan litium (1615 K). Natrium
+banyak dipilih karena tekanan uapnya pada 700–1100 K cukup tinggi untuk
+menghindari limit viskos, sementara tegangan permukaannya masih memadai
+untuk pompa kapiler [@faghri1995].
+
+## Jenis Wick dan Limit Operasional
+
+Wick berfungsi menyediakan lintasan kapiler bagi kondensat. Beberapa jenis
+wick yang umum digunakan adalah:
+
+1. **Layar (*screen*)** — jaring kawat halus dengan porositas tinggi dan
+   permeabilitas sedang. Murah dan mudah dibuat, tetapi rentan terhadap
+   *entrainment* jika ukuran pori terlalu besar.
+2. **Serbuk sinter (*sintered powder*)** — partikel logam yang disinter,
+   menghasilkan pori halus dan tekanan kapiler tinggi, tetapi permeabilitas
+   rendah sehingga rentan terhadap limit kapiler pada pipa panjang.
+3. **Annular** — celah antara dinding dan tabung layar; permeabilitas tinggi,
+   tetapi semua panas harus melewati lapisan cairan sehingga resistansi
+   termal lebih besar.
+4. **Arterial** — satu atau beberapa saluran cair berukuran besar dengan
+   permukaan berpori halus. Memberikan permeabilitas tinggi dan tekanan
+   kapiler tinggi sekaligus, tetapi dapat mengalami *de-priming* akibat gas
+   tak terkondensasi atau uap yang terperangkap [@walker2013].
+5. **Bergalur (*grooved*)** — saluran aksial terbuka; tidak dapat
+   *de-prime*, tetapi tekanan kapilernya rendah [@walker2013].
+
+Kinerja *heat pipe* dibatasi oleh beberapa mekanisme yang bergantung pada
+suhu. Limit viskos (Busse) muncul pada suhu rendah ketika tekanan uap sangat
+kecil sehingga gradien tekanan tidak cukup untuk mengakselerasi uap. Limit
+sonik (Levy) muncul ketika kecepatan uap mencapai Mach 1 di ujung evaporator.
+Limit *entrainment* (Cotter) muncul ketika gaya geser uap merobek tetesan
+cairan dari permukaan wick. Limit kapiler muncul ketika tekanan kapiler
+maksimum tidak lagi mampu melawan penurunan tekanan cair dan uap. Limit
+didih (Chi) muncul ketika gelembung nukleat terbentuk di dalam wick. Pada
+*thermosyphon*, limit *flooding*—interaksi aliran uap ke atas dan film cair
+ke bawah—sering menjadi pembatas utama [@faghri1995; @chi1976; @tien1979].
+
+## *Heat Pipe* Logam Alkali untuk Reaktor Luar Angkasa
+
+Walker dkk. menguji *heat pipe* natrium berdiameter 1,91 cm dan panjang 1 m
+untuk sistem fisi 13 kWth. Dua desain wick dibandingkan: *self-venting
+arterial* dan bergalur. Pada suhu 725 °C dan elevasi lawan 0,25 cm,
+*heat pipe* arterial mampu membawa sedikitnya 2,6 kW (pengujian dibatasi
+oleh kapasitas pendingin), sedangkan *heat pipe* bergalur mengalami dry-out
+pada 846 W. Hasil ini menunjukkan bahwa wick arterial memberikan
+permeabilitas tinggi, tetapi *de-priming* tetap menjadi risiko
+[@walker2013].
+
+El-Genk merangkum penggunaan *heat pipe* logam cair dan air pada sistem
+reaktor luar angkasa, termasuk tantangan kompatibilitas material,
+pembekuan, dan pengujian dalam gravitasi [@elgenk2011]. Tournier dan El-Genk
+memodelkan start-up *heat pipe* litium horizontal dari keadaan beku dan
+menunjukkan adanya *thaw front* yang bergerak dari evaporator ke kondensor
+[@tournier2001]. Hu dkk. membangun fasilitas uji *heat pipe* litium suhu
+ultra-tinggi untuk memverifikasi kinerja pada kondisi mendekati aplikasi
+reaktor [@hu2022]. Celik dan Bang mengevaluasi pengaruh aktivasi neutron
+pada *heat pipe* litium dan menemukan bahwa produk aktivasi dapat
+memengaruhi kinerja dan keselamatan [@celik2023].
+
+## Desain dan Simulasi Reaktor Berpendingin *Heat Pipe*
+
+Sejumlah studi telah mengembangkan model reaktor berpendingin *heat pipe*.
+Wang dkk. melakukan analisis termohidrolik reaktor kecil baru dengan
+*heat pipe* dan menunjukkan distribusi suhu teras yang dipengaruhi oleh
+konduktansi kontak dan limit kapiler [@wang2020]. Wang dkk. (2023)
+meninjau desain konseptual dan karakteristik termohidrolik reaktor
+berpendingin *heat pipe*, dan menyimpulkan bahwa model 1D masih menjadi
+alat utama untuk desain awal karena biaya CFD yang tinggi [@wang2023].
+
+Argonne National Laboratory mengembangkan simulasi multi-fisika untuk
+reaktor mikro *heat pipe*, yang menggabungkan neutronik, termal, dan
+mekanika [@anl2019]. Idaho National Laboratory mengevaluasi reaktor
+*Special Purpose Reactor* (SPR) 5 MWth dengan pendekatan PIRT dan dua
+konsep teras alternatif [@sterbentz2016; @sterbentz2017]. eBlock37
+mendemonstrasikan unit reaktor mikro 37 kWt dengan *heat pipe* natrium dan
+konversi Stirling secara elektrik [@gaspar2022].
+
+Untuk aplikasi daya tinggi, Lin dkk. merancang reaktor berpendingin
+*heat pipe* kelas megawatt yang dipasang pada kendaraan, sedangkan An dkk.
+mengusulkan skema reaktor *heat pipe* ringan dan berumur panjang untuk misi
+ruang angkasa dalam [@lin2025; @an2024]. Orlandi dkk. mengusulkan elemen
+bakar mikro dengan *heat pipe* internal di dalam batang UO$_2$, yang secara
+konseptual mirip dengan retrofit yang dikaji dalam penelitian ini
+[@orlandi2024].
+
+## Celah Penelitian
+
+Dari tinjauan di atas, terdapat tiga celah yang menjadi dasar penelitian ini:
+
+1. **Belum ada simulator 1D terbuka yang divalidasi terhadap KRUSTY dan
+   diterapkan pada geometri ISR.** Studi KRUSTY berfokus pada desain dan
+   hasil uji, sedangkan studi ISR berfokus pada neutronik. Keduanya belum
+   dihubungkan oleh model termal yang dapat diaudit.
+2. **Kelayakan *heat pipe* pada kanal 0,6 cm ISR belum dikuantifikasi.**
+   Pernyataan bahwa *heat pipe* menjanjikan [@khandaq2020] belum disertai
+   perhitungan limit operasional, diameter yang diperlukan, atau
+   konsekuensi geometri.
+3. **Trade-off arsitektur Mark 2 belum dirumuskan.** Pilihan antara
+   memperbesar kanal, menambah *heat pipe* interstitial, atau menurunkan
+   daya memiliki konsekuensi berbeda terhadap massa, reaktivitas, dan
+   keselamatan yang perlu dibandingkan secara sistematis.
+
+Penelitian ini mengisi ketiga celah tersebut dengan membangun simulator
+1D, memvalidasinya, dan menerapkannya pada ruang desain ISR Mark 2.

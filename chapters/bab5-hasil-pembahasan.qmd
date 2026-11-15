@@ -1,0 +1,324 @@
+# HASIL DAN PEMBAHASAN {#sec-results-discussion}
+
+## Validasi Model terhadap Data Eksperimen
+
+### KRUSTY
+
+Hasil validasi terhadap kurva limit KRUSTY ditunjukkan pada
+@fig-krusty dan @tbl-valid. Model mereproduksi limit viskos pada suhu
+rendah dan limit *flooding* pada suhu tinggi. Titik 500 °C merupakan titik
+operasi pada $T=0{,}7$ yang berada di bawah limit; model memprediksi limit
+viskos 31,0 W, konsisten dengan titik operasi 30 W. Titik 550–800 °C
+digunakan untuk asersi kuantitatif.
+
+Galat maksimum pada rentang 550–800 °C adalah **1,29%**, jauh di bawah
+batas 15%. Pada 600, 700, dan 800 °C, limit *flooding* yang digunakan
+merupakan kecocokan kurva empiris yang dipublikasikan, sehingga kesesuaian
+yang sangat tinggi pada ketiga titik tersebut menunjukkan bahwa
+implementasi kurva dan properti fluida telah benar. Validasi yang bersifat
+prediktif adalah titik 550 °C (galat $-1{,}29\%$), di mana limit viskos
+fisik dan limit *flooding* empiris bertemu.
+
+![Limit daya KRUSTY: perbandingan model dan data eksperimen. Kurva hitam
+putus-putus adalah limit yang mengendalikan; titik putih adalah data
+terdigitalisasi.](figures/krusty_val.png){#fig-krusty width=88%}
+
+| Sumber | $T$ (°C) | $Q_{\mathrm{data}}$ (W) | $Q_{\mathrm{model}}$ (W) | Galat (%) | Limit |
+|:-------|--------:|------------------------:|-------------------------:|----------:|:--------------|
+| KRUSTY | 500 | 30 | 31,0 | +3,45 | viskos |
+| KRUSTY | 550 | 200 | 197,4 | $-$ 1,29 | viskos |
+| KRUSTY | 600 | 300 | 300,0 | 0,00 | *flooding* |
+| KRUSTY | 700 | 500 | 500,0 | 0,00 | *flooding* |
+| KRUSTY | 800 | 700 | 700,0 | 0,00 | *flooding* |
+| Walker | 725 | 2600 | 2897,8 | +11,45 | *entrainment* |
+
+: Hasil validasi model terhadap data KRUSTY dan Walker. {#tbl-valid}
+
+Pada titik operasi nominal 310 W dan 800 °C, model tunak memberikan suhu
+uap **810,3 °C**, beda suhu evaporator–kondensor **14,1 K**, dan resistansi
+ekuivalen **0,0659 K/W**. Nilai $\Delta T$ ini memenuhi kriteria kurang
+dari 20 K yang menjadi target validasi. Suhu uap sedikit di atas 800 °C
+karena sink eksternal ditempatkan pada 1063 K untuk mewakili antarmuka
+Stirling; yang diuji adalah beda suhu internal pipa, bukan kopling
+keseluruhan.
+
+### *Heat Pipe* Arterial Walker
+
+Validasi kedua menggunakan *heat pipe* arterial *self-venting* Walker dkk.
+Pada 725 °C, model memprediksi limit *entrainment* sebesar 2,90 kW,
+sedangkan data eksperimen memberikan sedikitnya 2,6 kW. Galat **+11,45%**
+berada di bawah 15% dan limit yang mengendalikan adalah *entrainment*,
+sesuai dengan interpretasi fisik *heat pipe* berpermeabilitas tinggi.
+Karena pengujian Walker dibatasi oleh kapasitas pendingin pada elevasi
+rendah, nilai 2,6 kW merupakan batas bawah; kesesuaian model menunjukkan
+bahwa korelasi *entrainment* Cotter cukup akurat untuk desain awal.
+
+### Catatan tentang Sifat Validasi
+
+Validasi KRUSTY perlu dibaca dengan hati-hati. Model *throughput* yang
+dipublikasikan oleh Poston dkk. adalah kecocokan kurva empiris, bukan
+prediksi pertama-prinsip [@poston2020results]. Oleh karena itu, kesesuaian
+0% pada 600–800 °C membuktikan implementasi kurva, bukan keunggulan
+korelasi *flooding* teoritis. Sebaliknya, limit viskos pada 500–550 °C dan
+limit *entrainment* Walker merupakan prediksi fisik yang independen.
+Kombinasi keduanya menunjukkan bahwa kerangka limit dan properti fluida
+telah diimplementasikan dengan benar, sementara korelasi *flooding*
+teoritis tetap memiliki ketidakpastian yang lebih besar.
+
+## Perilaku Limit dan Sensitivitas
+
+### Pengaruh Fluida Kerja
+
+@tbl-fluida merangkum daya maksimum satu *heat pipe* 0,6 cm dengan wick
+arterial pada berbagai suhu. Pada 900 K, kalium lebih unggul (275 W)
+daripada natrium (142 W) karena tekanan uapnya lebih tinggi. Namun, pada
+1000 K ke atas natrium melampaui kalium: pada 1200 K natrium mencapai
+1232 W sedangkan kalium 789 W. Litium tidak layak pada rentang ini karena
+tekanan uapnya sangat rendah; pada 1200 K limit viskosnya hanya 25 W.
+Litium baru mencapai 8,2 kW pada sekitar 1400 K dengan diameter 1,36 cm.
+
+| Fluida | 900 K | 1000 K | 1100 K | 1200 K |
+|:-------|------:|-------:|-------:|-------:|
+| Na | 142 | 544 | 858 | 1232 |
+| K  | 275 | 432 | 608 | 789 |
+| Li | $\approx$ 0  | $\approx$ 0   | 2   | 25 |
+
+: Daya maksimum per pipa (W) pada $D=0{,}6$ cm, wick arterial. {#tbl-fluida}
+
+![Limit daya satu *heat pipe* 0,6 cm untuk Na, K, dan Li. Garis putus-putus
+menunjukkan kebutuhan 8,2 kW per pin.](figures/isr_limits_sweep.png){#fig-sweep width=85%}
+
+### Pengaruh Arsitektur Wick
+
+Pada 1200 K dan diameter 0,6 cm, wick arterial natrium memberikan 1232 W,
+wick annular 1124 W, dan wick sinter hanya 8,65 W (@tbl-wick). Rendahnya
+kinerja wick sinter disebabkan permeabilitasnya yang sangat kecil
+($K\approx2{,}5\times10^{-12}$ m$^2$) sehingga limit kapiler mengendalikan.
+Wick annular memberikan kinerja hampir setara arterial karena permeabilitas
+celahnya tinggi, tetapi permukaan berpori halus menekan *entrainment*.
+Hasil ini menunjukkan bahwa untuk pipa kecil, permeabilitas lintasan cair
+lebih penting daripada ukuran pori permukaan.
+
+| Fluida | Arterial | Annular | Sinter |
+|:-------|---------:|--------:|-------:|
+| Na | 1232 | 1124 | 8,65 |
+| K  | 789 | 721 | 1,54 |
+| Li | 25 | 25 | 25 |
+
+: Daya maksimum per pipa (W) pada 1200 K dan $D=0{,}6$ cm untuk tiga wick. {#tbl-wick}
+
+### Diameter yang Diperlukan
+
+@fig-diameter menunjukkan diameter luar yang diperlukan untuk membawa
+8,2 kW per pin. Pada 1200 K, natrium memerlukan 1,55 cm dan kalium
+1,90 cm. Pada 1100 K, kebutuhan naik menjadi 1,83 cm (Na) dan 2,13 cm (K);
+pada 1000 K menjadi 2,24 cm dan 2,48 cm; pada 900 K menjadi 2,92 cm dan
+3,05 cm. Kenaikan suhu operasi dari 900 ke 1200 K mengurangi diameter yang
+diperlukan hampir setengahnya. Ini menegaskan bahwa suhu keluar ISR harus
+dinaikkan dari 950 K menuju 1200 K agar retrofit pasif mungkin dilakukan.
+
+![Diameter luar yang diperlukan untuk membawa 8,2 kW per pin sebagai fungsi
+suhu uap, dibandingkan dengan kanal yang ada (0,6 cm) dan rongga bahan bakar
+(3,265 cm).](figures/isr_required_diameter.png){#fig-diameter width=85%}
+
+## Kelayakan Kanal 0,6 cm
+
+Daya per pin ISR adalah
+
+$$ Q_{\mathrm{pin}} = \frac{500\,000\ \mathrm{W}}{61} = 8196{,}7\ \mathrm{W}
+   $$ {#eq-qpin}
+
+Hasil studi kelayakan pada 1200 K menunjukkan bahwa *heat pipe* natrium
+terbaik (arterial) hanya mampu membawa **1232 W**, atau **15,0%** dari
+kebutuhan. Kalium mencapai 789 W (9,6%), sedangkan litium 25 W (0,3%) dan
+wick sinter natrium 8,65 W (0,1%). Dengan demikian, jawaban atas pertanyaan
+kedua adalah **tidak**: satu *heat pipe* 0,6 cm tidak mampu membawa
+8,2 kWth, bahkan pada suhu operasi tertinggi dalam envelope desain.
+
+Kegagalan ini bukan disebabkan oleh limit sonik—limit sonik pada 1200 K
+masih sekitar 7,9 kW—maupun limit kapiler (4,9 kW), melainkan oleh
+**limit *entrainment*** sebesar 1,23 kW untuk wick arterial/annular dan
+**limit kapiler** untuk wick sinter. Pada pipa
+kecil, kecepatan uap tinggi dan permeabilitas lintasan cair terbatas,
+sehingga daya yang dapat dibawa jauh di bawah kebutuhan. Konsekuensinya,
+retrofit pasif penuh tidak mungkin dilakukan tanpa mengubah geometri atau
+menambah jumlah pipa.
+
+## Opsi Arsitektur ISR Mark 2
+
+### Opsi A — Perluasan Kanal
+
+Untuk membawa 8,2 kW pada 1200 K, kanal pusat harus diperbesar dari 0,6 cm
+menjadi **1,55 cm** (natrium, wick arterial). Perluasan ini memakan anulus
+bahan bakar: fraksi bahan bakar yang tersisa hanya **82,0%**, atau
+kehilangan **18,0%** volume bahan bakar. Dengan asumsi reaktivitas
+sebanding dengan inventori U-235, pengayaan harus dinaikkan dari 55%
+menjadi sekitar **63,4%** (estimasi realistis) atau 67,1% (estimasi
+konservatif). Kedua nilai melampaui target desain ISR sebesar kurang dari
+60% [@khandaq2020].
+
+Opsi A memberikan massa total sekitar **453,0 kg** dan massa spesifik
+**0,906 kg/kWth**, lebih ringan 20% dari Mark 1 (567,1 kg; 1,134 kg/kWth),
+tetapi dengan kompromi pengayaan yang signifikan. Alternatif untuk
+mempertahankan pengayaan adalah memperpanjang teras sekitar 20–25% atau
+menurunkan daya. Pada 900 K, diameter yang diperlukan mencapai 2,92 cm
+sehingga opsi ini praktis tidak layak; operasi harus mendekati 1200 K.
+
+### Opsi B — Matriks *Heat Pipe* Interstitial
+
+Dengan mempertahankan kanal 0,6 cm dan menempatkan *heat pipe* di celah
+antar-pin, 72 situs interstitial interior tersedia untuk susunan 61 pin.
+Setiap pipa harus membawa $500\,000/72=6944$ W. Pada 1200 K, diameter yang
+diperlukan adalah **1,42 cm**, sehingga pitch meningkat dari 3,4 cm menjadi
+**5,02 cm** dan lebar teras dari 30,6 cm menjadi **45,2 cm** (faktor 1,48).
+
+Total daya yang dapat dibawa adalah **500 kWth** dengan margin desain
+mendekati nol; penambahan satu atau dua pipa cadangan disarankan untuk
+margin operasional. Massa blok teras bertambah **60,2 kg** dan massa
+reflektor serta drum bertambah **92,9 kg** karena kelilingnya membesar.
+Sistem *heat pipe* (72 pipa, 1 m, Haynes 230, termasuk header) memiliki
+massa **34,6 kg**. Massa total menjadi **634,8 kg**, atau **+67,7 kg
+(+11,9%)** dibandingkan Mark 1 beserta sistem pompanya (567,1 kg). Massa
+spesifiknya **1,270 kg/kWth**, sekitar 12% lebih tinggi dari Mark 1.
+
+Kenaikan massa ini adalah harga dari operasi pasif penuh. Sebagai
+perbandingan, sistem pompa Mark 1 saja memiliki massa 120 kg; penggantian
+pompa dengan *heat pipe* menghemat **85,4 kg** atau **71%** massa sistem
+pendingin. Namun, konsekuensi geometri—pitch dan reflektor yang lebih
+besar—menghabiskan penghematan tersebut dan menambah sekitar 68 kg. Dengan
+kata lain, klaim ``*heat pipe* lebih ringan'' hanya benar untuk subsistem
+pendingin, bukan untuk seluruh reaktor.
+
+### Opsi C — Penurunan Daya
+
+Dengan geometri yang dipertahankan, 61 *heat pipe* 0,6 cm hanya mampu
+membuang **75,1 kWth**, atau **15,0%** dari 500 kWth. Massa total menjadi
+455,6 kg, tetapi massa spesifiknya **6,06 kg/kWth**, sekitar 5,3 kali lebih
+buruk dari Mark 1. Opsi ini tidak layak untuk misi daya penuh.
+
+Namun, 75 kWth masih jauh di atas panas peluruhan ISR segera setelah
+padam—sekitar 6–7% dari 500 kWth, atau 30–35 kWth. Oleh karena itu, opsi C
+memiliki nilai sebagai **sistem pendingin pasif cadangan** (*decay-heat
+removal*) yang dapat dipertahankan bersama sistem pompa. Dalam konfigurasi
+hibrida, 61 *heat pipe* 0,6 cm memberikan jalur pendinginan darurat yang
+tidak bergantung pada pompa, sementara pompa menangani daya nominal.
+Konfigurasi ini menambah sekitar 5,3 kg massa *heat pipe* dan menghilangkan
+risiko kehilangan pendinginan total akibat kegagalan pompa.
+
+| Besaran | Mark 1 | Opsi A | Opsi B | Opsi C |
+|:--------|-------:|-------:|-------:|-------:|
+| Daya tertangani (kWth) | 500 | 500 | 500 | 75,1 |
+| Diameter pipa (cm) | 0,6 (kanal) | 1,55 | 1,42 | 0,6 |
+| Jumlah pipa | 0 (pompa) | 61 | 72 | 61 |
+| Massa total (kg) | 567,1 | 453,0 | 634,8 | 455,6 |
+| Massa spesifik (kg/kWth) | 1,134 | 0,906 | 1,270 | 6,065 |
+| Pengayaan | 55% | $\approx$ 63% | 55–60%* | 55% |
+| Status | aktif | pasif | pasif | hibrida |
+
+: Perbandingan opsi arsitektur ISR Mark 2. *Perlu verifikasi neutronik. {#tbl-opsi}
+
+![Kapasitas pendinginan ketiga opsi pada 1200 K dibandingkan dengan daya
+nominal 500 kWth.](figures/isr_options.png){#fig-opsi width=80%}
+
+## Profil Suhu dan Kinerja Termal
+
+@fig-profil menunjukkan profil suhu dinding sepanjang pipa untuk KRUSTY
+pada 310 W dan untuk *heat pipe* ISR 0,6 cm pada 1,0 kW. Pada KRUSTY,
+suhu evaporator sekitar 811 °C, adiabatik 808 °C, dan kondensor 798 °C,
+dengan beda suhu total 14,1 K. Profil ISR menunjukkan penurunan yang lebih
+besar di kondensor—sekitar 41 K—karena fluks panas per satuan luas lebih
+tinggi dan koefisien film kondensasi yang diasumsikan 5000 W/(m$^2$$\cdot$K).
+Penurunan tajam pada awal kondensor merupakan konsekuensi diskretisasi
+peralihan dari konduksi wick ke film kondensasi; model 1D terpusat tidak
+dapat menangkap gradien aksial halus di daerah transisi.
+
+![Profil suhu dinding aksial: (kiri) KRUSTY pada 310 W; (kanan) *heat pipe*
+ISR 0,6 cm pada 1,0 kW.](figures/core_temp_profile.png){#fig-profil width=95%}
+
+## Respons Transien dan Start-up
+
+@fig-transien menunjukkan respons pipa KRUSTY terhadap langkah daya
+310 W. Suhu uap mencapai nilai tunak dalam waktu sekitar satu menit.
+Model ini **tidak** menunjukkan dataran peleburan (*melting plateau*)
+karena panas laten peleburan natrium (15 g, sekitar 1,7 kJ) dan massa
+teras 32 kg tidak dimasukkan. Start-up KRUSTY yang sebenarnya memerlukan
+sekitar 90 menit dari suhu ruang ke 800 °C, terutama karena pemanasan
+teras dan *thaw front* natrium [@poston2020results; @tournier2001].
+
+Untuk pemodelan start-up yang realistis, model transien perlu diperluas
+dengan (1) node kapasitas teras, (2) entalpi peleburan sebagai fungsi
+suhu (*apparent heat capacity*), dan (3) perpindahan *thaw front* secara
+aksial. Keterbatasan ini tidak memengaruhi hasil tunak dan studi desain,
+tetapi penting untuk analisis keselamatan start-up.
+
+![Respons termal pipa terhadap langkah daya 310 W (tanpa massa teras dan
+panas laten peleburan).](figures/startup_transient.png){#fig-transien width=80%}
+
+## Massa, Daya Parasitik, dan Keandalan
+
+Sistem pompa Na-78K Mark 1 membutuhkan laju aliran 2,5 kg/s untuk
+$\Delta T=200$ K. Dengan penurunan tekanan 30 kPa dan efisiensi pompa 0,35,
+daya pompa adalah **286 W**, atau 0,057% dari daya termal dan sekitar 0,23%
+dari daya listrik (asumsi efisiensi konversi 25%). Daya parasitik ini
+relatif kecil, sehingga keunggulan utama *heat pipe* bukanlah penghematan
+daya, melainkan penghapusan komponen bergerak dan titik tunggal kegagalan.
+
+Sistem pompa (dua pompa EM, pengontrol, dan manifold) diperkirakan
+**120 kg**. Sistem *heat pipe* Opsi B sebesar **34,6 kg**, sehingga
+penghematan subsistem pendingin adalah **85,4 kg (71%)**. Namun, setelah
+memperhitungkan pembesaran teras dan reflektor, massa total Opsi B justru
+naik 67,7 kg. Untuk Opsi A, massa total turun 114,1 kg, tetapi dengan
+pengayaan 63,4%.
+
+Dari sisi keandalan, Mark 1 memiliki dua pompa EM yang keduanya harus
+bekerja; kegagalan total aliran menyebabkan pemanasan teras dan potensi
+pelelehan. Opsi B dengan 72 pipa independen memiliki redundansi N$- $ 2:
+kegagalan dua pipa (2,8% kapasitas) hanya menaikkan suhu pipa tetangga dan
+tidak menghentikan reaktor. KRUSTY telah mendemonstrasikan bahwa reaktor
+tetap dapat beroperasi dengan beberapa *heat pipe* gagal
+[@poston2020design]. Namun, *heat pipe* memperkenalkan mode kegagalan baru:
+*de-priming* arteri, pembekuan/pencairan berulang, dan migrasi natrium
+selama peluncuran. Mode ini perlu diuji secara eksperimental.
+
+## Rekomendasi Desain
+
+Berdasarkan hasil di atas, rekomendasi untuk ISR Mark 2 adalah:
+
+1. **Untuk operasi pasif penuh 500 kWth:** gunakan **Opsi B**—matriks 72
+   *heat pipe* natrium interstitial berdiameter 1,42 cm pada pitch 5,02 cm,
+   dengan suhu operasi mendekati 1200 K. Opsi ini menghilangkan pompa dan
+   titik tunggal kegagalan, dengan konsekuensi massa total +11,9% dan
+   kebutuhan verifikasi neutronik karena pitch dan reflektor berubah.
+2. **Untuk mempertahankan pengayaan di bawah 60%:** gunakan **Opsi C
+   hibrida**—pertahankan pompa Na-78K untuk daya nominal dan tambahkan 61
+   *heat pipe* 0,6 cm sebagai sistem pendingin pasif cadangan. Kapasitas
+   75 kWth cukup untuk panas peluruhan dan memberikan waktu tambahan
+   dalam skenario kehilangan aliran.
+3. **Untuk mempertahankan daya 500 kWth dan menurunkan massa:** **Opsi A**
+   dengan kanal 1,55 cm memberikan massa terendah (453 kg; 0,906 kg/kWth),
+   tetapi memerlukan pengayaan sekitar 63% atau perpanjangan teras. Opsi ini
+   hanya layak jika batas pengayaan 60% dilonggarkan.
+
+## Keterbatasan Penelitian
+
+Keterbatasan utama penelitian ini adalah:
+
+1. **Tidak ada perhitungan neutronik ulang.** Perubahan pitch, reflektor,
+   dan volume bahan bakar hanya diestimasi secara orde pertama. Diperlukan
+   model Monte Carlo (MCNP/OpenMC) untuk memverifikasi reaktivitas,
+   koefisien suhu, dan margin padam.
+2. **Model termal 1D terpusat.** Distribusi suhu radial dalam pin, hotspot
+   bahan bakar, dan kopling konduksi antar-pin tidak dimodelkan. CFD atau
+   model nodal 2D diperlukan untuk verifikasi lokal.
+3. **Korelasi *flooding* KRUSTY bersifat empiris.** Validasi 600–800 °C
+   tidak menguji korelasi pertama-prinsip. Validasi fisik yang lebih kuat
+   memerlukan data uji *heat pipe* tambahan pada geometri dan fill ratio
+   yang sama.
+4. **Transien belum mencakup panas laten dan massa teras.** Analisis
+   start-up dan *freeze–thaw* memerlukan model entalpi.
+5. **Tidak ada analisis radiator, perisai, dan konversi daya.** Massa total
+   yang dilaporkan hanya mencakup reaktor dan sistem pendingin, bukan
+   radiator atau konverter Stirling.
+6. **Keandalan tidak dikuantifikasi secara probabilistik.** Diperlukan
+   data MTBF dan analisis pohon kegagalan untuk klaim keandalan yang lebih
+   kuat.

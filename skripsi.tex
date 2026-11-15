@@ -380,8 +380,8 @@ pompa dan untai primer, mendistribusikan fungsi perpindahan kalor ke
 banyak pipa yang saling independen, serta dapat meningkatkan keandalan
 sistem melalui redundansi. Program Kilopower/KRUSTY telah
 mendemonstrasikan reaktor berpendingin pipa kalor natrium pada
-temperatur sekitar 800\(^\circ\)C dan menghasilkan data tingkat sistem
-nuklir pertama bagi reaktor pipa kalor {[}\textbf{gibson2020?},
+temperatur sekitar 800°C dan menghasilkan data tingkat sistem nuklir
+pertama bagi reaktor pipa kalor {[}\textbf{gibson2020?},
 \textbf{poston2020design?}, \textbf{poston2020results?}{]}. Data
 tersebut menjadi tolok ukur (benchmark) yang unik bagi simulator pipa
 kalor non-CFD.
@@ -410,8 +410,8 @@ transparan, dan dapat direproduksi (reproducible) apabila divalidasi
 terhadap data eksperimental maupun empiris. Pengujian KRUSTY menyediakan
 titik acuan (anchor) yang diperlukan: sekitar 30 W pada 500 °C, 300 W
 pada 600 °C, 500 W pada 700 °C, dan lebih dari 600 W pada 800 °C, dengan
-daya sekitar 325 W per pipa yang terukur di dekat temperatur
-600\(^\circ\)C {[}\textbf{poston2020results?}{]}.
+daya sekitar 325 W per pipa yang terukur di dekat temperatur 600°C
+{[}\textbf{poston2020results?}{]}.
 
 \section{Batasan Masalah}\label{batasan-masalah}
 
@@ -511,12 +511,158 @@ dalam model yang digunakan pada penelitian ini melalui sumbu ekuivalen
 (\emph{equivalent wick}) dan batas banjir Wallis (\emph{Wallis flooding
 limit}) yang dikalibrasi terhadap kurva terpublikasi tersebut.
 
-Terjemahan ini mempertahankan konsistensi peristilahan dari bagian
-sebelumnya (\emph{pipa kalor}, \emph{sumbu}, \emph{kapasitas transfer
-kalor}, \emph{batas viskos/banjir}, dan \emph{sumbu ekuivalen}),
-menggunakan istilah baku ketenaganukliran seperti \emph{sistem daya
-fisi} dan \emph{inventori natrium}, serta menerapkan kaidah tanda koma
-desimal sesuai EYD V.
+\section{Desain Dasar Indonesian Space
+Reactor}\label{desain-dasar-indonesian-space-reactor}
+
+ISR Mark 1 merupakan reaktor cepat berdaya 500 kWth dengan 61 pin bahan
+bakar yang tersusun di dalam blok teras heksagonal berbahan Mo-30Re
+{[}\textbf{khandaq2020?}{]}. Bahan bakar yang digunakan adalah UN dengan
+tingkat pengayaan 55\% U-235. Kelongsongnya berbentuk heksagonal
+berbahan Mo-30Re dengan tinggi 43,2 cm dan lubang pusat berukuran 3,265
+cm. Jarak antar-pin (\emph{pin pitch}) adalah 3,4 cm, dengan tinggi
+teras aktif sekitar 25 cm. Setiap pin memiliki saluran pendingin
+berbahan renium dengan diameter masukan 0,6 cm dan ketebalan dinding
+0,08 cm. Pendingin yang digunakan adalah Na-78K dengan temperatur masuk
+dan keluar masing-masing sebesar 750 K dan 950 K, serta temperatur
+rata-rata 850 K. Massa blok teras tercatat sebesar 50,8 kg dengan
+estimasi massa reaktor sebesar 447,12 kg. Reaktivitas berlebih
+(\emph{excess reactivity}) bernilai 4023 pcm, estimasi umur operasi
+mencapai 28 tahun, serta koefisien reaktivitas rongga (\emph{void}) dan
+temperatur bernilai negatif. Parameter-parameter tersebut menetapkan
+batasan geometris dan termal bagi \emph{retrofit} Mark 2.
+
+\section{Teori Pipa Kalor dan Batas
+Operasional}\label{teori-pipa-kalor-dan-batas-operasional}
+
+Pipa kalor (\emph{heat pipe}) mentransportasikan kalor melalui penguapan
+fluida kerja di dalam evaporator, aliran uap menuju kondensor,
+kondensasi, serta aliran balik cairan melalui sumbu (\emph{wick}) atau
+lintasan berbantuan gravitasi (\emph{gravity-assisted path}). Kapasitas
+transfer kalor (\emph{heat throughput}) maksimum ditentukan oleh
+sejumlah batas yang saling bersaing {[}\textbf{chi1976?},
+\textbf{cotter1965?}, \textbf{busse1973?}, \textbf{levy1968?},
+\textbf{faghri2016?}, \textbf{zohuri2016?}, \textbf{dunn2012?}{]}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Batas viskos:} penurunan tekanan uap menjadi sebanding dengan
+  tekanan uap lokal pada temperatur rendah.
+\item
+  \textbf{Batas sonik:} kecepatan uap mencapai kondisi sonik pada
+  keluaran evaporator.
+\item
+  \textbf{Batas \emph{entrainment}:} tegangan geser uap menghalangi
+  cairan untuk mengalir kembali melalui permukaan sumbu.
+\item
+  \textbf{Batas kapiler:} tekanan kapiler yang tersedia tidak mencukupi
+  untuk mengatasi penurunan tekanan cairan dan uap serta tinggi tekan
+  gravitasi (\emph{gravity head}).
+\item
+  \textbf{Batas pendidihan:} pendidihan nukleat (\emph{nucleate
+  boiling}) di dalam sumbu menghambat aliran balik cairan.
+\item
+  \textbf{Batas banjir (\emph{flooding}):} pada termosifon berbantuan
+  gravitasi, aliran berlawanan arah (\emph{counter-current}) antara uap
+  dan cairan menyebabkan terjadinya banjir (\emph{flooding}).
+\end{itemize}
+
+Batas pengendali (\emph{controlling limit}) bergantung pada temperatur,
+jenis fluida, struktur sumbu, dan orientasi. Untuk natrium pada rentang
+temperatur 500--800 °C, tekanan uapnya berubah hingga beberapa orde
+magnitudo, sehingga transisi antara batas viskos, kapiler,
+\emph{entrainment}, dan banjir berlangsung sangat kuat. Oleh karena itu,
+perangkat desain (\emph{design tool}) harus mengevaluasi seluruh batas
+tersebut dan memilih nilai minimumnya.
+
+\section{Kesenjangan Penelitian}\label{kesenjangan-penelitian}
+
+Literatur terbuka telah menyediakan korelasi batas-batas pipa kalor
+(\emph{heat pipe}) serta data pengujian KRUSTY, namun belum terdapat
+perangkat satu dimensi yang terbuka dan dapat direproduksi
+(\emph{reproducible}) yang (i) mengimplementasikan keseluruhan rangkaian
+batas analitik, (ii) tervalidasi terhadap kurva kapasitas transfer kalor
+(\emph{throughput curve}) KRUSTY, dan (iii) menerapkan kerangka kerja
+yang sama pada geometri pin ISR dengan saluran berukuran 0,6 cm dan daya
+8,2 kWth per pin. Penelitian ini mengisi kesenjangan tersebut sekaligus
+memberikan landasan kuantitatif bagi penentuan keputusan arsitektur ISR
+Mark 2.
+
+\chapter{Landasan Teori}\label{sec-theory}
+
+\section{Geometri dan Nomenklatur Pipa
+Kalor}\label{geometri-dan-nomenklatur-pipa-kalor}
+
+Pipa kalor (\emph{heat pipe}) direpresentasikan sebagai perangkat
+aksisimetris dengan jari-jari luar \(r_o\), jari-jari dinding dalam
+\(r_i\), dan jari-jari inti uap (\emph{vapor core}) \(r_v\). Ketebalan
+dinding dinyatakan sebagai \(t_{wall}=r_o-r_i\) dan ketebalan sumbu
+(\emph{wick}) efektif adalah \(t_{wick}=r_i-r_v\). Panjang bagian
+evaporator, adiabatik, dan kondensor masing-masing adalah \(L_e\),
+\(L_a\), dan \(L_c\). Panjang efektif untuk perhitungan penurunan
+tekanan adalah
+
+\begin{equation}\protect\phantomsection\label{eq-leff}{
+\ell_{eff}=L_a+\frac{1}{2}\left(L_e+L_c\right).
+}\end{equation}
+
+Kalor laten dinotasikan sebagai \(h_{fg}\) (J kg\(^{-1}\)) di seluruh
+pembahasan ini, sedangkan simbol \(L\) dikhususkan untuk besaran
+panjang. Luas penampang inti uap adalah \(A_v=\pi r_v^2\), dan luas
+aliran balik cairan pada sumbu (\emph{wick liquid-return area}) adalah
+\(A_w=\pi(r_i^2-r_v^2)\), kecuali apabila luas penampang arterial
+ditentukan secara eksplisit.
+
+\section{Sifat Termofisika}\label{sifat-termofisika}
+
+Sifat-sifat fluida kerja dievaluasi sebagai fungsi dari temperatur uap
+\(T\). Tekanan jenuh menggunakan bentuk persamaan Antoine
+
+\begin{equation}\protect\phantomsection\label{eq-psat}{
+\log_{10}\left(\frac{P_{sat}}{\mathrm{Pa}}\right)=A_{sat}-\frac{B_{sat}}{T},
+}\end{equation}
+
+dengan koefisien yang spesifik untuk masing-masing fluida. Kalor laten
+diskalakan menggunakan korelasi Watson
+
+\begin{equation}\protect\phantomsection\label{eq-hfg}{
+h_{fg}(T)=h_{fg,b}\left(\frac{T_c-T}{T_c-T_b}\right)^{0.38},
+}\end{equation}
+
+dengan \(T_b\) menyatakan titik didih normal dan \(T_c\) menyatakan
+temperatur kritis. Densitas cairan, kalor jenis, konduktivitas termal,
+viskositas, dan tegangan permukaan menggunakan persamaan pencocokan
+rekayasa (\emph{engineering fits}) monoton. Densitas uap mengikuti
+hubungan gas ideal \(\rho_v=P_{sat}/(R_g T)\), dengan
+\(R_g=8314.4626/M\) J kg\(^{-1}\) K\(^{-1}\). Pencocokan sifat-sifat
+fluida tersebut ditujukan untuk penyaringan pada rentang 700--1600 K dan
+mengacu pada korelasi logam alkali yang dihimpun oleh Fink dan Leibowitz
+{[}\textbf{fink1995?}{]} serta Ohse {[}\textbf{ohse1985?}{]}; seluruhnya
+didokumentasikan dalam \texttt{src/FluidProperties.jl}.
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{Parameter sifat termofisika yang digunakan dalam model.
+Koefisien-koefisien tersebut merupakan hasil pencocokan rekayasa
+(\emph{engineering fits}); korelasi lengkapnya tersedia dalam kode
+sumber.}\label{tbl-fluids}\tabularnewline
+\toprule\noalign{}
+Parameter & Natrium & Kalium & Litium \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Parameter & Natrium & Kalium & Litium \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Massa molar \(M\) (kg kmol\(^{-1}\)) & 22,99 & 39,10 & 6,941 \\
+Titik lebur \(T_m\) (K) & 370,94 & 336,53 & 453,65 \\
+Titik didih \(T_b\) (K) & 1156,09 & 1032,0 & 1615,0 \\
+Temperatur kritis \(T_c\) (K) & 2573 & 2223 & 3223 \\
+\(h_{fg,b}\) (MJ kg\(^{-1}\)) & 4,24 & 2,14 & 21,5 \\
+\(A_{sat}\) (--) & 9,704 & 9,305 & 9,985 \\
+\(B_{sat}\) (K) & 5377 & 4453 & 8182 \\
+\end{longtable}
 
 \chapter*{DAFTAR PUSTAKA}\label{daftar-pustaka}
 \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}

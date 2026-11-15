@@ -1,0 +1,73 @@
+# KESIMPULAN DAN SARAN {#sec-conclusion-recommendation}
+
+## Kesimpulan
+
+Berdasarkan pengembangan, validasi, dan penerapan simulator *heat pipe* 1D,
+dapat disimpulkan bahwa:
+
+1. **Simulator 1D non-CFD berhasil dibangun dan divalidasi.** Simulator
+   terdiri atas modul properti fluida, geometri wick, limit operasional,
+   jaringan resistansi termal, validasi, dan desain ISR. Seluruh 74 uji
+   satuan lulus. Terhadap data KRUSTY, galat maksimum pada rentang
+   550–800 °C adalah **1,29%**; titik operasi nominal 310 W pada 800 °C
+   menghasilkan suhu uap 810,3 °C dan beda suhu evaporator–kondensor
+   **14,1 K**. Terhadap *heat pipe* arterial Walker, galat adalah
+   **+11,45%** dengan limit *entrainment* sebagai pengendali.
+
+2. **Kanal 0,6 cm ISR tidak mampu membawa 8,2 kWth per pin.** Pada 1200 K,
+   daya maksimum satu *heat pipe* natrium dengan wick arterial adalah
+   **1,23 kW (15,0%)**; kalium 0,79 kW (9,6%); litium 25 W (0,3%); dan wick
+   sinter natrium 8,65 W (0,1%). Limit yang mengendalikan adalah
+   *entrainment* untuk wick arterial/annular dan kapiler untuk wick sinter.
+   Diameter yang diperlukan untuk 8,2 kW adalah **1,55 cm** (Na) pada
+   1200 K, meningkat menjadi 2,92 cm pada 900 K. Litium baru layak pada
+   sekitar 1400 K.
+
+3. **Tiga opsi arsitektur telah dikuantifikasi.** Opsi A (perluasan kanal
+   menjadi 1,55 cm) memberikan massa total 453,0 kg dan massa spesifik
+   0,906 kg/kWth, tetapi kehilangan 18,0% volume bahan bakar dan menuntut
+   pengayaan sekitar 63,4%, melampaui target 60%. Opsi B (matriks 72
+   *heat pipe* interstitial 1,42 cm) mampu membawa 500 kWth secara pasif
+   dengan pitch 5,02 cm, massa total 634,8 kg, dan massa spesifik
+   1,270 kg/kWth (+11,9% dari Mark 1). Opsi C (61 pipa 0,6 cm) hanya
+   menangani 75,1 kWth, tetapi cukup untuk panas peluruhan dan cocok sebagai
+   sistem cadangan hibrida.
+
+4. **Eliminasi pompa mengurangi massa subsistem pendingin dan titik
+   tunggal kegagalan.** Sistem pompa Na-78K membutuhkan daya 286 W dan
+   bermassa sekitar 120 kg. Sistem *heat pipe* Opsi B bermassa 34,6 kg,
+   sehingga menghemat **85,4 kg (71%)** massa subsistem pendingin. Setelah
+   memperhitungkan pembesaran teras dan reflektor, massa total Opsi B naik
+   67,7 kg; namun pompa, pengontrol, dan manifold yang menjadi titik tunggal
+   kegagalan berhasil dihilangkan, dan redundansi N$- $ 2 tersedia melalui 72
+   pipa independen.
+
+5. **Rekomendasi utama** adalah Opsi B untuk operasi pasif penuh 500 kWth
+   pada suhu mendekati 1200 K, atau Opsi C hibrida apabila batas pengayaan
+   60% dipertahankan. Opsi A hanya layak jika pengayaan dapat dinaikkan
+   atau teras diperpanjang.
+
+## Saran
+
+Penelitian lanjutan yang disarankan adalah:
+
+1. **Verifikasi neutronik** dengan MCNP atau OpenMC untuk menghitung
+   ulang reaktivitas, koefisien suhu, margin padam, dan distribusi daya
+   pada geometri Opsi A dan Opsi B.
+2. **Verifikasi termal lokal** dengan model 2D atau CFD untuk memeriksa
+   hotspot bahan bakar, gradien radial dalam pin, dan kopling konduksi
+   antar-pin yang tidak tertangkap model 1D.
+3. **Pengembangan model transien dua fase** yang mencakup entalpi
+   peleburan, perpindahan *thaw front*, dan massa teras, serta validasi
+   terhadap data start-up KRUSTY dan *heat pipe* litium Tournier–El-Genk.
+4. **Uji eksperimental** *heat pipe* natrium 1,4–1,6 cm dengan wick
+   arterial pada 1100–1200 K, termasuk uji *de-priming*, siklus beku–cair,
+   dan orientasi gravitasi.
+5. **Kajian material dan keselamatan** untuk kompatibilitas Haynes 230,
+   Mo-30Re, dan natrium pada 1200 K, serta pengaruh aktivasi neutron
+   natrium terhadap pemeliharaan dan dosis.
+6. **Integrasi sistem** dengan radiator, konverter Stirling, perisai, dan
+   kontrol start-up, sehingga massa total dan efisiensi sistem dapat
+   dibandingkan secara adil dengan Mark 1.
+7. **Analisis keandalan probabilistik** (MTBF, FMEA, pohon kegagalan)
+   untuk mengkuantifikasi klaim keunggulan keselamatan *heat pipe*.

@@ -1,0 +1,223 @@
+# PELAKSANAAN PENELITIAN {#sec-research-methodology}
+
+## Alat dan Bahan
+
+Penelitian ini dilaksanakan sepenuhnya secara komputasional. Perangkat lunak
+utama adalah Julia 1.13.3 dengan paket `Plots.jl`, `Roots.jl`, `JSON3.jl`,
+dan `Statistics`. Julia dipilih karena kombinasi bahasa dinamis, kinerja
+mendekati C, dan ekosistem aljabar linear yang matang memungkinkan
+penyelesaian ribuan titik desain dalam hitungan detik. Seluruh kode sumber,
+data, dan skrip disimpan dalam repositori proyek dengan struktur sebagai
+berikut:
+
+```
+isr-project-v1/
+|---- Project.toml
+|---- src/
+|   |---- HeatPipeCore.jl
+|   |---- FluidProperties.jl
+|   |---- Wick.jl
+|   |---- Limits.jl
+|   |---- ThermalNetwork.jl
+|   |---- Validation.jl
+|   `---- ISRDesign.jl
+|---- data/
+|   |---- benchmark.csv
+|   `---- isr_specs.json
+|---- test/runtests.jl
+|---- scripts/run_study.jl
+`---- report/
+```
+
+Parameter perangkat keras tidak memengaruhi hasil karena model bersifat
+deterministik; waktu eksekusi skrip studi kurang dari satu menit pada
+komputer desktop biasa.
+
+## Arsitektur Perangkat Lunak
+
+`HeatPipeCore` dibagi menjadi enam modul dengan tanggung jawab terpisah:
+
+1. **`FluidProperties`** — menyediakan fungsi `p_sat`, `rho_l`, `rho_v`,
+   `h_fg`, `sigma`, `mu_l`, `mu_v`, `k_l`, dan `cp_l` untuk Na, K, dan Li.
+   Seluruh satuan adalah SI; kalor laten secara eksplisit dinamai `h_fg`
+   untuk menghindari kebingungan dengan panjang.
+2. **`Wick`** — mendefinisikan `WickGeometry` dan konstruktor
+   `screen_wick`, `sintered_wick`, serta `annular_wick`, termasuk korelasi
+   porositas, permeabilitas, jari-jari pori, dan konduktivitas efektif.
+3. **`Limits`** — mendefinisikan `HeatPipe` dan fungsi limit viskos, sonik,
+   *entrainment*, kapiler, didih, serta *flooding*. Fungsi
+   `operating_limits` mengembalikan seluruh limit dan nilai minimumnya.
+4. **`ThermalNetwork`** — membangun diskretisasi 1D, menyelesaikan kondisi
+   tunak dengan sistem tridiagonal dan biseksi, serta mengintegrasikan
+   transien dengan RK4.
+5. **`Validation`** — menyediakan geometri KRUSTY dan Walker, pembaca CSV,
+   metrik galat, dan tabel validasi.
+6. **`ISRDesign`** — menyediakan geometri ISR, studi kelayakan, pencarian
+   diameter, perbandingan fluida, ketiga opsi arsitektur, dan neraca massa.
+
+Antarmuka tingkat atas diekspor oleh `HeatPipeCore`, sehingga pengguna dapat
+menulis kode sesingkat:
+
+```julia
+using HeatPipeCore
+hp = krusty_heatpipe()
+res = steady_state(hp, 310.0)
+max_power(hp, 1073.15)
+```
+
+## Data dan Digitalisasi
+
+Data validasi dikumpulkan dari literatur dan disimpan pada
+`data/benchmark.csv`. Nilai limit KRUSTY didigitalisasi dari Gambar 7
+Poston dkk. (2020), yang memuat kurva limit viskos, sonik, dan *flooding*
+beserta titik operasi pada $T=0{,}7$, 0,9, 1,0, dan nominal
+[@poston2020results]. Ketidakpastian digitalisasi diperkirakan 5–10%
+tergantung kemiringan kurva. Data Walker dkk. diambil dari Tabel 4 dan
+Tabel 5 publikasi mereka [@walker2013].
+
+| Sumber | Kasus | $T$ (°C) | $Q$ (W) | $u_Q$ (W) |
+|:-------|:------|--------:|--------:|----------:|
+| Gibson dkk. (2020) | Limit KRUSTY | 500 | 30 | 5 |
+| Gibson dkk. (2020) | Limit KRUSTY | 550 | 200 | 20 |
+| Gibson dkk. (2020) | Limit KRUSTY | 600 | 300 | 30 |
+| Gibson dkk. (2020) | Limit KRUSTY | 700 | 500 | 50 |
+| Gibson dkk. (2020) | Limit KRUSTY | 800 | 700 | 70 |
+| Poston dkk. (2020) | Operasi nominal | 800 | 310 | 15 |
+| Walker dkk. (2013) | Arterial 1,91 cm | 725 | 2600 | 200 |
+
+: Titik benchmark yang digunakan untuk validasi. {#tbl-bench}
+
+Parameter ISR disimpan pada `data/isr_specs.json` dan dibaca oleh modul
+`ISRDesign`. Pemisahan data dari kode memudahkan pembaruan apabila desain
+ISR direvisi.
+
+## Model KRUSTY
+
+Geometri KRUSTY mengikuti Poston dkk. dan Gibson dkk.
+[@poston2020design; @gibson2020]. *Heat pipe* memiliki diameter luar
+1,27 cm, tebal dinding Haynes 230 0,089 cm, panjang total sekitar 1 m,
+dan inventori natrium 15 g. Wick layar nikel hanya terdapat di evaporator;
+pengembalian kondensat di adiabatik dan kondensor terjadi secara
+*thermosyphon*.
+
+Untuk model 1D, jari-jari inti uap efektif ditetapkan 4,5 mm untuk
+mewakili wick layar dan film cairan yang kembali. Wick dimodelkan sebagai
+layar 200 mesh dengan $r_{\mathrm{eff}}=0{,}25$ mm,
+$K=2\times10^{-9}$ m$^2$, dan $\varepsilon=0{,}843$. Panjang evaporator,
+adiabatik, dan kondensor masing-masing 0,25 m, 0,55 m, dan 0,20 m.
+Orientasi vertikal dengan kondensor di atas evaporator diterapkan melalui
+$g=9{,}81$ m/s$^2$ dan $\theta=90^\circ$.
+
+Karena model *throughput* KRUSTY yang dipublikasikan adalah kecocokan
+kurva empiris, validasi menggunakan cabang *flooding* empiris
+
+$$ Q_{f,\mathrm{emp}}(T) = \max\left[0,\;2{,}0\,(T[^\circ\mathrm{C}]-450)\right]
+   \ \mathrm{W} $$ {#eq-qemp}
+
+yang mereproduksi bentuk kurva *flooding* pada Gambar 7 Poston dkk.
+Limit viskos, sonik, *entrainment*, dan didih tetap dihitung dari teori.
+Dengan demikian, validasi menguji implementasi limit dan properti fluida,
+bukan korelasi *flooding* pertama-prinsip.
+
+## Model Walker
+
+*Heat pipe* arterial *self-venting* Walker dkk. memiliki diameter luar
+1,91 cm, panjang 1 m, dan diuji pada 725 °C dengan elevasi lawan 0,25 cm
+[@walker2013]. Model menggunakan wick arterial dengan
+$K=10^{-7}$ m$^2$ dan $r_{\mathrm{eff}}=0{,}35$ mm. Sudut orientasi diatur
+sangat kecil ($\sin\theta=0{,}0025$) agar sesuai dengan head hidrostatik
+elevasi 0,25 cm, bukan orientasi vertikal penuh. Validasi ini menguji
+limit *entrainment* pada rezim permeabilitas tinggi.
+
+## Model ISR Mark 2
+
+Untuk retrofit, *heat pipe* harus muat di dalam kanal renium yang ada.
+Diameter luar dibatasi 0,6 cm. Tebal dinding ditetapkan 6% dari diameter
+(0,36 mm) dan tebal wick 8% (0,48 mm), sehingga jari-jari inti uap
+$r_v=2{,}16$ mm. Panjang evaporator 0,25 m (setinggi teras aktif),
+adiabatik 0,30 m, dan kondensor 0,45 m. Suhu sink 600 K digunakan untuk
+perhitungan limit; suhu uap divariasikan 900–1200 K.
+
+Tiga jenis wick dibandingkan:
+
+- **Arterial:** $K=10^{-7}$ m$^2$, $r_{\mathrm{eff}}=50$ $\mu$m, porositas 0,70.
+- **Annular:** $K=t^2/12$, $r_{\mathrm{eff}}=t/8\approx60$ $\mu$m.
+- **Sinter:** $d_p=50$ $\mu$m, $\varepsilon=0{,}40$, $r_{\mathrm{eff}}=10{,}5$ $\mu$m.
+
+Matriks desain yang dievaluasi adalah:
+
+| Variabel | Nilai |
+|:---------|:------|
+| Fluida | Na, K, Li |
+| Wick | arterial, annular, sinter |
+| Suhu uap | 900, 950, 1000, 1050, 1100, 1150, 1200 K |
+| Diameter luar | 0,4–4,0 cm (sweep) |
+| Daya acuan | 8,197 kW per pin |
+
+: Matriks studi kelayakan ISR Mark 2. {#tbl-matrix}
+
+## Definisi Opsi Arsitektur
+
+Tiga opsi didefinisikan sebagai berikut.
+
+**Opsi A — perluasan kanal.** Kanal pusat diperbesar sampai diameter yang
+diperlukan untuk membawa 8,2 kW pada 1200 K dengan wick arterial natrium.
+Konsekuensi terhadap bahan bakar dihitung dari luas anulus bahan bakar:
+$A_f=\pi(r_{f,o}^2-r_{f,i}^2)$. Fraksi bahan bakar yang tersisa dan
+perkiraan pengayaan yang diperlukan dihitung secara orde pertama.
+
+**Opsi B — matriks interstitial.** Kanal 0,6 cm dipertahankan, dan
+*heat pipe* tambahan ditempatkan di celah antar-pin. Untuk susunan
+heksagonal 61 pin (empat cincin), terdapat 72 situs interstitial interior.
+Diameter *heat pipe* dipilih agar total 72 pipa membawa 500 kWth. Pitch
+baru dihitung dari *flat-to-flat* pin ditambah diameter pipa dan celah
+perakitan 2 mm. Massa blok teras diskalakan dengan luas, sedangkan massa
+reflektor dan drum diskalakan dengan keliling (tebal tetap).
+
+**Opsi C — penurunan daya.** Geometri dipertahankan; hanya 61 *heat pipe*
+0,6 cm yang dipasang. Total daya yang dapat dibuang menjadi
+$61\times Q_{0.6}$.
+
+## Model Massa dan Daya Parasitik
+
+Untuk sistem pompa Mark 1, laju aliran massa dihitung dari neraca energi
+pendingin:
+
+$$ \dot{m} = \frac{Q}{c_{p}\Delta T}, \qquad
+   P_{\mathrm{pompa}} = \frac{\dot{m}\Delta p}{\rho\,\eta}
+   $$ {#eq-pump}
+
+dengan $\Delta T=200$ K, $c_p=1000$ J/(kg$\cdot$K), $\Delta p=30$ kPa, dan
+$\eta=0{,}35$. Massa sistem pompa mencakup dua pompa EM (2 $\times$ 30 kg),
+pengontrol (20 kg), dan manifold (40 kg).
+
+Massa *heat pipe* dihitung dari volume envelope dan wick:
+
+$$ m_{HP} = n\left[\rho_w\pi(r_o^2-r_i^2)L + m_{wick}\right]\times1{,}3
+   $$ {#eq-hpmass}
+
+Faktor 1,3 merupakan cadangan untuk header dan pemasangan. Daya parasitik
+*heat pipe* adalah nol karena tidak ada komponen bergerak.
+
+## Verifikasi dan Reproduksibilitas
+
+Verifikasi dilakukan pada tiga tingkat:
+
+1. **Uji satuan:** `test/runtests.jl` memuat 74 asersi yang mencakup
+   monotonisitas tekanan saturasi, positivitas kalor laten dan tegangan
+   permukaan, korelasi wick, positivitas limit, validasi KRUSTY dan
+   Walker, keseimbangan energi tunak, konvergensi mesh, respons transien,
+   dan batas kelayakan ISR.
+2. **Konvergensi mesh:** suhu uap pada $n=30$ dan $n=120$ berbeda kurang
+   dari 2 K.
+3. **Keseimbangan energi:** daya sumber sama dengan daya yang dibuang ke
+   sink pada kondisi tunak, dan resistansi ekuivalen $R_{eq}>0$.
+
+Seluruh gambar dan tabel dihasilkan oleh satu skrip,
+`scripts/run_study.jl`, sehingga hasil dapat direproduksi dengan perintah
+
+```bash
+julia --project=. -e 'using Pkg; Pkg.test()'
+julia --project=. scripts/run_study.jl
+quarto render report/skripsi.qmd --to pdf
+```
