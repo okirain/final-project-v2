@@ -1,0 +1,63 @@
+# VERIFIKASI NUMERIK
+
+## Konvergensi Mesh
+
+Pengaruh jumlah node aksial terhadap suhu uap dan beda suhu
+evaporator–kondensor pada KRUSTY 310 W ditunjukkan pada
+@tbl-mesh. Perbedaan suhu uap antara $n=20$ dan $n=240$ hanya 0,075 K,
+sehingga $n=60$ yang digunakan dalam studi sudah memadai.
+
+| $n$ | $T_v$ (K) | $\Delta T_{ec}$ (K) |
+|----:|----------:|--------------------:|
+| 20 | 1083,446 | 14,153 |
+| 30 | 1083,442 | 14,044 |
+| 60 | 1083,430 | 14,143 |
+| 120 | 1083,407 | 14,129 |
+| 240 | 1083,371 | 14,108 |
+
+: Konvergensi mesh pada KRUSTY 310 W. {#tbl-mesh}
+
+## Keseimbangan Energi
+
+Pada kondisi tunak, daya sumber $Q$ harus sama dengan daya yang dibuang
+ke sink. Untuk KRUSTY 310 W, model memberikan
+$T_v=1083{,}43$ K, $T_{\mathrm{sink}}=1063$ K, dan
+$R_{eq}=0{,}0659$ K/W, sehingga daya yang dibuang adalah
+$(T_v-T_{\mathrm{sink}})/R_{eq}=310$ W. Keseimbangan ini dipenuhi
+secara numerik hingga galat di bawah $10^{-6}$ W.
+
+## Uji Satuan
+
+`test/runtests.jl` menjalankan 74 asersi dalam lima kelompok:
+
+1. **Properti fluida (26 asersi):** monotonisitas $p_{\mathrm{sat}}$,
+   positivitas $h_{fg}$, $\rho$, $\sigma$, dan $\mu$; tekanan pada titik
+   didih normal.
+2. **Korelasi wick (5 asersi):** porositas, permeabilitas, dan jari-jari
+   pori untuk layar, sinter, dan annular.
+3. **Limit operasional (13 asersi):** positivitas dan kemonotonan limit;
+   limit *flooding* tak hingga untuk pipa tanpa gravitasi.
+4. **Validasi (11 asersi):** KRUSTY $\le15\%$, titik nominal $\Delta T\le20$ K,
+   Walker $\le15\%$, dan limit *entrainment* sebagai pengendali.
+5. **Jaringan dan desain ISR (19 asersi):** keseimbangan energi,
+   konvergensi mesh, respons transien, kelayakan 0,6 cm, ketiga opsi, dan
+   penghematan massa.
+
+Seluruh 74 asersi lulus dalam waktu sekitar 6 detik.
+
+## Perintah Reproduksi
+
+```bash
+# 1. Uji satuan
+julia --project=. -e 'using Pkg; Pkg.test()'
+
+# 2. Hasilkan gambar dan tabel
+julia --project=. scripts/run_study.jl
+
+# 3. Render laporan
+quarto render report/skripsi.qmd --to pdf
+```
+
+Keluaran numerik tersimpan pada `data/results_summary.json`,
+`data/results_validation.csv`, `data/results_isr_feasibility.csv`, dan
+`data/results_isr_options.csv`.

@@ -1,0 +1,60 @@
+# DATA DAN PARAMETER
+
+## Data Benchmark
+
+| Sumber | Kasus | Fluida | $T$ (°C) | $Q$ (W) | $u_Q$ (W) |
+|:-------|:------|:-------|--------:|--------:|----------:|
+| Gibson dkk. (2020) | Limit KRUSTY | Na | 500 | 30 | 5 |
+| Gibson dkk. (2020) | Limit KRUSTY | Na | 550 | 200 | 20 |
+| Gibson dkk. (2020) | Limit KRUSTY | Na | 600 | 300 | 30 |
+| Gibson dkk. (2020) | Limit KRUSTY | Na | 700 | 500 | 50 |
+| Gibson dkk. (2020) | Limit KRUSTY | Na | 800 | 700 | 70 |
+| Poston dkk. (2020) | Operasi nominal | Na | 800 | 310 | 15 |
+| Walker dkk. (2013) | Arterial 1,91 cm | Na | 725 | 2600 | 200 |
+
+: Data benchmark lengkap (`data/benchmark.csv`). {#tbl-benchB}
+
+## Parameter ISR
+
+| Parameter | Nilai | Satuan |
+|:----------|------:|:-------|
+| Daya termal | 500 | kWth |
+| Jumlah pin | 61 | - |
+| Pengayaan U-235 | 55 | % |
+| Tinggi aktif | 25 | cm |
+| Pitch pin | 3,4 | cm |
+| *Flat-to-flat* pin | 3,4 | cm |
+| Diameter rongga | 3,265 | cm |
+| Diameter kanal | 0,6 | cm |
+| Tebal dinding kanal | 0,08 | cm |
+| Suhu masuk | 750 | K |
+| Suhu keluar | 950 | K |
+| Massa reaktor | 447,12 | kg |
+| Reaktivitas berlebih | 4023 | pcm |
+| $\beta_{\mathrm{eff}}$ | 0,00642 | - |
+
+: Parameter ISR Mark 1 (`data/isr_specs.json`). {#tbl-isrB}
+
+## Sifat Termofisika Fluida Kerja
+
+| Fluida | $T$ (K) | $p_{\mathrm{sat}}$ (Pa) | $\rho_l$ (kg/m$^3$) | $\rho_v$ (kg/m$^3$) | $h_{fg}$ (MJ/kg) | $\sigma$ (N/m) | $\mu_l$ (mPa$\cdot$s) |
+|:-------|--------:|------------------------:|-----------------:|-----------------:|-----------------:|---------------:|----------------:|
+| Na | 1000 | 18 700 | 779,2 | 0,0517 | 4,41 | 0,137 | 0,242 |
+| Na | 1200 | 151 000 | 732,2 | 0,347 | 4,19 | 0,116 | 0,215 |
+| K | 1000 | 73 300 | 648,9 | 0,345 | 1,97 | 0,0648 | 0,223 |
+| K | 1200 | 419 000 | 594,9 | 1,64 | 1,84 | 0,0521 | 0,195 |
+| Li | 1000 | 78,9 | 477,6 | $6,59\times10^{-5}$ | 23,6 | 0,306 | 0,0996 |
+| Li | 1200 | 1810 | 456,6 | $1,26\times10^{-3}$ | 22,8 | 0,273 | 0,0815 |
+
+: Sifat termofisika pada suhu saturasi. {#tbl-props}
+
+## Parameter Wick
+
+| Jenis | $r_{\mathrm{eff}}$ ($\mu$m) | $K$ (m$^2$) | $\varepsilon$ | $t$ (mm) |
+|:------|------------------------:|---------:|--------------:|---------:|
+| Layar 200 mesh | 250 | $2,0\times10^{-9}$ | 0,843 | 1,46 |
+| Sinter 50 $\mu$m | 10,5 | $2,5\times10^{-12}$ | 0,40 | 0,48 |
+| Annular 0,48 mm | 60 | $1,9\times10^{-8}$ | 1,00 | 0,48 |
+| Arterial | 50 | $1,0\times10^{-7}$ | 0,70 | 0,48 |
+
+: Parameter wick yang digunakan pada model ISR dan KRUSTY. {#tbl-wickB}

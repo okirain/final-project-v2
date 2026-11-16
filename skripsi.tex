@@ -127,6 +127,39 @@
 \makeatother
 
 
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \ifLuaTeX
 \usepackage[bidi=basic,shorthands=off,provide=*]{babel}
@@ -351,323 +384,1798 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\chapter{PENDAHULUAN}\label{sec-intro}
+\chapter{PENDAHULUAN}\label{sec-introduction}
 
 \section{Latar Belakang}\label{latar-belakang}
 
-Reaktor nuklir antariksa menawarkan rapat daya yang tinggi, umur operasi
-yang panjang, serta tidak bergantung pada penyinaran matahari, sehingga
-menjadikannya solusi yang menarik untuk misi antariksa jauh, penyediaan
-daya di permukaan planet, maupun aplikasi terestrial di wilayah
-terpencil. Konsep Indonesian Space Reactor (ISR) merupakan reaktor
-spektrum cepat berdaya 500 kWth yang dirancang untuk menyuplai daya
-sekurang-kurangnya 500 kWth selama lebih dari sepuluh tahun pada kondisi
-daya penuh {[}\textbf{khandaq2020?}{]}. Desain dasar ISR Mark 1
-menggunakan 61 pin bahan bakar UN anular dengan pengayaan 55\% U-235,
-kelongsong Mo-30Re, blok teras heksagonal berbahan Mo-30Re, serta
-pendingin Na-78K yang dipompa secara aktif dengan temperatur masuk dan
-keluar masing-masing sebesar 750 K dan 950 K. Setiap pin bahan bakar
-memiliki saluran pendingin internal berbahan renium berukuran 0,6 cm.
-Daya rata-rata teras per pin adalah sekitar 8,2 kWth.
+Eksplorasi luar angkasa yang menjauh dari Matahari menghadapi
+keterbatasan mendasar: intensitas cahaya Matahari menurun menurut
+kuadrat jarak, sehingga panel surya tidak lagi mampu menyediakan daya
+yang memadai untuk misi \emph{deep space}. Reaktor fisi nuklir menjadi
+satu-satunya sumber energi yang mampu memberikan daya tinggi, masa pakai
+panjang, dan independensi dari cahaya Matahari
+{[}\citeproc{ref-elgenk2009}{1}{]}. Reaktor luar angkasa generasi awal
+seperti SNAP-10A, BUK, dan TOPAZ membuktikan bahwa pendingin logam cair
+dan konversi termoelektrik dapat dioperasikan di orbit, tetapi sistem
+pompa dan sirkuit pendingin aktif menambah massa, daya parasitik, dan
+titik tunggal kegagalan.
 
-Untai pendingin yang dipompa secara aktif memerlukan komponen tambahan
-berupa pompa elektromagnetik, sistem perpipaan, penukar kalor,
-akumulator, serta katup kendali. Komponen-komponen tersebut menambah
-massa parasitik, mengonsumsi daya pemompaan, dan menimbulkan modus
-kegagalan titik tunggal (single-point failure modes). Arsitektur
-pendinginan pipa kalor (heat pipe) pasif menghilangkan kebutuhan akan
-pompa dan untai primer, mendistribusikan fungsi perpindahan kalor ke
-banyak pipa yang saling independen, serta dapat meningkatkan keandalan
-sistem melalui redundansi. Program Kilopower/KRUSTY telah
-mendemonstrasikan reaktor berpendingin pipa kalor natrium pada
-temperatur sekitar 800°C dan menghasilkan data tingkat sistem nuklir
-pertama bagi reaktor pipa kalor {[}\textbf{gibson2020?},
-\textbf{poston2020design?}, \textbf{poston2020results?}{]}. Data
-tersebut menjadi tolok ukur (benchmark) yang unik bagi simulator pipa
-kalor non-CFD.
+\emph{Heat pipe}---perangkat perpindahan panas dua fase yang bersifat
+pasif---telah lama dipertimbangkan sebagai alternatif pendingin reaktor
+luar angkasa {[}\citeproc{ref-cotter1965}{2},
+\citeproc{ref-dunn2006}{3}{]}. Perangkat ini memanfaatkan tekanan
+kapiler pada meniskus wick untuk mengembalikan kondensat dari kondensor
+ke evaporator, sehingga tidak memerlukan pompa. Keberhasilan uji nuklir
+KRUSTY pada tahun 2018 membuktikan bahwa \emph{heat pipe} natrium dapat
+memindahkan panas dari teras reaktor ke konverter Stirling secara pasif
+dan andal
+{[}\citeproc{ref-poston2020design}{4}--\citeproc{ref-gibson2020}{6}{]}.
+
+Di Indonesia, Khandaq dkk. merancang \emph{Indonesian Space Reactor}
+(ISR) sebagai reaktor cepat 500 kWth dengan 61 pin bahan bakar uranium
+nitrida dan pendingin Na-78K yang disirkulasikan secara aktif
+{[}\citeproc{ref-khandaq2020}{7}{]}. Desain tersebut menggunakan kanal
+pendingin individual berdiameter 0,6 cm di tengah setiap pin. Sistem
+pompa elektromagnetik (EM) memungkinkan distribusi aliran yang merata,
+tetapi menimbulkan daya parasitik, massa tambahan, dan kegagalan total
+apabila pompa berhenti. Khandaq dkk. sendiri mencatat bahwa \emph{heat
+pipe} natrium merupakan alternatif yang menjanjikan, namun belum
+mengevaluasi kelayakannya secara termal
+{[}\citeproc{ref-khandaq2020}{7}{]}.
+
+Pertanyaan rekayasa yang muncul bersifat kuantitatif: mampukah satu
+\emph{heat pipe} yang muat di dalam kanal 0,6 cm memindahkan 8,2 kWth
+yang dihasilkan setiap pin? Jika tidak, perubahan geometri atau
+arsitektur seperti apa yang diperlukan, dan berapa konsekuensinya
+terhadap massa serta keselamatan? Menjawab pertanyaan ini memerlukan
+simulator \emph{heat pipe} yang cepat, dapat divalidasi, dan cukup rinci
+untuk menangkap limit operasional yang membatasi---tanpa harus
+menjalankan CFD tiga dimensi yang mahal.
 
 \section{Perumusan Masalah}\label{perumusan-masalah}
 
-Konsep ISR Mark 2 menggantikan untai Na-78K yang dipompa dengan pipa
-kalor (heat pipe) pasif yang ditempatkan di dalam, atau menggantikan,
-saluran pin bahan bakar yang telah ada. Pertanyaan utamanya adalah
-apakah satu pipa kalor tunggal mampu mentransportasikan daya sebesar 8,2
-kWth melalui saluran berukuran 0,6 cm yang ada. Jawabannya bergantung
-pada fluida kerja (natrium, kalium, atau litium), diameter selubung
-(envelope), arsitektur sumbu (wick), serta temperatur uap. Apabila batas
-kapasitas pipa tunggal berada di bawah 8,2 kWth, perubahan arsitektur
-yang konkret harus diidentifikasi: memperbesar saluran pusat,
-menambahkan pipa kalor interstisial, atau menurunkan peringkat daya
-(down-rate) teras.
-
-Pertanyaan kedua berkaitan dengan tingkat ketelitian (fidelity) model
-rekayasa sederhana. Simulasi CFD dan simulasi dua fasa penuh memerlukan
-biaya komputasi yang tinggi sehingga tidak sesuai untuk eksplorasi ruang
-desain (design-space exploration). Jaringan parameter terpusat
-(lumped-parameter network) satu dimensi yang dipadukan dengan
-batas-batas operasional analitik dapat memberikan estimasi yang cepat,
-transparan, dan dapat direproduksi (reproducible) apabila divalidasi
-terhadap data eksperimental maupun empiris. Pengujian KRUSTY menyediakan
-titik acuan (anchor) yang diperlukan: sekitar 30 W pada 500 °C, 300 W
-pada 600 °C, 500 W pada 700 °C, dan lebih dari 600 W pada 800 °C, dengan
-daya sekitar 325 W per pipa yang terukur di dekat temperatur 600°C
-{[}\textbf{poston2020results?}{]}.
-
-\section{Batasan Masalah}\label{batasan-masalah}
-
-Penelitian ini dibatasi pada model pipa kalor (heat pipe) satu dimensi
-non-CFD. Model tersebut menggunakan batas-batas analitik yang meliputi
-batas viskos, sonik, entrainment, kapiler, pendidihan, dan banjir
-(flooding), jaringan resistansi termal terpusat (lumped thermal
-resistance network), serta model sirip transien aksial. Fluida kerja
-yang digunakan adalah natrium, kalium, dan litium. Ruang desain ISR
-mencakup diameter selubung (envelope) mulai dari 0,6 cm hingga beberapa
-sentimeter, tiga arsitektur sumbu (wick)---yaitu kasa (screen), sinter
-(sintered), dan anular/arterial---serta temperatur uap dari 900 K hingga
-1200 K. Penelitian ini tidak melakukan analisis neutronik, kinerja bahan
-bakar, kompatibilitas material, maupun analisis massa tingkat sistem
-penuh dan radiator. Penalti reaktivitas dan estimasi massa yang
-digunakan merupakan nilai penyaringan orde pertama (first-order
-screening values). Struktur sumbu KRUSTY tidak dilaporkan secara lengkap
-dalam literatur terbuka, sehingga digunakan sumbu ekuivalen yang
-dikalibrasi terhadap kurva kapasitas transfer kalor (throughput curve)
-yang telah dipublikasikan; kalibrasi ini dinyatakan secara eksplisit dan
-ketidakpastiannya dibahas.
-
-\section{Tujuan Penelitian}\label{tujuan-penelitian}
-
-Tujuan dari penelitian ini adalah:
+Berdasarkan latar belakang di atas, penelitian ini merumuskan tiga
+masalah:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Mengimplementasikan simulator pipa kalor (\emph{heat pipe}) satu
-  dimensi yang dapat direproduksi (\emph{reproducible}) menggunakan
-  Julia dengan batas-batas operasional analitik dan jaringan termal
-  terpusat (\emph{lumped thermal network}).
+  Apakah model jaringan resistansi termal 1D yang digabungkan dengan
+  limit operasional analitik mampu mereproduksi data eksperimen
+  \emph{heat pipe} logam alkali, khususnya KRUSTY dan \emph{heat pipe}
+  arterial Walker dkk., dalam batas galat 15\%?
 \item
-  Memvalidasi simulator terhadap data kapasitas transfer kalor
-  (\emph{throughput}) pipa kalor KRUSTY dalam batas toleransi \(\pm\)
-  15\% pada rentang temperatur 550--800 °C.
+  Mampukah satu \emph{heat pipe} natrium, kalium, atau litium yang
+  beroperasi pada rentang 900--1200 K memindahkan daya 8,2 kWth melalui
+  kanal pendingin ISR yang ada (diameter dalam 0,6 cm)?
 \item
-  Mengkuantifikasi kelayakan \emph{retrofit} pipa kalor pasif untuk ISR
-  berdaya 500 kWth pada daya 8,2 kWth per pin.
+  Arsitektur \emph{heat pipe} seperti apa yang layak untuk ISR Mark 2,
+  dan seberapa besar pengurangan massa, daya parasitik, serta titik
+  tunggal kegagalan yang dapat dicapai dibandingkan sistem pompa Na-78K?
+\end{enumerate}
+
+\subsection{Batasan Masalah}\label{batasan-masalah}
+
+Batasan masalah dalam penelitian ini adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
-  Membandingkan performa natrium, kalium, dan litium serta
-  mengidentifikasi batas-batas pengendali (\emph{controlling limits})
-  dan diameter selubung (\emph{envelope}) yang diperlukan.
+  Model termal bersifat 1D terpusat (\emph{lumped parameter}); tidak
+  digunakan CFD atau penyelesaian Navier--Stokes dua fase secara penuh.
 \item
-  Merumuskan rekomendasi arsitektur yang konkret di antara opsi
-  pembesaran saluran, penambahan pipa interstisial, dan penurunan
-  peringkat daya (\emph{down-rating}).
+  Perhitungan neutronik tidak dilakukan ulang. Konsekuensi perubahan
+  geometri terhadap reaktivitas hanya diestimasi secara orde pertama dan
+  dinyatakan sebagai indikator, bukan hasil Monte Carlo.
 \item
-  Mengestimasi keuntungan pengurangan massa parasitik dan peningkatan
-  keandalan dari penghilangan untai pompa elektromagnetik.
+  Fluida kerja dibatasi pada natrium, kalium, dan litium; wick dibatasi
+  pada layar (\emph{screen}), serbuk sinter (\emph{sintered powder}),
+  dan celah annular dengan permukaan berpori halus.
+\item
+  Rentang operasi dibatasi pada 900--1200 K untuk ISR dan 500--800 °C
+  untuk validasi KRUSTY.
+\item
+  Validasi menggunakan data yang didigitalisasi dari literatur; ketidak-
+  pastian digitalisasi diperhitungkan dalam analisis galat.
+\item
+  Aspek material jangka panjang (korosi, kompatibilitas, fluks neutron,
+  \emph{creep}) dan integrasi radiator tidak dimodelkan secara rinci.
+\end{enumerate}
+
+\section{Tujuan Penelitian}\label{tujuan-penelitian}
+
+Tujuan penelitian ini adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Mengembangkan simulator \emph{heat pipe} 1D non-CFD dalam bahasa Julia
+  yang mencakup limit viskos, sonik, \emph{entrainment}, kapiler, didih,
+  dan \emph{flooding}, serta jaringan resistansi termal transien dan
+  tunak.
+\item
+  Memvalidasi simulator terhadap data KRUSTY dan \emph{heat pipe}
+  arterial Walker dkk. dengan kriteria galat maksimum 15\%.
+\item
+  Mengevaluasi kelayakan \emph{heat pipe} Na, K, dan Li pada kanal 0,6
+  cm ISR serta menentukan diameter yang diperlukan untuk membawa 8,2
+  kWth per pin.
+\item
+  Merumuskan dan membandingkan tiga opsi arsitektur ISR Mark 2, yaitu
+  perluasan kanal, matriks \emph{heat pipe} interstitial, dan penurunan
+  daya, beserta estimasi massa dan daya parasitik.
 \end{enumerate}
 
 \section{Manfaat Penelitian}\label{manfaat-penelitian}
 
-Penelitian ini menyediakan perangkat penyaringan desain
-(\emph{design-screening tool}) yang terbuka dan dapat direproduksi untuk
-reaktor antariksa berpendingin pipa kalor. Studi ini memberikan landasan
-kuantitatif bagi program ISR dalam memilih antara \emph{retrofit} pasif
-siap pasang (\emph{drop-in passive retrofit}), teras dengan saluran yang
-diperbesar, atau kisi teras (\emph{lattice}) baru. Selain itu,
-penelitian ini mendemonstrasikan bagaimana data pengujian KRUSTY dapat
-digunakan untuk mengkalibrasi dan memvalidasi model rekayasa cepat, yang
-bermanfaat bagi studi reaktor antariksa Indonesia pada masa mendatang.
+Manfaat yang diharapkan dari penelitian ini adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Manfaat keilmuan:} menyediakan kerangka simulasi 1D yang
+  terbuka, tervalidasi, dan dapat diperluas untuk \emph{heat pipe} logam
+  alkali pada reaktor luar angkasa.
+\item
+  \textbf{Manfaat rekayasa:} memberikan batas kinerja kuantitatif dan
+  rekomendasi arsitektur bagi pengembangan ISR Mark 2, sehingga
+  keputusan desain tidak lagi bergantung pada estimasi orde besaran.
+\item
+  \textbf{Manfaat strategis:} memperkuat kapasitas riset teknologi
+  nuklir luar angkasa di Indonesia, khususnya di Departemen Teknik
+  Nuklir dan Teknik Fisika UGM, serta menjadi dasar bagi studi neutronik
+  dan eksperimen lanjutan.
+\end{enumerate}
 
 \chapter{TINJAUAN PUSTAKA}\label{sec-literature-review}
 
-\section{Program Kilopower dan
-KRUSTY}\label{program-kilopower-dan-krusty}
+\section{Reaktor Nuklir Luar Angkasa}\label{reaktor-nuklir-luar-angkasa}
 
-Proyek Kilopower mengembangkan sistem daya fisi berukuran kecil untuk
-aplikasi antariksa. Pengujian KRUSTY menggunakan delapan pipa kalor
-(\emph{heat pipe}) natrium berbahan Haynes 230 dengan diameter luar 1,27
-cm, ketebalan dinding 0,089 cm, panjang total sekitar 100 cm, dan
-inventori natrium sekitar 15 g {[}\textbf{poston2020design?}{]}.
-Pipa-pipa kalor tersebut hanya memiliki sumbu (\emph{wick}) pada ujung
-bawahnya yang menghubungkan kolam natrium (\emph{sodium pool}) dengan
-evaporator; sementara bagian pipa selebihnya beroperasi sebagai
-termosifon berbantuan gravitasi (\emph{gravity-assisted thermosiphon}).
-Reaktor ini mendemonstrasikan daya nominal sebesar 4 kWth pada
-temperatur sekitar 800 °C, dengan masing-masing pipa kalor memindahkan
-daya sekitar 325 W di dekat temperatur 600 °C.
+Reaktor fisi telah lama dipandang sebagai sumber daya yang paling sesuai
+untuk misi luar angkasa yang membutuhkan daya besar dan masa pakai
+panjang. El-Genk merangkum sejarah penempatan reaktor luar angkasa dan
+menunjukkan bahwa faktor penentu keberhasilannya bukan hanya kinerja
+neutronik, tetapi juga kesederhanaan sistem termal, massa, dan keandalan
+{[}\citeproc{ref-elgenk2009}{1}{]}.
 
-Kurva batas pipa kalor KRUSTY merupakan target validasi utama dalam
-penelitian ini. Model kapasitas transfer kalor (\emph{throughput})
-empiris yang telah dipublikasikan menunjukkan batas viskos/banjir
-(\emph{viscous/flooding limit}) pada temperatur rendah sekitar 30 W pada
-500 °C, batas sekitar 300 W pada 600 °C, sekitar 500 W pada 700 °C,
-serta kapasitas di atas 600 W pada 800 °C
-{[}\textbf{poston2020results?}{]}. Pipa-pipa kalor tersebut bukanlah
-perangkat kapiler sepanjang penuh (\emph{full-length capillary
-devices}); kinerjanya didominasi oleh interaksi antara kolam natrium,
-sumbu evaporator, dan aliran balik berbantuan gravitasi
-(\emph{gravity-assisted return}). Fenomena fisika ini direpresentasikan
-dalam model yang digunakan pada penelitian ini melalui sumbu ekuivalen
-(\emph{equivalent wick}) dan batas banjir Wallis (\emph{Wallis flooding
-limit}) yang dikalibrasi terhadap kurva terpublikasi tersebut.
+SNAP-10A (1965) merupakan reaktor fisi pertama yang dioperasikan di
+orbit. Sistem ini menggunakan paduan NaK sebagai pendingin, konversi
+termoelektrik, dan menghasilkan sekitar 500 W listrik. Uni Soviet
+mengembangkan BUK dan TOPAZ untuk misi radar laut; TOPAZ-I menghasilkan
+sekitar 5--6 kWe dengan pendingin NaK dan moderator zirkonium hidrida,
+sedangkan TOPAZ-II menggunakan konversi termionik. Reaktor-reaktor
+tersebut membuktikan kelayakan pendingin logam cair, tetapi juga
+memperlihatkan kerumitan sistem pompa, radiator, dan kontrol.
 
-\section{Desain Dasar Indonesian Space
-Reactor}\label{desain-dasar-indonesian-space-reactor}
+Program SP-100 pada 1980-an merancang reaktor 100 kWe berpendingin
+litium dengan konversi Stirling, namun tidak pernah diterbangkan. Pada
+1990--2000-an, konsep reaktor kecil seperti SAIR, S4, HOMER, dan HP-STMC
+beralih ke \emph{heat pipe} logam alkali untuk menghilangkan pompa dan
+menyederhanakan sistem {[}\citeproc{ref-elgenk2004}{8},
+\citeproc{ref-mason2011}{9}{]}. SAFE-400, misalnya, menggunakan modul
+\emph{heat pipe} natrium untuk memindahkan 400 kWth dari teras ke
+radiator {[}\citeproc{ref-martin2004}{10}{]}.
 
-ISR Mark 1 merupakan reaktor cepat berdaya 500 kWth dengan 61 pin bahan
-bakar yang tersusun di dalam blok teras heksagonal berbahan Mo-30Re
-{[}\textbf{khandaq2020?}{]}. Bahan bakar yang digunakan adalah UN dengan
-tingkat pengayaan 55\% U-235. Kelongsongnya berbentuk heksagonal
-berbahan Mo-30Re dengan tinggi 43,2 cm dan lubang pusat berukuran 3,265
-cm. Jarak antar-pin (\emph{pin pitch}) adalah 3,4 cm, dengan tinggi
-teras aktif sekitar 25 cm. Setiap pin memiliki saluran pendingin
-berbahan renium dengan diameter masukan 0,6 cm dan ketebalan dinding
-0,08 cm. Pendingin yang digunakan adalah Na-78K dengan temperatur masuk
-dan keluar masing-masing sebesar 750 K dan 950 K, serta temperatur
-rata-rata 850 K. Massa blok teras tercatat sebesar 50,8 kg dengan
-estimasi massa reaktor sebesar 447,12 kg. Reaktivitas berlebih
-(\emph{excess reactivity}) bernilai 4023 pcm, estimasi umur operasi
-mencapai 28 tahun, serta koefisien reaktivitas rongga (\emph{void}) dan
-temperatur bernilai negatif. Parameter-parameter tersebut menetapkan
-batasan geometris dan termal bagi \emph{retrofit} Mark 2.
+Puncak dari jalur ini adalah KRUSTY (\emph{Kilowatt Reactor Using
+Stirling TechnologY}), yang diuji secara nuklir pada Maret 2018. KRUSTY
+adalah prototipe reaktor Kilopower 1 kWe dengan teras U-8Mo berbentuk
+silinder padat, delapan \emph{heat pipe} natrium Haynes 230 berdiameter
+1,27 cm, dan dua konverter Stirling
+{[}\citeproc{ref-poston2020design}{4}{]}. Uji tersebut mendemonstrasikan
+operasi tunak pada 800 °C, kemampuan mengikuti beban, dan ketahanan
+terhadap kegagalan \emph{heat pipe} individual
+{[}\citeproc{ref-poston2020results}{5}, \citeproc{ref-gibson2020}{6}{]}.
 
-\section{Teori Pipa Kalor dan Batas
-Operasional}\label{teori-pipa-kalor-dan-batas-operasional}
+\section{Indonesian Space Reactor
+(ISR)}\label{indonesian-space-reactor-isr}
 
-Pipa kalor (\emph{heat pipe}) mentransportasikan kalor melalui penguapan
-fluida kerja di dalam evaporator, aliran uap menuju kondensor,
-kondensasi, serta aliran balik cairan melalui sumbu (\emph{wick}) atau
-lintasan berbantuan gravitasi (\emph{gravity-assisted path}). Kapasitas
-transfer kalor (\emph{heat throughput}) maksimum ditentukan oleh
-sejumlah batas yang saling bersaing {[}\textbf{chi1976?},
-\textbf{cotter1965?}, \textbf{busse1973?}, \textbf{levy1968?},
-\textbf{faghri2016?}, \textbf{zohuri2016?}, \textbf{dunn2012?}{]}:
+Khandaq dkk. melakukan studi desain konseptual ISR dengan tujuan
+menyediakan setidaknya 500 kWth selama lebih dari sepuluh tahun
+{[}\citeproc{ref-khandaq2020}{7}{]}. ISR menggunakan spektrum neutron
+cepat, bahan bakar uranium nitrida (UN) dengan pengayaan U-235 sebesar
+55\%, dan 61 pin bahan bakar heksagonal. Setiap pin berongga dan
+memiliki kanal pendingin individual berdiameter dalam 0,6 cm yang
+dilapisi renium. Pendingin yang dipilih adalah Na-78K karena tetap cair
+pada suhu ruang sehingga memudahkan start-up, dengan suhu masuk 750 K
+dan suhu keluar 950 K.
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Batas viskos:} penurunan tekanan uap menjadi sebanding dengan
-  tekanan uap lokal pada temperatur rendah.
-\item
-  \textbf{Batas sonik:} kecepatan uap mencapai kondisi sonik pada
-  keluaran evaporator.
-\item
-  \textbf{Batas \emph{entrainment}:} tegangan geser uap menghalangi
-  cairan untuk mengalir kembali melalui permukaan sumbu.
-\item
-  \textbf{Batas kapiler:} tekanan kapiler yang tersedia tidak mencukupi
-  untuk mengatasi penurunan tekanan cairan dan uap serta tinggi tekan
-  gravitasi (\emph{gravity head}).
-\item
-  \textbf{Batas pendidihan:} pendidihan nukleat (\emph{nucleate
-  boiling}) di dalam sumbu menghambat aliran balik cairan.
-\item
-  \textbf{Batas banjir (\emph{flooding}):} pada termosifon berbantuan
-  gravitasi, aliran berlawanan arah (\emph{counter-current}) antara uap
-  dan cairan menyebabkan terjadinya banjir (\emph{flooding}).
-\end{itemize}
+Parameter utama ISR dirangkum pada Tabel~\ref{tbl-isr}. Reaktor memiliki
+reaktivitas berlebih 4023 pcm pada kondisi dingin bersih dan margin
+padam 4852 pcm. Estimasi massa total reaktor adalah 447,12 kg, dengan
+bahan bakar 155,65 kg. Koefisien reaktivitas suhu dan void bernilai
+negatif, sehingga reaktor memiliki umpan balik inherent yang stabil
+{[}\citeproc{ref-khandaq2020}{7}{]}.
 
-Batas pengendali (\emph{controlling limit}) bergantung pada temperatur,
-jenis fluida, struktur sumbu, dan orientasi. Untuk natrium pada rentang
-temperatur 500--800 °C, tekanan uapnya berubah hingga beberapa orde
-magnitudo, sehingga transisi antara batas viskos, kapiler,
-\emph{entrainment}, dan banjir berlangsung sangat kuat. Oleh karena itu,
-perangkat desain (\emph{design tool}) harus mengevaluasi seluruh batas
-tersebut dan memilih nilai minimumnya.
-
-\section{Kesenjangan Penelitian}\label{kesenjangan-penelitian}
-
-Literatur terbuka telah menyediakan korelasi batas-batas pipa kalor
-(\emph{heat pipe}) serta data pengujian KRUSTY, namun belum terdapat
-perangkat satu dimensi yang terbuka dan dapat direproduksi
-(\emph{reproducible}) yang (i) mengimplementasikan keseluruhan rangkaian
-batas analitik, (ii) tervalidasi terhadap kurva kapasitas transfer kalor
-(\emph{throughput curve}) KRUSTY, dan (iii) menerapkan kerangka kerja
-yang sama pada geometri pin ISR dengan saluran berukuran 0,6 cm dan daya
-8,2 kWth per pin. Penelitian ini mengisi kesenjangan tersebut sekaligus
-memberikan landasan kuantitatif bagi penentuan keputusan arsitektur ISR
-Mark 2.
-
-\chapter{Landasan Teori}\label{sec-theory}
-
-\section{Geometri dan Nomenklatur Pipa
-Kalor}\label{geometri-dan-nomenklatur-pipa-kalor}
-
-Pipa kalor (\emph{heat pipe}) direpresentasikan sebagai perangkat
-aksisimetris dengan jari-jari luar \(r_o\), jari-jari dinding dalam
-\(r_i\), dan jari-jari inti uap (\emph{vapor core}) \(r_v\). Ketebalan
-dinding dinyatakan sebagai \(t_{wall}=r_o-r_i\) dan ketebalan sumbu
-(\emph{wick}) efektif adalah \(t_{wick}=r_i-r_v\). Panjang bagian
-evaporator, adiabatik, dan kondensor masing-masing adalah \(L_e\),
-\(L_a\), dan \(L_c\). Panjang efektif untuk perhitungan penurunan
-tekanan adalah
-
-\begin{equation}\protect\phantomsection\label{eq-leff}{
-\ell_{eff}=L_a+\frac{1}{2}\left(L_e+L_c\right).
-}\end{equation}
-
-Kalor laten dinotasikan sebagai \(h_{fg}\) (J kg\(^{-1}\)) di seluruh
-pembahasan ini, sedangkan simbol \(L\) dikhususkan untuk besaran
-panjang. Luas penampang inti uap adalah \(A_v=\pi r_v^2\), dan luas
-aliran balik cairan pada sumbu (\emph{wick liquid-return area}) adalah
-\(A_w=\pi(r_i^2-r_v^2)\), kecuali apabila luas penampang arterial
-ditentukan secara eksplisit.
-
-\section{Sifat Termofisika}\label{sifat-termofisika}
-
-Sifat-sifat fluida kerja dievaluasi sebagai fungsi dari temperatur uap
-\(T\). Tekanan jenuh menggunakan bentuk persamaan Antoine
-
-\begin{equation}\protect\phantomsection\label{eq-psat}{
-\log_{10}\left(\frac{P_{sat}}{\mathrm{Pa}}\right)=A_{sat}-\frac{B_{sat}}{T},
-}\end{equation}
-
-dengan koefisien yang spesifik untuk masing-masing fluida. Kalor laten
-diskalakan menggunakan korelasi Watson
-
-\begin{equation}\protect\phantomsection\label{eq-hfg}{
-h_{fg}(T)=h_{fg,b}\left(\frac{T_c-T}{T_c-T_b}\right)^{0.38},
-}\end{equation}
-
-dengan \(T_b\) menyatakan titik didih normal dan \(T_c\) menyatakan
-temperatur kritis. Densitas cairan, kalor jenis, konduktivitas termal,
-viskositas, dan tegangan permukaan menggunakan persamaan pencocokan
-rekayasa (\emph{engineering fits}) monoton. Densitas uap mengikuti
-hubungan gas ideal \(\rho_v=P_{sat}/(R_g T)\), dengan
-\(R_g=8314.4626/M\) J kg\(^{-1}\) K\(^{-1}\). Pencocokan sifat-sifat
-fluida tersebut ditujukan untuk penyaringan pada rentang 700--1600 K dan
-mengacu pada korelasi logam alkali yang dihimpun oleh Fink dan Leibowitz
-{[}\textbf{fink1995?}{]} serta Ohse {[}\textbf{ohse1985?}{]}; seluruhnya
-didokumentasikan dalam \texttt{src/FluidProperties.jl}.
-
-\begin{longtable}[]{@{}llll@{}}
-\caption{Parameter sifat termofisika yang digunakan dalam model.
-Koefisien-koefisien tersebut merupakan hasil pencocokan rekayasa
-(\emph{engineering fits}); korelasi lengkapnya tersedia dalam kode
-sumber.}\label{tbl-fluids}\tabularnewline
+\begin{longtable}[]{@{}lrl@{}}
+\caption{Parameter utama ISR Mark 1
+{[}\citeproc{ref-khandaq2020}{7}{]}.}\label{tbl-isr}\tabularnewline
 \toprule\noalign{}
-Parameter & Natrium & Kalium & Litium \\
+Parameter & Nilai & Satuan \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-Parameter & Natrium & Kalium & Litium \\
+Parameter & Nilai & Satuan \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Massa molar \(M\) (kg kmol\(^{-1}\)) & 22,99 & 39,10 & 6,941 \\
-Titik lebur \(T_m\) (K) & 370,94 & 336,53 & 453,65 \\
-Titik didih \(T_b\) (K) & 1156,09 & 1032,0 & 1615,0 \\
-Temperatur kritis \(T_c\) (K) & 2573 & 2223 & 3223 \\
-\(h_{fg,b}\) (MJ kg\(^{-1}\)) & 4,24 & 2,14 & 21,5 \\
-\(A_{sat}\) (--) & 9,704 & 9,305 & 9,985 \\
-\(B_{sat}\) (K) & 5377 & 4453 & 8182 \\
+Daya termal & 500 & kWth \\
+Jumlah pin bahan bakar & 61 & - \\
+Pengayaan U-235 & 55 & \% \\
+Tinggi aktif teras & 25 & cm \\
+Pitch / \emph{flat-to-flat} pin & 3,4 & cm \\
+Diameter dalam kanal pendingin & 0,6 & cm \\
+Tebal dinding kanal renium & 0,08 & cm \\
+Suhu masuk / keluar Na-78K & 750 / 950 & K \\
+Massa reaktor & 447,12 & kg \\
+Reaktivitas berlebih & 4023 & pcm \\
 \end{longtable}
 
-\chapter*{DAFTAR PUSTAKA}\label{daftar-pustaka}
+Pada bagian diskusi, Khandaq dkk. menyatakan bahwa \emph{heat pipe}
+natrium merupakan alternatif menjanjikan untuk menggantikan sistem
+pompa, karena dapat menghilangkan kebutuhan pompa dan menaikkan suhu
+operasi. Namun, mereka juga mencatat dua tantangan: jumlah \emph{heat
+pipe} yang besar akan menambah kompleksitas, dan natrium padat pada suhu
+ruang memerlukan sistem pemanasan awal
+{[}\citeproc{ref-khandaq2020}{7}{]}. Kedua tantangan tersebut belum
+dikuantifikasi.
+
+\section{\texorpdfstring{Prinsip dan Sejarah \emph{Heat
+Pipe}}{Prinsip dan Sejarah Heat Pipe}}\label{prinsip-dan-sejarah-heat-pipe}
+
+\emph{Heat pipe} adalah perangkat perpindahan panas yang memanfaatkan
+siklus penguapan--kondensasi tertutup. Panas masuk pada evaporator,
+menguapkan fluida kerja; uap mengalir menuju kondensor akibat gradien
+tekanan; uap mengembun dan melepaskan panas laten; kondensat kembali ke
+evaporator melalui wick atau gravitasi. Jika kondensat dikembalikan oleh
+gravitasi tanpa wick, perangkat disebut \emph{thermosyphon}
+{[}\citeproc{ref-dunn2006}{3}{]}.
+
+Gagasan \emph{heat pipe} dipatenkan oleh Gaugler pada 1944, tetapi baru
+dikembangkan secara sistematis oleh Grover dan rekan-rekannya di Los
+Alamos pada 1963. Cotter merumuskan teori dasar aliran dan limit kapiler
+pada 1965 {[}\citeproc{ref-cotter1965}{2}{]}. Sejak itu, \emph{heat
+pipe} digunakan pada pendinginan elektronik, kontrol termal satelit,
+penukar panas, dan reaktor nuklir.
+
+Untuk aplikasi suhu tinggi, fluida kerja yang digunakan adalah logam
+alkali: natrium (titik didih 1156 K), kalium (1032 K), dan litium (1615
+K). Natrium banyak dipilih karena tekanan uapnya pada 700--1100 K cukup
+tinggi untuk menghindari limit viskos, sementara tegangan permukaannya
+masih memadai untuk pompa kapiler {[}\citeproc{ref-faghri1995}{11}{]}.
+
+\section{Jenis Wick dan Limit
+Operasional}\label{jenis-wick-dan-limit-operasional}
+
+Wick berfungsi menyediakan lintasan kapiler bagi kondensat. Beberapa
+jenis wick yang umum digunakan adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Layar (\emph{screen})} --- jaring kawat halus dengan porositas
+  tinggi dan permeabilitas sedang. Murah dan mudah dibuat, tetapi rentan
+  terhadap \emph{entrainment} jika ukuran pori terlalu besar.
+\item
+  \textbf{Serbuk sinter (\emph{sintered powder})} --- partikel logam
+  yang disinter, menghasilkan pori halus dan tekanan kapiler tinggi,
+  tetapi permeabilitas rendah sehingga rentan terhadap limit kapiler
+  pada pipa panjang.
+\item
+  \textbf{Annular} --- celah antara dinding dan tabung layar;
+  permeabilitas tinggi, tetapi semua panas harus melewati lapisan cairan
+  sehingga resistansi termal lebih besar.
+\item
+  \textbf{Arterial} --- satu atau beberapa saluran cair berukuran besar
+  dengan permukaan berpori halus. Memberikan permeabilitas tinggi dan
+  tekanan kapiler tinggi sekaligus, tetapi dapat mengalami
+  \emph{de-priming} akibat gas tak terkondensasi atau uap yang
+  terperangkap {[}\citeproc{ref-walker2013}{12}{]}.
+\item
+  \textbf{Bergalur (\emph{grooved})} --- saluran aksial terbuka; tidak
+  dapat \emph{de-prime}, tetapi tekanan kapilernya rendah
+  {[}\citeproc{ref-walker2013}{12}{]}.
+\end{enumerate}
+
+Kinerja \emph{heat pipe} dibatasi oleh beberapa mekanisme yang
+bergantung pada suhu. Limit viskos (Busse) muncul pada suhu rendah
+ketika tekanan uap sangat kecil sehingga gradien tekanan tidak cukup
+untuk mengakselerasi uap. Limit sonik (Levy) muncul ketika kecepatan uap
+mencapai Mach 1 di ujung evaporator. Limit \emph{entrainment} (Cotter)
+muncul ketika gaya geser uap merobek tetesan cairan dari permukaan wick.
+Limit kapiler muncul ketika tekanan kapiler maksimum tidak lagi mampu
+melawan penurunan tekanan cair dan uap. Limit didih (Chi) muncul ketika
+gelembung nukleat terbentuk di dalam wick. Pada \emph{thermosyphon},
+limit \emph{flooding}---interaksi aliran uap ke atas dan film cair ke
+bawah---sering menjadi pembatas utama {[}\citeproc{ref-faghri1995}{11},
+\citeproc{ref-chi1976}{13}, \citeproc{ref-tien1979}{14}{]}.
+
+\section{\texorpdfstring{\emph{Heat Pipe} Logam Alkali untuk Reaktor
+Luar
+Angkasa}{Heat Pipe Logam Alkali untuk Reaktor Luar Angkasa}}\label{heat-pipe-logam-alkali-untuk-reaktor-luar-angkasa}
+
+Walker dkk. menguji \emph{heat pipe} natrium berdiameter 1,91 cm dan
+panjang 1 m untuk sistem fisi 13 kWth. Dua desain wick dibandingkan:
+\emph{self-venting arterial} dan bergalur. Pada suhu 725 °C dan elevasi
+lawan 0,25 cm, \emph{heat pipe} arterial mampu membawa sedikitnya 2,6 kW
+(pengujian dibatasi oleh kapasitas pendingin), sedangkan \emph{heat
+pipe} bergalur mengalami dry-out pada 846 W. Hasil ini menunjukkan bahwa
+wick arterial memberikan permeabilitas tinggi, tetapi \emph{de-priming}
+tetap menjadi risiko {[}\citeproc{ref-walker2013}{12}{]}.
+
+El-Genk merangkum penggunaan \emph{heat pipe} logam cair dan air pada
+sistem reaktor luar angkasa, termasuk tantangan kompatibilitas material,
+pembekuan, dan pengujian dalam gravitasi
+{[}\citeproc{ref-elgenk2011}{15}{]}. Tournier dan El-Genk memodelkan
+start-up \emph{heat pipe} litium horizontal dari keadaan beku dan
+menunjukkan adanya \emph{thaw front} yang bergerak dari evaporator ke
+kondensor {[}\citeproc{ref-tournier2001}{16}{]}. Hu dkk. membangun
+fasilitas uji \emph{heat pipe} litium suhu ultra-tinggi untuk
+memverifikasi kinerja pada kondisi mendekati aplikasi reaktor
+{[}\citeproc{ref-hu2022}{17}{]}. Celik dan Bang mengevaluasi pengaruh
+aktivasi neutron pada \emph{heat pipe} litium dan menemukan bahwa produk
+aktivasi dapat memengaruhi kinerja dan keselamatan
+{[}\citeproc{ref-celik2023}{18}{]}.
+
+\section{\texorpdfstring{Desain dan Simulasi Reaktor Berpendingin
+\emph{Heat
+Pipe}}{Desain dan Simulasi Reaktor Berpendingin Heat Pipe}}\label{desain-dan-simulasi-reaktor-berpendingin-heat-pipe}
+
+Sejumlah studi telah mengembangkan model reaktor berpendingin \emph{heat
+pipe}. Wang dkk. melakukan analisis termohidrolik reaktor kecil baru
+dengan \emph{heat pipe} dan menunjukkan distribusi suhu teras yang
+dipengaruhi oleh konduktansi kontak dan limit kapiler
+{[}\citeproc{ref-wang2020}{19}{]}. Wang dkk. (2023) meninjau desain
+konseptual dan karakteristik termohidrolik reaktor berpendingin
+\emph{heat pipe}, dan menyimpulkan bahwa model 1D masih menjadi alat
+utama untuk desain awal karena biaya CFD yang tinggi
+{[}\citeproc{ref-wang2023}{20}{]}.
+
+Argonne National Laboratory mengembangkan simulasi multi-fisika untuk
+reaktor mikro \emph{heat pipe}, yang menggabungkan neutronik, termal,
+dan mekanika {[}\citeproc{ref-anl2019}{21}{]}. Idaho National Laboratory
+mengevaluasi reaktor \emph{Special Purpose Reactor} (SPR) 5 MWth dengan
+pendekatan PIRT dan dua konsep teras alternatif
+{[}\citeproc{ref-sterbentz2016}{22},
+\citeproc{ref-sterbentz2017}{23}{]}. eBlock37 mendemonstrasikan unit
+reaktor mikro 37 kWt dengan \emph{heat pipe} natrium dan konversi
+Stirling secara elektrik {[}\citeproc{ref-gaspar2022}{24}{]}.
+
+Untuk aplikasi daya tinggi, Lin dkk. merancang reaktor berpendingin
+\emph{heat pipe} kelas megawatt yang dipasang pada kendaraan, sedangkan
+An dkk. mengusulkan skema reaktor \emph{heat pipe} ringan dan berumur
+panjang untuk misi ruang angkasa dalam {[}\citeproc{ref-lin2025}{25},
+\citeproc{ref-an2024}{26}{]}. Orlandi dkk. mengusulkan elemen bakar
+mikro dengan \emph{heat pipe} internal di dalam batang UO\(_2\), yang
+secara konseptual mirip dengan retrofit yang dikaji dalam penelitian ini
+{[}\citeproc{ref-orlandi2024}{27}{]}.
+
+\section{Celah Penelitian}\label{celah-penelitian}
+
+Dari tinjauan di atas, terdapat tiga celah yang menjadi dasar penelitian
+ini:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Belum ada simulator 1D terbuka yang divalidasi terhadap KRUSTY
+  dan diterapkan pada geometri ISR.} Studi KRUSTY berfokus pada desain
+  dan hasil uji, sedangkan studi ISR berfokus pada neutronik. Keduanya
+  belum dihubungkan oleh model termal yang dapat diaudit.
+\item
+  \textbf{Kelayakan \emph{heat pipe} pada kanal 0,6 cm ISR belum
+  dikuantifikasi.} Pernyataan bahwa \emph{heat pipe} menjanjikan
+  {[}\citeproc{ref-khandaq2020}{7}{]} belum disertai perhitungan limit
+  operasional, diameter yang diperlukan, atau konsekuensi geometri.
+\item
+  \textbf{Trade-off arsitektur Mark 2 belum dirumuskan.} Pilihan antara
+  memperbesar kanal, menambah \emph{heat pipe} interstitial, atau
+  menurunkan daya memiliki konsekuensi berbeda terhadap massa,
+  reaktivitas, dan keselamatan yang perlu dibandingkan secara
+  sistematis.
+\end{enumerate}
+
+Penelitian ini mengisi ketiga celah tersebut dengan membangun simulator
+1D, memvalidasinya, dan menerapkannya pada ruang desain ISR Mark 2.
+
+\chapter{DASAR TEORI}\label{sec-theory}
+
+\section{\texorpdfstring{Prinsip Operasi \emph{Heat
+Pipe}}{Prinsip Operasi Heat Pipe}}\label{prinsip-operasi-heat-pipe}
+
+\emph{Heat pipe} bekerja melalui siklus tertutup penguapan dan
+kondensasi. Panas \(Q\) yang masuk ke evaporator menguapkan fluida
+kerja; uap mengalir menuju kondensor karena perbedaan tekanan; uap
+mengembun dan melepaskan kalor laten; kondensat kembali ke evaporator
+melalui gaya kapiler wick atau gravitasi. Pada kondisi tunak, laju
+aliran massa memenuhi
+
+\begin{equation}\protect\phantomsection\label{eq-mdot}{ \dot{m} = \frac{Q}{h_{fg}} }\end{equation}
+
+dengan \(h_{fg}\) adalah kalor laten penguapan (J/kg). Persamaan
+Persamaan~\ref{eq-mdot} menjadi penghubung antara daya termal dan laju
+aliran yang menentukan semua penurunan tekanan.
+
+Pengembalian kondensat digerakkan oleh tekanan kapiler pada meniskus.
+Untuk pori efektif berjari-jari \(r_{\mathrm{eff}}\) dan sudut kontak
+\(\theta\), tekanan kapiler maksimum adalah
+
+\begin{equation}\protect\phantomsection\label{eq-capillary}{ \Delta p_{c,\max} = \frac{2\sigma\cos\theta}{r_{\mathrm{eff}}}
+   \approx \frac{2\sigma}{r_{\mathrm{eff}}} }\end{equation}
+
+dengan \(\sigma\) adalah tegangan permukaan (N/m). Fluida kerja harus
+basah terhadap wick (\(\theta \approx 0\)). Agar \emph{heat pipe} dapat
+beroperasi, tekanan kapiler harus mampu melawan total penurunan tekanan
+cair, uap, dan gravitasi.
+
+\section{Jaringan Resistansi Termal
+1D}\label{jaringan-resistansi-termal-1d}
+
+Model yang digunakan dalam penelitian ini adalah jaringan resistansi
+termal 1D terpusat. Envelope dibagi menjadi \(n\) volume hingga
+sepanjang sumbu \(z\). Setiap node dinding \(i\) memiliki suhu \(T_i\)
+dan kapasitas panas \(C_i\). Node uap dianggap isotermal pada suhu
+\(T_v\) karena konduktansi aksial uap sangat besar dibandingkan
+konduktansi dinding.
+
+Neraca energi untuk node dinding adalah
+
+\begin{equation}\protect\phantomsection\label{eq-network}{ C_i \frac{dT_i}{dt} = \sum_j G_{ax,ij}(T_j-T_i)
+   + G_{rad,i}(T_v-T_i) + q_i - G_{sink,i}(T_i-T_{sink})
+   }\end{equation}
+
+dengan \(G_{ax}\) adalah konduktansi aksial envelope, \(G_{rad,i}\)
+adalah konduktansi radial dari dinding ke uap, \(q_i\) adalah sumber
+panas pada evaporator, dan \(G_{sink,i}\) adalah konduktansi ke sink
+eksternal pada kondensor. Neraca energi node uap pada kondisi tunak
+adalah
+
+\begin{equation}\protect\phantomsection\label{eq-vapor}{ \sum_i G_{rad,i}\,(T_i-T_v) = 0 }\end{equation}
+
+Konduktansi radial menggabungkan konduksi dinding dan konduksi wick
+jenuh cairan:
+
+\begin{equation}\protect\phantomsection\label{eq-grad}{ G_{rad,i} = \left[
+   \frac{\ln(r_o/r_i)}{2\pi k_w \Delta z}
+   + \frac{\ln(r_i/r_v)}{2\pi k_{\mathrm{eff}} \Delta z}
+   \right]^{-1} }\end{equation}
+
+Pada kondensor, suku wick digantikan oleh resistansi film kondensasi.
+Untuk model tunak, sistem Persamaan~\ref{eq-network} bersifat linear
+terhadap \(T_i\) bila sifat termofisika dievaluasi pada \(T_v\). Oleh
+karena itu, solusi dapat diperoleh dengan menyelesaikan sistem
+tridiagonal untuk setiap tebakan \(T_v\), lalu mencari akar
+Persamaan~\ref{eq-vapor} dengan metode biseksi. Pendekatan ini lebih
+stabil daripada iterasi titik tetap karena residual
+Persamaan~\ref{eq-vapor} sangat kecil ketika konduktansi radial besar.
+
+\section{Limit Operasional}\label{limit-operasional}
+
+Daya maksimum \emph{heat pipe} adalah nilai minimum dari limit-limit
+berikut. Semua limit dihitung sebagai fungsi suhu uap \(T_v\).
+
+\subsection{Limit Viskos (Busse)}\label{limit-viskos-busse}
+
+Pada suhu rendah, tekanan uap sangat kecil sehingga gradien tekanan yang
+tersedia tidak cukup untuk mengakselerasi uap. Busse merumuskan limit
+viskos sebagai {[}\citeproc{ref-faghri1995}{11},
+\citeproc{ref-busse1973}{28}{]}
+
+\begin{equation}\protect\phantomsection\label{eq-viscous}{ Q_v = \frac{\pi r_v^4\,h_{fg}\,\rho_v\,p_v}
+              {16\,\mu_v\,\ell_{\mathrm{eff}}} }\end{equation}
+
+dengan \(\ell_{\mathrm{eff}}\) adalah panjang efektif
+
+\begin{equation}\protect\phantomsection\label{eq-leff}{ \ell_{\mathrm{eff}} = L_a + \tfrac{1}{2}(L_e+L_c) }\end{equation}
+
+Limit ini meningkat sangat cepat terhadap suhu karena
+\(Q_v \propto \rho_v p_v \propto p_v^2\).
+
+\subsection{Limit Sonik (Levy)}\label{limit-sonik-levy}
+
+Uap yang keluar dari evaporator dapat mencapai Mach 1. Dengan asumsi uap
+ideal dan \(\gamma\) konstan, limit sonik adalah
+{[}\citeproc{ref-levy1968}{29}{]}
+
+\begin{equation}\protect\phantomsection\label{eq-sonic}{ Q_s = A_v\,\rho_v\,h_{fg}
+   \sqrt{\frac{\gamma R_g T_v}{2(\gamma+1)}} }\end{equation}
+
+dengan \(A_v=\pi r_v^2\) dan \(R_g=R_u/M_w\) adalah konstanta gas
+spesifik fluida kerja.
+
+\subsection{\texorpdfstring{Limit \emph{Entrainment}
+(Cotter)}{Limit Entrainment (Cotter)}}\label{limit-entrainment-cotter}
+
+Gaya geser uap terhadap permukaan cairan dapat merobek tetesan dari
+wick. Kriteria Weber \(We=1\) menghasilkan
+{[}\citeproc{ref-cotter1965}{2}, \citeproc{ref-tien1979}{14}{]}
+
+\begin{equation}\protect\phantomsection\label{eq-entrainment}{ Q_e = A_v\,h_{fg}\sqrt{\frac{\sigma\rho_v}{2r_{h,w}}}
+   }\end{equation}
+
+dengan \(r_{h,w}\) adalah jari-jari hidraulik pori permukaan wick. Limit
+ini menjadi pembatas utama pada \emph{heat pipe} berdiameter kecil
+dengan wick berpori halus.
+
+\subsection{Limit Kapiler}\label{limit-kapiler}
+
+Limit kapiler diperoleh dari neraca tekanan Young--Laplace dan Darcy:
+
+\begin{equation}\protect\phantomsection\label{eq-capillary-limit}{ \Delta p_{c,\max} \ge \Delta p_l + \Delta p_v + \Delta p_g
+   }\end{equation}
+
+dengan
+
+\begin{equation}\protect\phantomsection\label{eq-dp}{ \Delta p_l = \frac{\mu_l\,\dot{m}\,\ell_{\mathrm{eff}}}
+                     {\rho_l\,K\,A_w}, \qquad
+   \Delta p_v = \frac{8\mu_v\,\dot{m}\,\ell_{\mathrm{eff}}}
+                     {\pi\rho_v r_v^4}, \qquad
+   \Delta p_g = -\rho_l\,g\,L\sin\theta }\end{equation}
+
+Suku \(\Delta p_g\) bernilai negatif (membantu) ketika kondensor berada
+di atas evaporator, dan positif (melawan) ketika evaporator berada di
+atas kondensor. Substitusi \(\dot{m}=Q/h_{fg}\) ke Persamaan~\ref{eq-dp}
+menghasilkan limit kapiler dalam bentuk tertutup.
+
+\subsection{Limit Didih (Chi)}\label{limit-didih-chi}
+
+Gelembung uap dapat terbentuk di dalam wick apabila suhu dinding
+melampaui titik didih lokal. Kriteria nukleasi Chi adalah
+{[}\citeproc{ref-chi1976}{13}{]}
+
+\begin{equation}\protect\phantomsection\label{eq-boiling}{ Q_b = \frac{2\pi L_e k_{\mathrm{eff}} T_v}{\ln(r_i/r_v)}
+   \left[\frac{2\sigma}{h_{fg}\rho_v}
+   \left(\frac{1}{r_b}-\frac{1}{r_{\mathrm{eff}}}\right)\right]
+   }\end{equation}
+
+dengan \(r_b \approx 2{,}54\times10^{-7}\) m adalah jari-jari gelembung
+nukleasi kritis. Limit ini biasanya besar pada logam alkali, tetapi
+dapat menjadi relevan pada fluks panas evaporator yang sangat tinggi.
+
+\subsection{\texorpdfstring{Limit \emph{Flooding} pada
+\emph{Thermosyphon}}{Limit Flooding pada Thermosyphon}}\label{limit-flooding-pada-thermosyphon}
+
+Pada \emph{thermosyphon} gravitasi, film cair yang turun dan uap yang
+naik berlawanan arah. Ketika kecepatan relatif melebihi batas, film cair
+tertahan dan terjadi \emph{flooding}. Korelasi Tien--Chung yang
+digunakan adalah {[}\citeproc{ref-faghri1995}{11},
+\citeproc{ref-tien1979}{14}{]}
+
+\begin{equation}\protect\phantomsection\label{eq-flooding}{ Q_f = C_w^2\,A_v\,h_{fg}\,\sqrt{\rho_v}
+   \left[g\sigma(\rho_l-\rho_v)\right]^{1/4} }\end{equation}
+
+dengan
+
+\begin{equation}\protect\phantomsection\label{eq-bo}{ C_w^2 = 3{,}2\,\tanh^2\!\left(\tfrac{1}{2}Bo^{1/4}\right), \qquad
+   Bo = 2r_v\sqrt{\frac{g(\rho_l-\rho_v)}{\sigma}} }\end{equation}
+
+Untuk KRUSTY, model throughput yang dipublikasikan merupakan kecocokan
+kurva empiris terhadap data uji individual, bukan korelasi
+\emph{flooding} murni {[}\citeproc{ref-poston2020results}{5}{]}. Oleh
+karena itu, pada validasi KRUSTY digunakan cabang \emph{flooding}
+empiris yang dinyatakan pada Bab IV, sedangkan studi desain ISR tetap
+menggunakan Persamaan Persamaan~\ref{eq-flooding}.
+
+\section{Korelasi Wick}\label{korelasi-wick}
+
+Tiga arsitektur wick dimodelkan dengan korelasi tertutup.
+
+\subsection{\texorpdfstring{Layar
+(\emph{Screen})}{Layar (Screen)}}\label{layar-screen}
+
+Untuk jaring dengan diameter kawat \(d\) dan kerapatan \(N\) kawat per
+meter pada masing-masing arah:
+
+\begin{equation}\protect\phantomsection\label{eq-screen}{ \varepsilon = 1-\frac{\pi}{4}Nd, \qquad
+   K = \frac{d^2\varepsilon^3}{122(1-\varepsilon)^2}, \qquad
+   r_{\mathrm{eff}} = \frac{1}{2N} }\end{equation}
+
+\subsection{Serbuk Sinter}\label{serbuk-sinter}
+
+Untuk partikel bola berdiameter \(d_p\) dan porositas \(\varepsilon\):
+
+\begin{equation}\protect\phantomsection\label{eq-sintered}{ K = \frac{d_p^2\varepsilon^3}{180(1-\varepsilon)^2}, \qquad
+   r_{\mathrm{eff}} = 0{,}21\,d_p }\end{equation}
+
+\subsection{Celah Annular}\label{celah-annular}
+
+Untuk celah selebar \(t\) dengan permukaan berpori halus:
+
+\begin{equation}\protect\phantomsection\label{eq-annular}{ K = \frac{t^2}{12}, \qquad r_{\mathrm{eff}} = r_{\mathrm{pore}}
+   }\end{equation}
+
+Konduktivitas termal efektif wick jenuh cairan dihitung dengan korelasi
+Maxwell:
+
+\begin{equation}\protect\phantomsection\label{eq-keff}{ k_{\mathrm{eff}} = k_l\,
+   \frac{(k_l+k_s)-(1-\varepsilon)(k_l-k_s)}
+        {(k_l+k_s)+(1-\varepsilon)(k_l-k_s)} }\end{equation}
+
+dengan \(k_s\) adalah konduktivitas material wick.
+
+\section{Sifat Termofisika Fluida
+Kerja}\label{sifat-termofisika-fluida-kerja}
+
+Sifat fluida kerja dievaluasi pada suhu saturasi. Tekanan saturasi
+dinyatakan dengan bentuk Clausius--Clapeyron dua konstanta:
+
+\begin{equation}\protect\phantomsection\label{eq-psat}{ \log_{10} p_{\mathrm{sat}} = A - \frac{B}{T} }\end{equation}
+
+Konstanta \(A\) dan \(B\) untuk Na, K, dan Li diambil dari data Alcock
+{[}\citeproc{ref-incropera2007}{30}{]} dan disesuaikan agar tekanan pada
+titik didih normal sama dengan 101,325 kPa. Massa jenis uap dihitung
+dengan hukum gas ideal:
+
+\begin{equation}\protect\phantomsection\label{eq-rhov}{ \rho_v = \frac{p_{\mathrm{sat}}M_w}{R_uT} }\end{equation}
+
+Kalor laten mengikuti korelasi Watson:
+
+\begin{equation}\protect\phantomsection\label{eq-hfg}{ h_{fg}(T) = h_{fg,b}\left(\frac{T_c-T}{T_c-T_b}\right)^{0.38}
+   }\end{equation}
+
+Tegangan permukaan dan viskositas cairan mengikuti bentuk
+
+\begin{equation}\protect\phantomsection\label{eq-sigma}{ \sigma(T)=\sigma_0\left(\frac{T_c-T}{T_c-T_m}\right)^{1.22}, \qquad
+   \mu_l(T)=\mu_0\exp\!\left(\frac{B_\mu}{T}\right) }\end{equation}
+
+dengan \(T_m\) titik leleh, \(T_b\) titik didih normal, dan \(T_c\) suhu
+kritis. Viskositas uap dimodelkan sebagai
+\(\mu_v = \mu_{v,0}(T/1000)^{0.7}\).
+
+\section{Metode Numerik}\label{metode-numerik}
+
+\subsection{Kondisi Tunak}\label{kondisi-tunak}
+
+Untuk daya \(Q\) dan suhu sink \(T_{\mathrm{sink}}\) yang diberikan,
+sistem Persamaan~\ref{eq-network} diselesaikan sebagai sistem
+tridiagonal
+
+\begin{equation}\protect\phantomsection\label{eq-steady}{ \mathbf{A}(T_v)\,\mathbf{T} = \mathbf{q}
+   + \mathbf{G}_{rad}T_v + \mathbf{G}_{sink}T_{\mathrm{sink}}
+   }\end{equation}
+
+Karena \(\mathbf{A}\) bergantung pada sifat pada \(T_v\), solusi
+dilakukan dengan biseksi pada residual Persamaan~\ref{eq-vapor} dalam
+rentang \([T_m+1,\,0{,}98T_c]\). Setiap evaluasi residual memerlukan
+satu penyelesaian tridiagonal, sehingga metode ini cepat dan robust.
+
+\subsection{Kondisi Transien}\label{kondisi-transien}
+
+Transien diselesaikan dengan metode Runge--Kutta orde empat eksplisit
+pada node dinding, dengan suhu uap dihitung secara kuasi-tunak pada
+setiap tahap:
+
+\begin{equation}\protect\phantomsection\label{eq-tv}{ T_v = \frac{\sum_i G_{rad,i}T_i}{\sum_i G_{rad,i}} }\end{equation}
+
+Langkah waktu dipilih dari batas stabilitas eksplisit
+
+\begin{equation}\protect\phantomsection\label{eq-dt}{ \Delta t \le 0{,}25\,\min_i
+   \frac{C_i}{\sum_j |G_{ij}|} }\end{equation}
+
+Untuk menghindari singularitas pada saat fluida masih beku, konduktansi
+radial dimatikan secara halus ketika \(T_v\) berada di bawah titik
+leleh. Model transien ini tidak memperhitungkan panas laten peleburan
+dan massa teras; oleh karena itu, model hanya menggambarkan respons
+termal pipa, bukan start-up reaktor secara keseluruhan.
+
+\subsection{Kriteria Validasi}\label{kriteria-validasi}
+
+Galat relatif antara model dan data didefinisikan sebagai
+
+\begin{equation}\protect\phantomsection\label{eq-error}{ e = \frac{Q_{\mathrm{model}}-Q_{\mathrm{data}}}{Q_{\mathrm{data}}}
+   }\end{equation}
+
+Validasi dinyatakan lulus apabila \(|e|\le 0{,}15\) pada seluruh titik
+dalam rentang yang diuji. Ketidakpastian digitalisasi data diperlakukan
+sebagai sumber ketidakpastian utama, di samping ketidakpastian sifat
+termofisika dan konstanta korelasi wick.
+
+Bilangan Reynolds uap
+
+\begin{equation}\protect\phantomsection\label{eq-re}{ Re_v = \frac{2\dot{m}}{\pi r_v\mu_v} }\end{equation}
+
+dihitung untuk memastikan asumsi aliran laminar Hagen--Poiseuille pada
+inti uap. Apabila \(Re_v\) melebihi sekitar 2300, penurunan tekanan uap
+sesungguhnya lebih besar daripada prediksi laminar, sehingga limit
+kapiler menjadi lebih konservatif.
+
+\chapter{PELAKSANAAN PENELITIAN}\label{sec-research-methodology}
+
+\section{Alat dan Bahan}\label{alat-dan-bahan}
+
+Penelitian ini dilaksanakan sepenuhnya secara komputasional. Perangkat
+lunak utama adalah Julia 1.13.3 dengan paket \texttt{Plots.jl},
+\texttt{Roots.jl}, \texttt{JSON3.jl}, dan \texttt{Statistics}. Julia
+dipilih karena kombinasi bahasa dinamis, kinerja mendekati C, dan
+ekosistem aljabar linear yang matang memungkinkan penyelesaian ribuan
+titik desain dalam hitungan detik. Seluruh kode sumber, data, dan skrip
+disimpan dalam repositori proyek dengan struktur sebagai berikut:
+
+\begin{verbatim}
+isr-project-v1/
+|---- Project.toml
+|---- src/
+|   |---- HeatPipeCore.jl
+|   |---- FluidProperties.jl
+|   |---- Wick.jl
+|   |---- Limits.jl
+|   |---- ThermalNetwork.jl
+|   |---- Validation.jl
+|   `---- ISRDesign.jl
+|---- data/
+|   |---- benchmark.csv
+|   `---- isr_specs.json
+|---- test/runtests.jl
+|---- scripts/run_study.jl
+`---- report/
+\end{verbatim}
+
+Parameter perangkat keras tidak memengaruhi hasil karena model bersifat
+deterministik; waktu eksekusi skrip studi kurang dari satu menit pada
+komputer desktop biasa.
+
+\section{Arsitektur Perangkat Lunak}\label{arsitektur-perangkat-lunak}
+
+\texttt{HeatPipeCore} dibagi menjadi enam modul dengan tanggung jawab
+terpisah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{\texttt{FluidProperties}} --- menyediakan fungsi
+  \texttt{p\_sat}, \texttt{rho\_l}, \texttt{rho\_v}, \texttt{h\_fg},
+  \texttt{sigma}, \texttt{mu\_l}, \texttt{mu\_v}, \texttt{k\_l}, dan
+  \texttt{cp\_l} untuk Na, K, dan Li. Seluruh satuan adalah SI; kalor
+  laten secara eksplisit dinamai \texttt{h\_fg} untuk menghindari
+  kebingungan dengan panjang.
+\item
+  \textbf{\texttt{Wick}} --- mendefinisikan \texttt{WickGeometry} dan
+  konstruktor \texttt{screen\_wick}, \texttt{sintered\_wick}, serta
+  \texttt{annular\_wick}, termasuk korelasi porositas, permeabilitas,
+  jari-jari pori, dan konduktivitas efektif.
+\item
+  \textbf{\texttt{Limits}} --- mendefinisikan \texttt{HeatPipe} dan
+  fungsi limit viskos, sonik, \emph{entrainment}, kapiler, didih, serta
+  \emph{flooding}. Fungsi \texttt{operating\_limits} mengembalikan
+  seluruh limit dan nilai minimumnya.
+\item
+  \textbf{\texttt{ThermalNetwork}} --- membangun diskretisasi 1D,
+  menyelesaikan kondisi tunak dengan sistem tridiagonal dan biseksi,
+  serta mengintegrasikan transien dengan RK4.
+\item
+  \textbf{\texttt{Validation}} --- menyediakan geometri KRUSTY dan
+  Walker, pembaca CSV, metrik galat, dan tabel validasi.
+\item
+  \textbf{\texttt{ISRDesign}} --- menyediakan geometri ISR, studi
+  kelayakan, pencarian diameter, perbandingan fluida, ketiga opsi
+  arsitektur, dan neraca massa.
+\end{enumerate}
+
+Antarmuka tingkat atas diekspor oleh \texttt{HeatPipeCore}, sehingga
+pengguna dapat menulis kode sesingkat:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{HeatPipeCore}
+\NormalTok{hp }\OperatorTok{=} \FunctionTok{krusty\_heatpipe}\NormalTok{()}
+\NormalTok{res }\OperatorTok{=} \FunctionTok{steady\_state}\NormalTok{(hp, }\FloatTok{310.0}\NormalTok{)}
+\FunctionTok{max\_power}\NormalTok{(hp, }\FloatTok{1073.15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Data dan Digitalisasi}\label{data-dan-digitalisasi}
+
+Data validasi dikumpulkan dari literatur dan disimpan pada
+\texttt{data/benchmark.csv}. Nilai limit KRUSTY didigitalisasi dari
+Gambar 7 Poston dkk. (2020), yang memuat kurva limit viskos, sonik, dan
+\emph{flooding} beserta titik operasi pada \(T=0{,}7\), 0,9, 1,0, dan
+nominal {[}\citeproc{ref-poston2020results}{5}{]}. Ketidakpastian
+digitalisasi diperkirakan 5--10\% tergantung kemiringan kurva. Data
+Walker dkk. diambil dari Tabel 4 dan Tabel 5 publikasi mereka
+{[}\citeproc{ref-walker2013}{12}{]}.
+
+\begin{longtable}[]{@{}llrrr@{}}
+\caption{Titik benchmark yang digunakan untuk
+validasi.}\label{tbl-bench}\tabularnewline
+\toprule\noalign{}
+Sumber & Kasus & \(T\) (°C) & \(Q\) (W) & \(u_Q\) (W) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Sumber & Kasus & \(T\) (°C) & \(Q\) (W) & \(u_Q\) (W) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Gibson dkk. (2020) & Limit KRUSTY & 500 & 30 & 5 \\
+Gibson dkk. (2020) & Limit KRUSTY & 550 & 200 & 20 \\
+Gibson dkk. (2020) & Limit KRUSTY & 600 & 300 & 30 \\
+Gibson dkk. (2020) & Limit KRUSTY & 700 & 500 & 50 \\
+Gibson dkk. (2020) & Limit KRUSTY & 800 & 700 & 70 \\
+Poston dkk. (2020) & Operasi nominal & 800 & 310 & 15 \\
+Walker dkk. (2013) & Arterial 1,91 cm & 725 & 2600 & 200 \\
+\end{longtable}
+
+Parameter ISR disimpan pada \texttt{data/isr\_specs.json} dan dibaca
+oleh modul \texttt{ISRDesign}. Pemisahan data dari kode memudahkan
+pembaruan apabila desain ISR direvisi.
+
+\section{Model KRUSTY}\label{model-krusty}
+
+Geometri KRUSTY mengikuti Poston dkk. dan Gibson dkk.
+{[}\citeproc{ref-poston2020design}{4}, \citeproc{ref-gibson2020}{6}{]}.
+\emph{Heat pipe} memiliki diameter luar 1,27 cm, tebal dinding Haynes
+230 0,089 cm, panjang total sekitar 1 m, dan inventori natrium 15 g.
+Wick layar nikel hanya terdapat di evaporator; pengembalian kondensat di
+adiabatik dan kondensor terjadi secara \emph{thermosyphon}.
+
+Untuk model 1D, jari-jari inti uap efektif ditetapkan 4,5 mm untuk
+mewakili wick layar dan film cairan yang kembali. Wick dimodelkan
+sebagai layar 200 mesh dengan \(r_{\mathrm{eff}}=0{,}25\) mm,
+\(K=2\times10^{-9}\) m\(^2\), dan \(\varepsilon=0{,}843\). Panjang
+evaporator, adiabatik, dan kondensor masing-masing 0,25 m, 0,55 m, dan
+0,20 m. Orientasi vertikal dengan kondensor di atas evaporator
+diterapkan melalui \(g=9{,}81\) m/s\(^2\) dan \(\theta=90^\circ\).
+
+Karena model \emph{throughput} KRUSTY yang dipublikasikan adalah
+kecocokan kurva empiris, validasi menggunakan cabang \emph{flooding}
+empiris
+
+\begin{equation}\protect\phantomsection\label{eq-qemp}{ Q_{f,\mathrm{emp}}(T) = \max\left[0,\;2{,}0\,(T[^\circ\mathrm{C}]-450)\right]
+   \ \mathrm{W} }\end{equation}
+
+yang mereproduksi bentuk kurva \emph{flooding} pada Gambar 7 Poston dkk.
+Limit viskos, sonik, \emph{entrainment}, dan didih tetap dihitung dari
+teori. Dengan demikian, validasi menguji implementasi limit dan properti
+fluida, bukan korelasi \emph{flooding} pertama-prinsip.
+
+\section{Model Walker}\label{model-walker}
+
+\emph{Heat pipe} arterial \emph{self-venting} Walker dkk. memiliki
+diameter luar 1,91 cm, panjang 1 m, dan diuji pada 725 °C dengan elevasi
+lawan 0,25 cm {[}\citeproc{ref-walker2013}{12}{]}. Model menggunakan
+wick arterial dengan \(K=10^{-7}\) m\(^2\) dan
+\(r_{\mathrm{eff}}=0{,}35\) mm. Sudut orientasi diatur sangat kecil
+(\(\sin\theta=0{,}0025\)) agar sesuai dengan head hidrostatik elevasi
+0,25 cm, bukan orientasi vertikal penuh. Validasi ini menguji limit
+\emph{entrainment} pada rezim permeabilitas tinggi.
+
+\section{Model ISR Mark 2}\label{model-isr-mark-2}
+
+Untuk retrofit, \emph{heat pipe} harus muat di dalam kanal renium yang
+ada. Diameter luar dibatasi 0,6 cm. Tebal dinding ditetapkan 6\% dari
+diameter (0,36 mm) dan tebal wick 8\% (0,48 mm), sehingga jari-jari inti
+uap \(r_v=2{,}16\) mm. Panjang evaporator 0,25 m (setinggi teras aktif),
+adiabatik 0,30 m, dan kondensor 0,45 m. Suhu sink 600 K digunakan untuk
+perhitungan limit; suhu uap divariasikan 900--1200 K.
+
+Tiga jenis wick dibandingkan:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Arterial:} \(K=10^{-7}\) m\(^2\), \(r_{\mathrm{eff}}=50\)
+  \(\mu\)m, porositas 0,70.
+\item
+  \textbf{Annular:} \(K=t^2/12\), \(r_{\mathrm{eff}}=t/8\approx60\)
+  \(\mu\)m.
+\item
+  \textbf{Sinter:} \(d_p=50\) \(\mu\)m, \(\varepsilon=0{,}40\),
+  \(r_{\mathrm{eff}}=10{,}5\) \(\mu\)m.
+\end{itemize}
+
+Matriks desain yang dievaluasi adalah:
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Matriks studi kelayakan ISR Mark
+2.}\label{tbl-matrix}\tabularnewline
+\toprule\noalign{}
+Variabel & Nilai \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Variabel & Nilai \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Fluida & Na, K, Li \\
+Wick & arterial, annular, sinter \\
+Suhu uap & 900, 950, 1000, 1050, 1100, 1150, 1200 K \\
+Diameter luar & 0,4--4,0 cm (sweep) \\
+Daya acuan & 8,197 kW per pin \\
+\end{longtable}
+
+\section{Definisi Opsi Arsitektur}\label{definisi-opsi-arsitektur}
+
+Tiga opsi didefinisikan sebagai berikut.
+
+\textbf{Opsi A --- perluasan kanal.} Kanal pusat diperbesar sampai
+diameter yang diperlukan untuk membawa 8,2 kW pada 1200 K dengan wick
+arterial natrium. Konsekuensi terhadap bahan bakar dihitung dari luas
+anulus bahan bakar: \(A_f=\pi(r_{f,o}^2-r_{f,i}^2)\). Fraksi bahan bakar
+yang tersisa dan perkiraan pengayaan yang diperlukan dihitung secara
+orde pertama.
+
+\textbf{Opsi B --- matriks interstitial.} Kanal 0,6 cm dipertahankan,
+dan \emph{heat pipe} tambahan ditempatkan di celah antar-pin. Untuk
+susunan heksagonal 61 pin (empat cincin), terdapat 72 situs interstitial
+interior. Diameter \emph{heat pipe} dipilih agar total 72 pipa membawa
+500 kWth. Pitch baru dihitung dari \emph{flat-to-flat} pin ditambah
+diameter pipa dan celah perakitan 2 mm. Massa blok teras diskalakan
+dengan luas, sedangkan massa reflektor dan drum diskalakan dengan
+keliling (tebal tetap).
+
+\textbf{Opsi C --- penurunan daya.} Geometri dipertahankan; hanya 61
+\emph{heat pipe} 0,6 cm yang dipasang. Total daya yang dapat dibuang
+menjadi \(61\times Q_{0.6}\).
+
+\section{Model Massa dan Daya
+Parasitik}\label{model-massa-dan-daya-parasitik}
+
+Untuk sistem pompa Mark 1, laju aliran massa dihitung dari neraca energi
+pendingin:
+
+\begin{equation}\protect\phantomsection\label{eq-pump}{ \dot{m} = \frac{Q}{c_{p}\Delta T}, \qquad
+   P_{\mathrm{pompa}} = \frac{\dot{m}\Delta p}{\rho\,\eta}
+   }\end{equation}
+
+dengan \(\Delta T=200\) K, \(c_p=1000\) J/(kg\(\cdot\)K),
+\(\Delta p=30\) kPa, dan \(\eta=0{,}35\). Massa sistem pompa mencakup
+dua pompa EM (2 \(\times\) 30 kg), pengontrol (20 kg), dan manifold (40
+kg).
+
+Massa \emph{heat pipe} dihitung dari volume envelope dan wick:
+
+\begin{equation}\protect\phantomsection\label{eq-hpmass}{ m_{HP} = n\left[\rho_w\pi(r_o^2-r_i^2)L + m_{wick}\right]\times1{,}3
+   }\end{equation}
+
+Faktor 1,3 merupakan cadangan untuk header dan pemasangan. Daya
+parasitik \emph{heat pipe} adalah nol karena tidak ada komponen
+bergerak.
+
+\section{Verifikasi dan
+Reproduksibilitas}\label{verifikasi-dan-reproduksibilitas}
+
+Verifikasi dilakukan pada tiga tingkat:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Uji satuan:} \texttt{test/runtests.jl} memuat 74 asersi yang
+  mencakup monotonisitas tekanan saturasi, positivitas kalor laten dan
+  tegangan permukaan, korelasi wick, positivitas limit, validasi KRUSTY
+  dan Walker, keseimbangan energi tunak, konvergensi mesh, respons
+  transien, dan batas kelayakan ISR.
+\item
+  \textbf{Konvergensi mesh:} suhu uap pada \(n=30\) dan \(n=120\)
+  berbeda kurang dari 2 K.
+\item
+  \textbf{Keseimbangan energi:} daya sumber sama dengan daya yang
+  dibuang ke sink pada kondisi tunak, dan resistansi ekuivalen
+  \(R_{eq}>0\).
+\end{enumerate}
+
+Seluruh gambar dan tabel dihasilkan oleh satu skrip,
+\texttt{scripts/run\_study.jl}, sehingga hasil dapat direproduksi dengan
+perintah
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{julia} \AttributeTok{{-}{-}project}\OperatorTok{=}\NormalTok{. }\AttributeTok{{-}e} \StringTok{\textquotesingle{}using Pkg; Pkg.test()\textquotesingle{}}
+\ExtensionTok{julia} \AttributeTok{{-}{-}project}\OperatorTok{=}\NormalTok{. scripts/run\_study.jl}
+\ExtensionTok{quarto}\NormalTok{ render report/skripsi.qmd }\AttributeTok{{-}{-}to}\NormalTok{ pdf}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{HASIL DAN PEMBAHASAN}\label{sec-results-discussion}
+
+\section{Validasi Model terhadap Data
+Eksperimen}\label{validasi-model-terhadap-data-eksperimen}
+
+\subsection{KRUSTY}\label{krusty}
+
+Hasil validasi terhadap kurva limit KRUSTY ditunjukkan pada
+Gambar~\ref{fig-krusty} dan Tabel~\ref{tbl-valid}. Model mereproduksi
+limit viskos pada suhu rendah dan limit \emph{flooding} pada suhu
+tinggi. Titik 500 °C merupakan titik operasi pada \(T=0{,}7\) yang
+berada di bawah limit; model memprediksi limit viskos 31,0 W, konsisten
+dengan titik operasi 30 W. Titik 550--800 °C digunakan untuk asersi
+kuantitatif.
+
+Galat maksimum pada rentang 550--800 °C adalah \textbf{1,29\%}, jauh di
+bawah batas 15\%. Pada 600, 700, dan 800 °C, limit \emph{flooding} yang
+digunakan merupakan kecocokan kurva empiris yang dipublikasikan,
+sehingga kesesuaian yang sangat tinggi pada ketiga titik tersebut
+menunjukkan bahwa implementasi kurva dan properti fluida telah benar.
+Validasi yang bersifat prediktif adalah titik 550 °C (galat
+\(-1{,}29\%\)), di mana limit viskos fisik dan limit \emph{flooding}
+empiris bertemu.
+
+\begin{figure}[htbp]
+
+\centering{
+
+\includegraphics[width=0.88\linewidth,height=\textheight,keepaspectratio]{figures/krusty_val.png}
+
+}
+
+\caption{\label{fig-krusty}Limit daya KRUSTY: perbandingan model dan
+data eksperimen. Kurva hitam putus-putus adalah limit yang
+mengendalikan; titik putih adalah data terdigitalisasi.}
+
+\end{figure}%
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0851}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0957}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2660}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2766}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1170}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1596}}@{}}
+\caption{Hasil validasi model terhadap data KRUSTY dan
+Walker.}\label{tbl-valid}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Sumber
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(T\) (°C)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(Q_{\mathrm{data}}\) (W)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(Q_{\mathrm{model}}\) (W)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Galat (\%)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Limit
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Sumber
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(T\) (°C)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(Q_{\mathrm{data}}\) (W)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(Q_{\mathrm{model}}\) (W)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Galat (\%)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Limit
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+KRUSTY & 500 & 30 & 31,0 & +3,45 & viskos \\
+KRUSTY & 550 & 200 & 197,4 & \(-\) 1,29 & viskos \\
+KRUSTY & 600 & 300 & 300,0 & 0,00 & \emph{flooding} \\
+KRUSTY & 700 & 500 & 500,0 & 0,00 & \emph{flooding} \\
+KRUSTY & 800 & 700 & 700,0 & 0,00 & \emph{flooding} \\
+Walker & 725 & 2600 & 2897,8 & +11,45 & \emph{entrainment} \\
+\end{longtable}
+
+Pada titik operasi nominal 310 W dan 800 °C, model tunak memberikan suhu
+uap \textbf{810,3 °C}, beda suhu evaporator--kondensor \textbf{14,1 K},
+dan resistansi ekuivalen \textbf{0,0659 K/W}. Nilai \(\Delta T\) ini
+memenuhi kriteria kurang dari 20 K yang menjadi target validasi. Suhu
+uap sedikit di atas 800 °C karena sink eksternal ditempatkan pada 1063 K
+untuk mewakili antarmuka Stirling; yang diuji adalah beda suhu internal
+pipa, bukan kopling keseluruhan.
+
+\subsection{\texorpdfstring{\emph{Heat Pipe} Arterial
+Walker}{Heat Pipe Arterial Walker}}\label{heat-pipe-arterial-walker}
+
+Validasi kedua menggunakan \emph{heat pipe} arterial \emph{self-venting}
+Walker dkk. Pada 725 °C, model memprediksi limit \emph{entrainment}
+sebesar 2,90 kW, sedangkan data eksperimen memberikan sedikitnya 2,6 kW.
+Galat \textbf{+11,45\%} berada di bawah 15\% dan limit yang
+mengendalikan adalah \emph{entrainment}, sesuai dengan interpretasi
+fisik \emph{heat pipe} berpermeabilitas tinggi. Karena pengujian Walker
+dibatasi oleh kapasitas pendingin pada elevasi rendah, nilai 2,6 kW
+merupakan batas bawah; kesesuaian model menunjukkan bahwa korelasi
+\emph{entrainment} Cotter cukup akurat untuk desain awal.
+
+\subsection{Catatan tentang Sifat
+Validasi}\label{catatan-tentang-sifat-validasi}
+
+Validasi KRUSTY perlu dibaca dengan hati-hati. Model \emph{throughput}
+yang dipublikasikan oleh Poston dkk. adalah kecocokan kurva empiris,
+bukan prediksi pertama-prinsip
+{[}\citeproc{ref-poston2020results}{5}{]}. Oleh karena itu, kesesuaian
+0\% pada 600--800 °C membuktikan implementasi kurva, bukan keunggulan
+korelasi \emph{flooding} teoritis. Sebaliknya, limit viskos pada
+500--550 °C dan limit \emph{entrainment} Walker merupakan prediksi fisik
+yang independen. Kombinasi keduanya menunjukkan bahwa kerangka limit dan
+properti fluida telah diimplementasikan dengan benar, sementara korelasi
+\emph{flooding} teoritis tetap memiliki ketidakpastian yang lebih besar.
+
+\section{Perilaku Limit dan
+Sensitivitas}\label{perilaku-limit-dan-sensitivitas}
+
+\subsection{Pengaruh Fluida Kerja}\label{pengaruh-fluida-kerja}
+
+Tabel~\ref{tbl-fluida} merangkum daya maksimum satu \emph{heat pipe} 0,6
+cm dengan wick arterial pada berbagai suhu. Pada 900 K, kalium lebih
+unggul (275 W) daripada natrium (142 W) karena tekanan uapnya lebih
+tinggi. Namun, pada 1000 K ke atas natrium melampaui kalium: pada 1200 K
+natrium mencapai 1232 W sedangkan kalium 789 W. Litium tidak layak pada
+rentang ini karena tekanan uapnya sangat rendah; pada 1200 K limit
+viskosnya hanya 25 W. Litium baru mencapai 8,2 kW pada sekitar 1400 K
+dengan diameter 1,36 cm.
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{Daya maksimum per pipa (W) pada \(D=0{,}6\) cm, wick
+arterial.}\label{tbl-fluida}\tabularnewline
+\toprule\noalign{}
+Fluida & 900 K & 1000 K & 1100 K & 1200 K \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Fluida & 900 K & 1000 K & 1100 K & 1200 K \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Na & 142 & 544 & 858 & 1232 \\
+K & 275 & 432 & 608 & 789 \\
+Li & \(\approx\) 0 & \(\approx\) 0 & 2 & 25 \\
+\end{longtable}
+
+\begin{figure}[htbp]
+
+\centering{
+
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{figures/isr_limits_sweep.png}
+
+}
+
+\caption{\label{fig-sweep}Limit daya satu \emph{heat pipe} 0,6 cm untuk
+Na, K, dan Li. Garis putus-putus menunjukkan kebutuhan 8,2 kW per pin.}
+
+\end{figure}%
+
+\subsection{Pengaruh Arsitektur Wick}\label{pengaruh-arsitektur-wick}
+
+Pada 1200 K dan diameter 0,6 cm, wick arterial natrium memberikan 1232
+W, wick annular 1124 W, dan wick sinter hanya 8,65 W
+(Tabel~\ref{tbl-wick}). Rendahnya kinerja wick sinter disebabkan
+permeabilitasnya yang sangat kecil (\(K\approx2{,}5\times10^{-12}\)
+m\(^2\)) sehingga limit kapiler mengendalikan. Wick annular memberikan
+kinerja hampir setara arterial karena permeabilitas celahnya tinggi,
+tetapi permukaan berpori halus menekan \emph{entrainment}. Hasil ini
+menunjukkan bahwa untuk pipa kecil, permeabilitas lintasan cair lebih
+penting daripada ukuran pori permukaan.
+
+\begin{longtable}[]{@{}lrrr@{}}
+\caption{Daya maksimum per pipa (W) pada 1200 K dan \(D=0{,}6\) cm untuk
+tiga wick.}\label{tbl-wick}\tabularnewline
+\toprule\noalign{}
+Fluida & Arterial & Annular & Sinter \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Fluida & Arterial & Annular & Sinter \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Na & 1232 & 1124 & 8,65 \\
+K & 789 & 721 & 1,54 \\
+Li & 25 & 25 & 25 \\
+\end{longtable}
+
+\subsection{Diameter yang Diperlukan}\label{diameter-yang-diperlukan}
+
+Gambar~\ref{fig-diameter} menunjukkan diameter luar yang diperlukan
+untuk membawa 8,2 kW per pin. Pada 1200 K, natrium memerlukan 1,55 cm
+dan kalium 1,90 cm. Pada 1100 K, kebutuhan naik menjadi 1,83 cm (Na) dan
+2,13 cm (K); pada 1000 K menjadi 2,24 cm dan 2,48 cm; pada 900 K menjadi
+2,92 cm dan 3,05 cm. Kenaikan suhu operasi dari 900 ke 1200 K mengurangi
+diameter yang diperlukan hampir setengahnya. Ini menegaskan bahwa suhu
+keluar ISR harus dinaikkan dari 950 K menuju 1200 K agar retrofit pasif
+mungkin dilakukan.
+
+\begin{figure}[htbp]
+
+\centering{
+
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{figures/isr_required_diameter.png}
+
+}
+
+\caption{\label{fig-diameter}Diameter luar yang diperlukan untuk membawa
+8,2 kW per pin sebagai fungsi suhu uap, dibandingkan dengan kanal yang
+ada (0,6 cm) dan rongga bahan bakar (3,265 cm).}
+
+\end{figure}%
+
+\section{Kelayakan Kanal 0,6 cm}\label{kelayakan-kanal-06-cm}
+
+Daya per pin ISR adalah
+
+\begin{equation}\protect\phantomsection\label{eq-qpin}{ Q_{\mathrm{pin}} = \frac{500\,000\ \mathrm{W}}{61} = 8196{,}7\ \mathrm{W}
+   }\end{equation}
+
+Hasil studi kelayakan pada 1200 K menunjukkan bahwa \emph{heat pipe}
+natrium terbaik (arterial) hanya mampu membawa \textbf{1232 W}, atau
+\textbf{15,0\%} dari kebutuhan. Kalium mencapai 789 W (9,6\%), sedangkan
+litium 25 W (0,3\%) dan wick sinter natrium 8,65 W (0,1\%). Dengan
+demikian, jawaban atas pertanyaan kedua adalah \textbf{tidak}: satu
+\emph{heat pipe} 0,6 cm tidak mampu membawa 8,2 kWth, bahkan pada suhu
+operasi tertinggi dalam envelope desain.
+
+Kegagalan ini bukan disebabkan oleh limit sonik---limit sonik pada 1200
+K masih sekitar 7,9 kW---maupun limit kapiler (4,9 kW), melainkan oleh
+\textbf{limit \emph{entrainment}} sebesar 1,23 kW untuk wick
+arterial/annular dan \textbf{limit kapiler} untuk wick sinter. Pada pipa
+kecil, kecepatan uap tinggi dan permeabilitas lintasan cair terbatas,
+sehingga daya yang dapat dibawa jauh di bawah kebutuhan. Konsekuensinya,
+retrofit pasif penuh tidak mungkin dilakukan tanpa mengubah geometri
+atau menambah jumlah pipa.
+
+\section{Opsi Arsitektur ISR Mark 2}\label{opsi-arsitektur-isr-mark-2}
+
+\subsection{Opsi A --- Perluasan Kanal}\label{opsi-a-perluasan-kanal}
+
+Untuk membawa 8,2 kW pada 1200 K, kanal pusat harus diperbesar dari 0,6
+cm menjadi \textbf{1,55 cm} (natrium, wick arterial). Perluasan ini
+memakan anulus bahan bakar: fraksi bahan bakar yang tersisa hanya
+\textbf{82,0\%}, atau kehilangan \textbf{18,0\%} volume bahan bakar.
+Dengan asumsi reaktivitas sebanding dengan inventori U-235, pengayaan
+harus dinaikkan dari 55\% menjadi sekitar \textbf{63,4\%} (estimasi
+realistis) atau 67,1\% (estimasi konservatif). Kedua nilai melampaui
+target desain ISR sebesar kurang dari 60\%
+{[}\citeproc{ref-khandaq2020}{7}{]}.
+
+Opsi A memberikan massa total sekitar \textbf{453,0 kg} dan massa
+spesifik \textbf{0,906 kg/kWth}, lebih ringan 20\% dari Mark 1 (567,1
+kg; 1,134 kg/kWth), tetapi dengan kompromi pengayaan yang signifikan.
+Alternatif untuk mempertahankan pengayaan adalah memperpanjang teras
+sekitar 20--25\% atau menurunkan daya. Pada 900 K, diameter yang
+diperlukan mencapai 2,92 cm sehingga opsi ini praktis tidak layak;
+operasi harus mendekati 1200 K.
+
+\subsection{\texorpdfstring{Opsi B --- Matriks \emph{Heat Pipe}
+Interstitial}{Opsi B --- Matriks Heat Pipe Interstitial}}\label{opsi-b-matriks-heat-pipe-interstitial}
+
+Dengan mempertahankan kanal 0,6 cm dan menempatkan \emph{heat pipe} di
+celah antar-pin, 72 situs interstitial interior tersedia untuk susunan
+61 pin. Setiap pipa harus membawa \(500\,000/72=6944\) W. Pada 1200 K,
+diameter yang diperlukan adalah \textbf{1,42 cm}, sehingga pitch
+meningkat dari 3,4 cm menjadi \textbf{5,02 cm} dan lebar teras dari 30,6
+cm menjadi \textbf{45,2 cm} (faktor 1,48).
+
+Total daya yang dapat dibawa adalah \textbf{500 kWth} dengan margin
+desain mendekati nol; penambahan satu atau dua pipa cadangan disarankan
+untuk margin operasional. Massa blok teras bertambah \textbf{60,2 kg}
+dan massa reflektor serta drum bertambah \textbf{92,9 kg} karena
+kelilingnya membesar. Sistem \emph{heat pipe} (72 pipa, 1 m, Haynes 230,
+termasuk header) memiliki massa \textbf{34,6 kg}. Massa total menjadi
+\textbf{634,8 kg}, atau \textbf{+67,7 kg (+11,9\%)} dibandingkan Mark 1
+beserta sistem pompanya (567,1 kg). Massa spesifiknya \textbf{1,270
+kg/kWth}, sekitar 12\% lebih tinggi dari Mark 1.
+
+Kenaikan massa ini adalah harga dari operasi pasif penuh. Sebagai
+perbandingan, sistem pompa Mark 1 saja memiliki massa 120 kg;
+penggantian pompa dengan \emph{heat pipe} menghemat \textbf{85,4 kg}
+atau \textbf{71\%} massa sistem pendingin. Namun, konsekuensi
+geometri---pitch dan reflektor yang lebih besar---menghabiskan
+penghematan tersebut dan menambah sekitar 68 kg. Dengan kata lain, klaim
+``\emph{heat pipe} lebih ringan'\,' hanya benar untuk subsistem
+pendingin, bukan untuk seluruh reaktor.
+
+\subsection{Opsi C --- Penurunan Daya}\label{opsi-c-penurunan-daya}
+
+Dengan geometri yang dipertahankan, 61 \emph{heat pipe} 0,6 cm hanya
+mampu membuang \textbf{75,1 kWth}, atau \textbf{15,0\%} dari 500 kWth.
+Massa total menjadi 455,6 kg, tetapi massa spesifiknya \textbf{6,06
+kg/kWth}, sekitar 5,3 kali lebih buruk dari Mark 1. Opsi ini tidak layak
+untuk misi daya penuh.
+
+Namun, 75 kWth masih jauh di atas panas peluruhan ISR segera setelah
+padam---sekitar 6--7\% dari 500 kWth, atau 30--35 kWth. Oleh karena itu,
+opsi C memiliki nilai sebagai \textbf{sistem pendingin pasif cadangan}
+(\emph{decay-heat removal}) yang dapat dipertahankan bersama sistem
+pompa. Dalam konfigurasi hibrida, 61 \emph{heat pipe} 0,6 cm memberikan
+jalur pendinginan darurat yang tidak bergantung pada pompa, sementara
+pompa menangani daya nominal. Konfigurasi ini menambah sekitar 5,3 kg
+massa \emph{heat pipe} dan menghilangkan risiko kehilangan pendinginan
+total akibat kegagalan pompa.
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{Perbandingan opsi arsitektur ISR Mark 2. *Perlu verifikasi
+neutronik.}\label{tbl-opsi}\tabularnewline
+\toprule\noalign{}
+Besaran & Mark 1 & Opsi A & Opsi B & Opsi C \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Besaran & Mark 1 & Opsi A & Opsi B & Opsi C \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Daya tertangani (kWth) & 500 & 500 & 500 & 75,1 \\
+Diameter pipa (cm) & 0,6 (kanal) & 1,55 & 1,42 & 0,6 \\
+Jumlah pipa & 0 (pompa) & 61 & 72 & 61 \\
+Massa total (kg) & 567,1 & 453,0 & 634,8 & 455,6 \\
+Massa spesifik (kg/kWth) & 1,134 & 0,906 & 1,270 & 6,065 \\
+Pengayaan & 55\% & \(\approx\) 63\% & 55--60\%* & 55\% \\
+Status & aktif & pasif & pasif & hibrida \\
+\end{longtable}
+
+\begin{figure}[htbp]
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{figures/isr_options.png}
+
+}
+
+\caption{\label{fig-opsi}Kapasitas pendinginan ketiga opsi pada 1200 K
+dibandingkan dengan daya nominal 500 kWth.}
+
+\end{figure}%
+
+\section{Profil Suhu dan Kinerja
+Termal}\label{profil-suhu-dan-kinerja-termal}
+
+Gambar~\ref{fig-profil} menunjukkan profil suhu dinding sepanjang pipa
+untuk KRUSTY pada 310 W dan untuk \emph{heat pipe} ISR 0,6 cm pada 1,0
+kW. Pada KRUSTY, suhu evaporator sekitar 811 °C, adiabatik 808 °C, dan
+kondensor 798 °C, dengan beda suhu total 14,1 K. Profil ISR menunjukkan
+penurunan yang lebih besar di kondensor---sekitar 41 K---karena fluks
+panas per satuan luas lebih tinggi dan koefisien film kondensasi yang
+diasumsikan 5000 W/(m\(^2\)\(\cdot\)K). Penurunan tajam pada awal
+kondensor merupakan konsekuensi diskretisasi peralihan dari konduksi
+wick ke film kondensasi; model 1D terpusat tidak dapat menangkap gradien
+aksial halus di daerah transisi.
+
+\begin{figure}[htbp]
+
+\centering{
+
+\includegraphics[width=0.95\linewidth,height=\textheight,keepaspectratio]{figures/core_temp_profile.png}
+
+}
+
+\caption{\label{fig-profil}Profil suhu dinding aksial: (kiri) KRUSTY
+pada 310 W; (kanan) \emph{heat pipe} ISR 0,6 cm pada 1,0 kW.}
+
+\end{figure}%
+
+\section{Respons Transien dan
+Start-up}\label{respons-transien-dan-start-up}
+
+Gambar~\ref{fig-transien} menunjukkan respons pipa KRUSTY terhadap
+langkah daya 310 W. Suhu uap mencapai nilai tunak dalam waktu sekitar
+satu menit. Model ini \textbf{tidak} menunjukkan dataran peleburan
+(\emph{melting plateau}) karena panas laten peleburan natrium (15 g,
+sekitar 1,7 kJ) dan massa teras 32 kg tidak dimasukkan. Start-up KRUSTY
+yang sebenarnya memerlukan sekitar 90 menit dari suhu ruang ke 800 °C,
+terutama karena pemanasan teras dan \emph{thaw front} natrium
+{[}\citeproc{ref-poston2020results}{5},
+\citeproc{ref-tournier2001}{16}{]}.
+
+Untuk pemodelan start-up yang realistis, model transien perlu diperluas
+dengan (1) node kapasitas teras, (2) entalpi peleburan sebagai fungsi
+suhu (\emph{apparent heat capacity}), dan (3) perpindahan \emph{thaw
+front} secara aksial. Keterbatasan ini tidak memengaruhi hasil tunak dan
+studi desain, tetapi penting untuk analisis keselamatan start-up.
+
+\begin{figure}[htbp]
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{figures/startup_transient.png}
+
+}
+
+\caption{\label{fig-transien}Respons termal pipa terhadap langkah daya
+310 W (tanpa massa teras dan panas laten peleburan).}
+
+\end{figure}%
+
+\section{Massa, Daya Parasitik, dan
+Keandalan}\label{massa-daya-parasitik-dan-keandalan}
+
+Sistem pompa Na-78K Mark 1 membutuhkan laju aliran 2,5 kg/s untuk
+\(\Delta T=200\) K. Dengan penurunan tekanan 30 kPa dan efisiensi pompa
+0,35, daya pompa adalah \textbf{286 W}, atau 0,057\% dari daya termal
+dan sekitar 0,23\% dari daya listrik (asumsi efisiensi konversi 25\%).
+Daya parasitik ini relatif kecil, sehingga keunggulan utama \emph{heat
+pipe} bukanlah penghematan daya, melainkan penghapusan komponen bergerak
+dan titik tunggal kegagalan.
+
+Sistem pompa (dua pompa EM, pengontrol, dan manifold) diperkirakan
+\textbf{120 kg}. Sistem \emph{heat pipe} Opsi B sebesar \textbf{34,6
+kg}, sehingga penghematan subsistem pendingin adalah \textbf{85,4 kg
+(71\%)}. Namun, setelah memperhitungkan pembesaran teras dan reflektor,
+massa total Opsi B justru naik 67,7 kg. Untuk Opsi A, massa total turun
+114,1 kg, tetapi dengan pengayaan 63,4\%.
+
+Dari sisi keandalan, Mark 1 memiliki dua pompa EM yang keduanya harus
+bekerja; kegagalan total aliran menyebabkan pemanasan teras dan potensi
+pelelehan. Opsi B dengan 72 pipa independen memiliki redundansi N\$- \$
+2: kegagalan dua pipa (2,8\% kapasitas) hanya menaikkan suhu pipa
+tetangga dan tidak menghentikan reaktor. KRUSTY telah mendemonstrasikan
+bahwa reaktor tetap dapat beroperasi dengan beberapa \emph{heat pipe}
+gagal {[}\citeproc{ref-poston2020design}{4}{]}. Namun, \emph{heat pipe}
+memperkenalkan mode kegagalan baru: \emph{de-priming} arteri,
+pembekuan/pencairan berulang, dan migrasi natrium selama peluncuran.
+Mode ini perlu diuji secara eksperimental.
+
+\section{Rekomendasi Desain}\label{rekomendasi-desain}
+
+Berdasarkan hasil di atas, rekomendasi untuk ISR Mark 2 adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Untuk operasi pasif penuh 500 kWth:} gunakan \textbf{Opsi
+  B}---matriks 72 \emph{heat pipe} natrium interstitial berdiameter 1,42
+  cm pada pitch 5,02 cm, dengan suhu operasi mendekati 1200 K. Opsi ini
+  menghilangkan pompa dan titik tunggal kegagalan, dengan konsekuensi
+  massa total +11,9\% dan kebutuhan verifikasi neutronik karena pitch
+  dan reflektor berubah.
+\item
+  \textbf{Untuk mempertahankan pengayaan di bawah 60\%:} gunakan
+  \textbf{Opsi C hibrida}---pertahankan pompa Na-78K untuk daya nominal
+  dan tambahkan 61 \emph{heat pipe} 0,6 cm sebagai sistem pendingin
+  pasif cadangan. Kapasitas 75 kWth cukup untuk panas peluruhan dan
+  memberikan waktu tambahan dalam skenario kehilangan aliran.
+\item
+  \textbf{Untuk mempertahankan daya 500 kWth dan menurunkan massa:}
+  \textbf{Opsi A} dengan kanal 1,55 cm memberikan massa terendah (453
+  kg; 0,906 kg/kWth), tetapi memerlukan pengayaan sekitar 63\% atau
+  perpanjangan teras. Opsi ini hanya layak jika batas pengayaan 60\%
+  dilonggarkan.
+\end{enumerate}
+
+\section{Keterbatasan Penelitian}\label{keterbatasan-penelitian}
+
+Keterbatasan utama penelitian ini adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Tidak ada perhitungan neutronik ulang.} Perubahan pitch,
+  reflektor, dan volume bahan bakar hanya diestimasi secara orde
+  pertama. Diperlukan model Monte Carlo (MCNP/OpenMC) untuk
+  memverifikasi reaktivitas, koefisien suhu, dan margin padam.
+\item
+  \textbf{Model termal 1D terpusat.} Distribusi suhu radial dalam pin,
+  hotspot bahan bakar, dan kopling konduksi antar-pin tidak dimodelkan.
+  CFD atau model nodal 2D diperlukan untuk verifikasi lokal.
+\item
+  \textbf{Korelasi \emph{flooding} KRUSTY bersifat empiris.} Validasi
+  600--800 °C tidak menguji korelasi pertama-prinsip. Validasi fisik
+  yang lebih kuat memerlukan data uji \emph{heat pipe} tambahan pada
+  geometri dan fill ratio yang sama.
+\item
+  \textbf{Transien belum mencakup panas laten dan massa teras.} Analisis
+  start-up dan \emph{freeze--thaw} memerlukan model entalpi.
+\item
+  \textbf{Tidak ada analisis radiator, perisai, dan konversi daya.}
+  Massa total yang dilaporkan hanya mencakup reaktor dan sistem
+  pendingin, bukan radiator atau konverter Stirling.
+\item
+  \textbf{Keandalan tidak dikuantifikasi secara probabilistik.}
+  Diperlukan data MTBF dan analisis pohon kegagalan untuk klaim
+  keandalan yang lebih kuat.
+\end{enumerate}
+
+\chapter{KESIMPULAN DAN SARAN}\label{sec-conclusion-recommendation}
+
+\section{Kesimpulan}\label{kesimpulan}
+
+Berdasarkan pengembangan, validasi, dan penerapan simulator \emph{heat
+pipe} 1D, dapat disimpulkan bahwa:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Simulator 1D non-CFD berhasil dibangun dan divalidasi.}
+  Simulator terdiri atas modul properti fluida, geometri wick, limit
+  operasional, jaringan resistansi termal, validasi, dan desain ISR.
+  Seluruh 74 uji satuan lulus. Terhadap data KRUSTY, galat maksimum pada
+  rentang 550--800 °C adalah \textbf{1,29\%}; titik operasi nominal 310
+  W pada 800 °C menghasilkan suhu uap 810,3 °C dan beda suhu
+  evaporator--kondensor \textbf{14,1 K}. Terhadap \emph{heat pipe}
+  arterial Walker, galat adalah \textbf{+11,45\%} dengan limit
+  \emph{entrainment} sebagai pengendali.
+\item
+  \textbf{Kanal 0,6 cm ISR tidak mampu membawa 8,2 kWth per pin.} Pada
+  1200 K, daya maksimum satu \emph{heat pipe} natrium dengan wick
+  arterial adalah \textbf{1,23 kW (15,0\%)}; kalium 0,79 kW (9,6\%);
+  litium 25 W (0,3\%); dan wick sinter natrium 8,65 W (0,1\%). Limit
+  yang mengendalikan adalah \emph{entrainment} untuk wick
+  arterial/annular dan kapiler untuk wick sinter. Diameter yang
+  diperlukan untuk 8,2 kW adalah \textbf{1,55 cm} (Na) pada 1200 K,
+  meningkat menjadi 2,92 cm pada 900 K. Litium baru layak pada sekitar
+  1400 K.
+\item
+  \textbf{Tiga opsi arsitektur telah dikuantifikasi.} Opsi A (perluasan
+  kanal menjadi 1,55 cm) memberikan massa total 453,0 kg dan massa
+  spesifik 0,906 kg/kWth, tetapi kehilangan 18,0\% volume bahan bakar
+  dan menuntut pengayaan sekitar 63,4\%, melampaui target 60\%. Opsi B
+  (matriks 72 \emph{heat pipe} interstitial 1,42 cm) mampu membawa 500
+  kWth secara pasif dengan pitch 5,02 cm, massa total 634,8 kg, dan
+  massa spesifik 1,270 kg/kWth (+11,9\% dari Mark 1). Opsi C (61 pipa
+  0,6 cm) hanya menangani 75,1 kWth, tetapi cukup untuk panas peluruhan
+  dan cocok sebagai sistem cadangan hibrida.
+\item
+  \textbf{Eliminasi pompa mengurangi massa subsistem pendingin dan titik
+  tunggal kegagalan.} Sistem pompa Na-78K membutuhkan daya 286 W dan
+  bermassa sekitar 120 kg. Sistem \emph{heat pipe} Opsi B bermassa 34,6
+  kg, sehingga menghemat \textbf{85,4 kg (71\%)} massa subsistem
+  pendingin. Setelah memperhitungkan pembesaran teras dan reflektor,
+  massa total Opsi B naik 67,7 kg; namun pompa, pengontrol, dan manifold
+  yang menjadi titik tunggal kegagalan berhasil dihilangkan, dan
+  redundansi N\$- \$ 2 tersedia melalui 72 pipa independen.
+\item
+  \textbf{Rekomendasi utama} adalah Opsi B untuk operasi pasif penuh 500
+  kWth pada suhu mendekati 1200 K, atau Opsi C hibrida apabila batas
+  pengayaan 60\% dipertahankan. Opsi A hanya layak jika pengayaan dapat
+  dinaikkan atau teras diperpanjang.
+\end{enumerate}
+
+\section{Saran}\label{saran}
+
+Penelitian lanjutan yang disarankan adalah:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Verifikasi neutronik} dengan MCNP atau OpenMC untuk menghitung
+  ulang reaktivitas, koefisien suhu, margin padam, dan distribusi daya
+  pada geometri Opsi A dan Opsi B.
+\item
+  \textbf{Verifikasi termal lokal} dengan model 2D atau CFD untuk
+  memeriksa hotspot bahan bakar, gradien radial dalam pin, dan kopling
+  konduksi antar-pin yang tidak tertangkap model 1D.
+\item
+  \textbf{Pengembangan model transien dua fase} yang mencakup entalpi
+  peleburan, perpindahan \emph{thaw front}, dan massa teras, serta
+  validasi terhadap data start-up KRUSTY dan \emph{heat pipe} litium
+  Tournier--El-Genk.
+\item
+  \textbf{Uji eksperimental} \emph{heat pipe} natrium 1,4--1,6 cm dengan
+  wick arterial pada 1100--1200 K, termasuk uji \emph{de-priming},
+  siklus beku--cair, dan orientasi gravitasi.
+\item
+  \textbf{Kajian material dan keselamatan} untuk kompatibilitas Haynes
+  230, Mo-30Re, dan natrium pada 1200 K, serta pengaruh aktivasi neutron
+  natrium terhadap pemeliharaan dan dosis.
+\item
+  \textbf{Integrasi sistem} dengan radiator, konverter Stirling,
+  perisai, dan kontrol start-up, sehingga massa total dan efisiensi
+  sistem dapat dibandingkan secara adil dengan Mark 1.
+\item
+  \textbf{Analisis keandalan probabilistik} (MTBF, FMEA, pohon
+  kegagalan) untuk mengkuantifikasi klaim keunggulan keselamatan
+  \emph{heat pipe}.
+\end{enumerate}
+
+\chapter*{DAFTAR PUSTAKA}
 \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
 
 \protect\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\bibitem[\citeproctext]{ref-elgenk2009}
+\CSLLeftMargin{{[}1{]} }%
+\CSLRightInline{M. S. El-Genk. {``Deployment history and design
+considerations for space reactor power systems''} \emph{Acta
+Astronautica}, vol. 64, no. 9--10, pp. 833-849, 2009.}
+
+\bibitem[\citeproctext]{ref-cotter1965}
+\CSLLeftMargin{{[}2{]} }%
+\CSLRightInline{T. P. Cotter. \emph{Theory of Heat Pipes}. Los Alamos
+Scientific Laboratory, 1965.}
+
+\bibitem[\citeproctext]{ref-dunn2006}
+\CSLLeftMargin{{[}3{]} }%
+\CSLRightInline{P. D. Dunn dan D. A. Reay. \emph{Heat Pipes}. Oxford,
+UK, Elsevier, 2006.}
+
+\bibitem[\citeproctext]{ref-poston2020design}
+\CSLLeftMargin{{[}4{]} }%
+\CSLRightInline{D. I. Poston, M. A. Gibson, T. Godfroy dan P. R.
+McClure.
+{``\href{https://doi.org/10.1080/00295450.2020.1725382}{{KRUSTY} reactor
+design}''} \emph{Nuclear Technology}, vol. 206, no. S1, pp. S13-S30,
+2020.}
+
+\bibitem[\citeproctext]{ref-poston2020results}
+\CSLLeftMargin{{[}5{]} }%
+\CSLRightInline{D. I. Poston, M. A. Gibson, R. G. Sanchez dan P. R.
+McClure. {``\href{https://doi.org/10.1080/00295450.2020.1730673}{Results
+of the {KRUSTY} nuclear system test}''} \emph{Nuclear Technology}, vol.
+206, no. S1, pp. S89-S102, 2020.}
+
+\bibitem[\citeproctext]{ref-gibson2020}
+\CSLLeftMargin{{[}6{]} }%
+\CSLRightInline{M. A. Gibson, D. I. Poston, P. R. McClure, J. L. Sanzi,
+T. J. Godfroy, M. H. Briggs, S. D. Wilson, N. A. Schifer, M. F. Chaiken
+dan N. Lugasy.
+{``\href{https://doi.org/10.1080/00295450.2019.1709364}{Heat transport
+and power conversion of the {Kilopower} reactor test}''} \emph{Nuclear
+Technology}, vol. 206, no. S1, pp. S31-S42, 2020.}
+
+\bibitem[\citeproctext]{ref-khandaq2020}
+\CSLLeftMargin{{[}7{]} }%
+\CSLRightInline{M. F. Khandaq, A. W. Harto dan A. Agung.
+{``\href{https://doi.org/10.1016/j.pnucene.2019.103109}{Conceptual core
+design study for {Indonesian} {Space} {Reactor} ({ISR})}''}
+\emph{Progress in Nuclear Energy}, vol. 118, pp. 103109, 2020.}
+
+\bibitem[\citeproctext]{ref-elgenk2004}
+\CSLLeftMargin{{[}8{]} }%
+\CSLRightInline{M. S. El-Genk dan J.-M. Tournier. \emph{Conceptual
+design of {HP-STMCs} space reactor power system for 110 {kWe}}.
+Albuquerque, NM, USA, Proceedings of the Space Technology and
+Applications International Forum (STAIF-2004), 2004.}
+
+\bibitem[\citeproctext]{ref-mason2011}
+\CSLLeftMargin{{[}9{]} }%
+\CSLRightInline{L. Mason dan C. Carmichael. \emph{A small fission power
+system with {Stirling} power conversion for {NASA} science missions}.
+Albuquerque, NM, USA, Proceedings of Nuclear and Emerging Technologies
+for Space (NETS-2011), 2011.}
+
+\bibitem[\citeproctext]{ref-martin2004}
+\CSLLeftMargin{{[}10{]} }%
+\CSLRightInline{J. J. Martin dan R. S. Reid. \emph{Sodium based heat
+pipe modules for space reactor concepts: Stainless steel {SAFE-400}
+core}. Pittsburgh, PA, USA, Proceedings of ICAPP '04, 2004.}
+
+\bibitem[\citeproctext]{ref-faghri1995}
+\CSLLeftMargin{{[}11{]} }%
+\CSLRightInline{A. Faghri. \emph{Heat Pipe Science and Technology}.
+Washington, DC, USA, Taylor \& Francis, 1995.}
+
+\bibitem[\citeproctext]{ref-walker2013}
+\CSLLeftMargin{{[}12{]} }%
+\CSLRightInline{K. L. Walker, C. Tarau dan W. G. Anderson. \emph{High
+temperature heat pipes for space fission power}. San Jose, CA, USA,
+Proceedings of the 11th International Energy Conversion Engineering
+Conference (IECEC), 2013.}
+
+\bibitem[\citeproctext]{ref-chi1976}
+\CSLLeftMargin{{[}13{]} }%
+\CSLRightInline{S. W. Chi. \emph{Heat Pipe Theory and Practice}. New
+York, NY, USA, McGraw-Hill, 1976.}
+
+\bibitem[\citeproctext]{ref-tien1979}
+\CSLLeftMargin{{[}14{]} }%
+\CSLRightInline{C. L. Tien dan K. S. Chung. {``Entrainment limits in
+heat pipes''} \emph{AIAA Journal}, vol. 17, no. 6, pp. 643-646, 1979.}
+
+\bibitem[\citeproctext]{ref-elgenk2011}
+\CSLLeftMargin{{[}15{]} }%
+\CSLRightInline{M. S. El-Genk.
+{``\href{https://doi.org/10.5098/fhp.v2.1.3002}{Uses of liquid-metal and
+water heat pipes in space reactor power systems}''} \emph{Frontiers in
+Heat Pipes}, vol. 2, pp. 013002, 2011.}
+
+\bibitem[\citeproctext]{ref-tournier2001}
+\CSLLeftMargin{{[}16{]} }%
+\CSLRightInline{J.-M. Tournier dan M. S. El-Genk. \emph{Modeling of the
+startup of a horizontal lithium heat pipe from a frozen state}. Anaheim,
+CA, USA, Proceedings of the 35th National Heat Transfer Conference
+(NHTC'01), 2001.}
+
+\bibitem[\citeproctext]{ref-hu2022}
+\CSLLeftMargin{{[}17{]} }%
+\CSLRightInline{{C. Hu dan others}. {``Design and verification of
+ultra-high temperature lithium heat pipe based experimental facility''}
+\emph{Thermal Science}, vol. 26, no. 4B, pp. 3413-3426, 2022.}
+
+\bibitem[\citeproctext]{ref-celik2023}
+\CSLLeftMargin{{[}18{]} }%
+\CSLRightInline{F. Celik dan I. C. Bang. \emph{Initial study on the
+effect of neutron activation of lithium cooled heat pipe: performance
+and safety evaluation}. Jeju, Korea, Proceedings of the 10th Korea-China
+Workshop on Nuclear Reactor Thermal-Hydraulics (WORTH-10), 2023.}
+
+\bibitem[\citeproctext]{ref-wang2020}
+\CSLLeftMargin{{[}19{]} }%
+\CSLRightInline{C. Wang, H. Sun, S. Tang, W. Tian, S. Qiu dan G. Su.
+{``Thermal-hydraulic analysis of a new conceptual heat pipe cooled small
+nuclear reactor system''} \emph{Nuclear Engineering and Technology},
+vol. 52, no. 1, pp. 19-26, 2020.}
+
+\bibitem[\citeproctext]{ref-wang2023}
+\CSLLeftMargin{{[}20{]} }%
+\CSLRightInline{E. Wang, T. Ren dan L. Li.
+{``\href{https://doi.org/10.3389/fenrg.2023.1264168}{Review of reactor
+conceptual design and thermal hydraulic characteristics for heat pipe in
+nuclear systems}''} \emph{Frontiers in Energy Research}, vol. 11, pp.
+1264168, 2023.}
+
+\bibitem[\citeproctext]{ref-anl2019}
+\CSLLeftMargin{{[}21{]} }%
+\CSLRightInline{Argonne National Laboratory. \emph{Multi-physics
+simulations of heat pipe micro reactor}. Argonne National Laboratory,
+2019.}
+
+\bibitem[\citeproctext]{ref-sterbentz2016}
+\CSLLeftMargin{{[}22{]} }%
+\CSLRightInline{J. W. Sterbentz, J. E. Werner, M. G. McKellar, A. J.
+Hummel, J. C. Kennedy dan R. N. Wright. \emph{Special purpose nuclear
+reactor (5 {MW}) for reliable power at remote sites: assessment report
+using phenomena identification and ranking tables ({PIRTs})}. Idaho
+National Laboratory, 2016.}
+
+\bibitem[\citeproctext]{ref-sterbentz2017}
+\CSLLeftMargin{{[}23{]} }%
+\CSLRightInline{J. W. Sterbentz, J. E. Werner, A. J. Hummel, J. C.
+Kennedy, R. C. O'Brien, A. M. Dion, R. N. Wright dan K. P. Ananth.
+\emph{Preliminary assessment of two alternative core design concepts for
+the special purpose reactor}. Idaho National Laboratory, 2017.}
+
+\bibitem[\citeproctext]{ref-gaspar2022}
+\CSLLeftMargin{{[}24{]} }%
+\CSLRightInline{L. M. Gaspar, D. A. Giordano, N. A. Greenfield, S. J.
+Kim, F. A. Kubic, M. R. Middlemas, A. J. Pizarro, W. J. Saeger, K. M.
+Sweetland dan R. S. Reid.
+{``\href{https://doi.org/10.1080/00295450.2021.1997540}{{eBlock37}
+microreactor electrical demonstration unit}''} \emph{Nuclear
+Technology}, 2022.}
+
+\bibitem[\citeproctext]{ref-lin2025}
+\CSLLeftMargin{{[}25{]} }%
+\CSLRightInline{H. Lin, Z. Li, J. Yang, Z. Su, H. Wang, W. Zhuge, H.
+Jiang dan P. Zhang. {``Conceptual design and overall scheme of a
+vehicle-mounted megawatt-class heat-pipe cooled reactor nuclear power
+system''} \emph{Nuclear Techniques}, vol. 48, no. 7, 2025.}
+
+\bibitem[\citeproctext]{ref-an2024}
+\CSLLeftMargin{{[}26{]} }%
+\CSLRightInline{W. An, G. Hu, J. Guo, P. Ge, J. Liu dan S. Ge.
+{``\href{https://doi.org/10.15982/j.issn.2096-9287.2024.20230127}{Study
+of a deep-space light-mass long-life heat pipe reactor power scheme}''}
+\emph{Journal of Deep Space Exploration}, 2024.}
+
+\bibitem[\citeproctext]{ref-orlandi2024}
+\CSLLeftMargin{{[}27{]} }%
+\CSLRightInline{H. I. Orlandi, P. C. R. Rossi dan A. A. Braid.
+\emph{Fuel element micro reactor integrating a square {UO2} fuel rod
+with an internal heat pipe}. Rio de Janeiro, Brazil, Proceedings of the
+2024 International Nuclear Atlantic Conference (INAC 2024), 2024.}
+
+\bibitem[\citeproctext]{ref-busse1973}
+\CSLLeftMargin{{[}28{]} }%
+\CSLRightInline{C. A. Busse. {``Theory of the ultimate heat transfer
+limit of cylindrical heat pipes''} \emph{International Journal of Heat
+and Mass Transfer}, vol. 16, no. 1, pp. 169-186, 1973.}
+
+\bibitem[\citeproctext]{ref-levy1968}
+\CSLLeftMargin{{[}29{]} }%
+\CSLRightInline{E. K. Levy. {``Theoretical investigation of heat pipes
+operating at low vapor pressures''} \emph{Journal of Engineering for
+Industry}, vol. 90, no. 4, pp. 547-552, 1968.}
+
+\bibitem[\citeproctext]{ref-incropera2007}
+\CSLLeftMargin{{[}30{]} }%
+\CSLRightInline{F. P. Incropera, D. P. DeWitt, T. L. Bergman dan A. S.
+Lavine. {``Fundamentals of Heat and Mass Transfer''} 2007.}
+
+\end{CSLReferences}
 
 \chapter{LISTING PROGRAM SIMULATOR}\label{listing-program-simulator}
 

@@ -5,7 +5,7 @@ project:
     - skripsi.qmd
 
 lang: id
-bibliography: references.bib
+bibliography: appendices/references.bib
 csl: skripsi-ugm.csl
 
 crossref:
@@ -43,7 +43,18 @@ format:
     number-sections: true
     number-depth: 3
     colorlinks: false
-    link-citations: false
+    link-citations: true
+    link-color: black
+    link-toc: true
+    link-toc-color: black
+    link-figures: true
+    link-figures-color: black
+    link-tables: true
+    link-tables-color: black
+    link-equations: true
+    link-equations-color: black
+    link-urls: true
+    link-urls-color: black 
     fig-cap-location: bottom        # judul Gambar di bawah gambar
     tbl-cap-location: top           # judul Tabel di atas tabel
     fig-pos: "htbp"

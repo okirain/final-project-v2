@@ -1,0 +1,144 @@
+# LISTING PROGRAM
+
+## Struktur Modul
+
+Paket `HeatPipeCore` terdiri atas enam modul yang di-*include* oleh modul
+utama:
+
+```julia
+module HeatPipeCore
+
+include("FluidProperties.jl")
+include("Wick.jl")
+include("Limits.jl")
+include("ThermalNetwork.jl")
+include("Validation.jl")
+include("ISRDesign.jl")
+
+using .FluidProperties
+using .Wick
+using .Limits
+using .ThermalNetwork
+using .Validation
+using .ISRDesign
+
+end # module
+```
+
+## Limit Operasional (kutipan `Limits.jl`)
+
+```julia
+function q_viscous(hp::HeatPipe, T::Real)
+    f = hp.fluid
+    p = p_sat(f, T)
+    h = h_fg(f, T)
+    rv = hp.r_v
+    return pi * rv^4 * h * rho_v(f, T) * p /
+           (16.0 * mu_v(f, T) * effective_length(hp))
+end
+
+function q_sonic(hp::HeatPipe, T::Real)
+    f = hp.fluid
+    Rg = R_specific(f)
+    a = sqrt(f.gamma * Rg * T / (2.0 * (f.gamma + 1.0)))
+    return vapour_area(hp) * rho_v(f, T) * h_fg(f, T) * a
+end
+
+function q_entrainment(hp::HeatPipe, T::Real)
+    f = hp.fluid
+    r_hw = hp.wick.r_eff
+    return vapour_area(hp) * h_fg(f, T) *
+           sqrt(sigma(f, T) * rho_v(f, T) / (2.0 * r_hw))
+end
+```
+
+## Neraca Tekanan Kapiler
+
+```julia
+function q_capillary(hp::HeatPipe, T::Real; include_gravity::Bool = true)
+    f = hp.fluid
+    dp_c = 2.0 * sigma(f, T) / hp.wick.r_eff
+
+    dp_g = 0.0
+    if include_gravity
+        dp_g = -rho_l(f, T) * hp.g * total_length(hp) * sin(hp.orientation)
+    end
+    dp_avail = dp_c + dp_g
+    dp_avail <= 0.0 && return 0.0
+
+    h = h_fg(f, T)
+    cl = mu_l(f, T) * effective_length(hp) /
+         (rho_l(f, T) * hp.wick.K * wick_area(hp) * h)
+    cv = 8.0 * mu_v(f, T) * effective_length(hp) /
+         (pi * rho_v(f, T) * hp.r_v^4 * h)
+
+    return dp_avail / (cl + cv)
+end
+```
+
+## Penyelesaian Tunak (`ThermalNetwork.jl`)
+
+```julia
+function steady_state(hp::HeatPipe, Q::Real; n::Int = 60,
+                      dT_sink::Real = 8.0, tol::Real = 1e-6,
+                      maxiter::Int = 200)
+    net = build_network(hp; n = n, Q = Q, dT_sink = dT_sink)
+
+    function residual(Tv)
+        G = conductances(net, Tv)
+        Tw = solve_wall(net, G, Tv, net.G_sink)
+        return sum(G .* (Tw .- Tv))
+    end
+
+    lo = hp.fluid.T_melt + 1.0
+    hi = min(0.98 * hp.fluid.T_crit, 2500.0)
+    flo = residual(lo)
+    fhi = residual(hi)
+
+    T_v = 0.5 * (lo + hi)
+    for _ in 1:maxiter
+        T_v = 0.5 * (lo + hi)
+        fr = residual(T_v)
+        if abs(fr) < 1e-6 || (hi - lo) < tol
+            break
+        end
+        if sign(fr) == sign(flo)
+            lo = T_v
+            flo = fr
+        else
+            hi = T_v
+        end
+    end
+
+    G_rad = conductances(net, T_v)
+    T_wall = solve_wall(net, G_rad, T_v, net.G_sink)
+    return (T_v = T_v, T_wall = T_wall, z = net.z,
+            dT_ec = maximum(T_wall[net.region .== :evaporator]) -
+                    minimum(T_wall[net.region .== :condenser]),
+            R_eq = (T_v - hp.T_sink) / Q)
+end
+```
+
+## Contoh Penggunaan
+
+```julia
+using HeatPipeCore
+
+# Validasi KRUSTY
+v = krusty_validation()
+println(v.max_err, " ", v.pass)
+println(nominal_point_validation())
+
+# Kelayakan ISR pada 1200 K
+for r in isr_feasibility(T = 1200.0)
+    println(r.fluid, " ", r.wick, " ", r.Q_max)
+end
+
+# Diameter yang diperlukan untuk 8,2 kW
+println(isr_required_diameter(Na; T = 1200.0, wick = :arterial))
+
+# Opsi arsitektur dan neraca massa
+o = isr_options()
+println(o.A, o.B, o.C)
+println(isr_mass_balance())
+```
