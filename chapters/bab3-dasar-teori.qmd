@@ -10,8 +10,13 @@ gravitasi. Pada kondisi tunak, laju aliran massa memenuhi
 
 $$ \dot{m} = \frac{Q}{h_{fg}} $$ {#eq-mdot}
 
-dengan $h_{fg}$ adalah kalor laten penguapan (J/kg). Persamaan
-@eq-mdot menjadi penghubung antara daya termal dan laju aliran yang
+dengan:
+
+- $\dot{m}$ adalah laju aliran massa fluida kerja (kg/s);
+- $Q$ adalah daya termal yang ditransfer melalui *heat pipe* (W);
+- $h_{fg}$ adalah kalor laten penguapan (J/kg).
+
+Persamaan @eq-mdot menjadi penghubung antara daya termal dan laju aliran yang
 menentukan semua penurunan tekanan.
 
 Pengembalian kondensat digerakkan oleh tekanan kapiler pada meniskus.
@@ -21,7 +26,14 @@ tekanan kapiler maksimum adalah
 $$ \Delta p_{c,\max} = \frac{2\sigma\cos\theta}{r_{\mathrm{eff}}}
    \approx \frac{2\sigma}{r_{\mathrm{eff}}} $$ {#eq-capillary}
 
-dengan $\sigma$ adalah tegangan permukaan (N/m). Fluida kerja harus basah
+dengan:
+
+- $\Delta p_{c,\max}$ adalah tekanan kapiler maksimum (Pa);
+- $\sigma$ adalah tegangan permukaan fluida kerja (N/m);
+- $\theta$ adalah sudut kontak antara fluida kerja dan wick (rad);
+- $r_{\mathrm{eff}}$ adalah jari-jari pori efektif wick (m).
+
+Fluida kerja harus basah
 terhadap wick ($\theta \approx 0$). Agar *heat pipe* dapat beroperasi,
 tekanan kapiler harus mampu melawan total penurunan tekanan cair, uap, dan
 gravitasi.
@@ -40,12 +52,28 @@ $$ C_i \frac{dT_i}{dt} = \sum_j G_{ax,ij}(T_j-T_i)
    + G_{rad,i}(T_v-T_i) + q_i - G_{sink,i}(T_i-T_{sink})
    $$ {#eq-network}
 
-dengan $G_{ax}$ adalah konduktansi aksial envelope, $G_{rad,i}$ adalah
-konduktansi radial dari dinding ke uap, $q_i$ adalah sumber panas pada
-evaporator, dan $G_{sink,i}$ adalah konduktansi ke sink eksternal pada
-kondensor. Neraca energi node uap pada kondisi tunak adalah
+dengan:
+
+- $C_i$ adalah kapasitas panas node dinding ke-$i$ (J/K);
+- $T_i$ adalah suhu node dinding ke-$i$ (K);
+- $t$ adalah waktu (s);
+- $G_{ax,ij}$ adalah konduktansi aksial antara node $i$ dan $j$ (W/K);
+- $T_j$ adalah suhu node dinding tetangga ke-$j$ (K);
+- $G_{rad,i}$ adalah konduktansi radial dari dinding ke uap pada node $i$ (W/K);
+- $T_v$ adalah suhu uap (K);
+- $q_i$ adalah sumber panas pada evaporator di node $i$ (W);
+- $G_{sink,i}$ adalah konduktansi ke sink eksternal pada kondensor (W/K);
+- $T_{sink}$ adalah suhu sink eksternal (K).
+
+Neraca energi node uap pada kondisi tunak adalah
 
 $$ \sum_i G_{rad,i}\,(T_i-T_v) = 0 $$ {#eq-vapor}
+
+dengan:
+
+- $G_{rad,i}$ adalah konduktansi radial dari dinding ke uap pada node $i$ (W/K);
+- $T_i$ adalah suhu node dinding ke-$i$ (K);
+- $T_v$ adalah suhu uap (K).
 
 Konduktansi radial menggabungkan konduksi dinding dan konduksi wick
 jenuh cairan:
@@ -54,6 +82,16 @@ $$ G_{rad,i} = \left[
    \frac{\ln(r_o/r_i)}{2\pi k_w \Delta z}
    + \frac{\ln(r_i/r_v)}{2\pi k_{\mathrm{eff}} \Delta z}
    \right]^{-1} $$ {#eq-grad}
+
+dengan:
+
+- $G_{rad,i}$ adalah konduktansi radial total pada node $i$ (W/K);
+- $r_o$ adalah jari-jari luar dinding envelope (m);
+- $r_i$ adalah jari-jari dalam dinding envelope (m);
+- $r_v$ adalah jari-jari inti uap (m);
+- $k_w$ adalah konduktivitas termal material dinding (W/(m·K));
+- $k_{\mathrm{eff}}$ adalah konduktivitas termal efektif wick jenuh cairan (W/(m·K));
+- $\Delta z$ adalah panjang volume hingga node (m).
 
 Pada kondensor, suku wick digantikan oleh resistansi film kondensasi.
 Untuk model tunak, sistem @eq-network bersifat linear terhadap $T_i$ bila
@@ -77,9 +115,25 @@ viskos sebagai [@busse1973; @faghri1995]
 $$ Q_v = \frac{\pi r_v^4\,h_{fg}\,\rho_v\,p_v}
               {16\,\mu_v\,\ell_{\mathrm{eff}}} $$ {#eq-viscous}
 
-dengan $\ell_{\mathrm{eff}}$ adalah panjang efektif
+dengan:
+
+- $Q_v$ adalah limit daya viskos (W);
+- $r_v$ adalah jari-jari inti uap (m);
+- $h_{fg}$ adalah kalor laten penguapan (J/kg);
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $p_v$ adalah tekanan uap (Pa);
+- $\mu_v$ adalah viskositas dinamik uap (Pa·s);
+- $\ell_{\mathrm{eff}}$ adalah panjang efektif *heat pipe* (m).
+
+Panjang efektif $\ell_{\mathrm{eff}}$ dihitung sebagai
 
 $$ \ell_{\mathrm{eff}} = L_a + \tfrac{1}{2}(L_e+L_c) $$ {#eq-leff}
+
+dengan:
+
+- $L_a$ adalah panjang bagian adiabatik (m);
+- $L_e$ adalah panjang bagian evaporator (m);
+- $L_c$ adalah panjang bagian kondensor (m).
 
 Limit ini meningkat sangat cepat terhadap suhu karena
 $Q_v \propto \rho_v p_v \propto p_v^2$.
@@ -92,8 +146,19 @@ ideal dan $\gamma$ konstan, limit sonik adalah [@levy1968]
 $$ Q_s = A_v\,\rho_v\,h_{fg}
    \sqrt{\frac{\gamma R_g T_v}{2(\gamma+1)}} $$ {#eq-sonic}
 
-dengan $A_v=\pi r_v^2$ dan $R_g=R_u/M_w$ adalah konstanta gas spesifik
-fluida kerja.
+dengan:
+
+- $Q_s$ adalah limit daya sonik (W);
+- $A_v$ adalah luas penampang inti uap (m²);
+- $r_v$ adalah jari-jari inti uap (m), dengan $A_v=\pi r_v^2$;
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $h_{fg}$ adalah kalor laten penguapan (J/kg);
+- $\gamma$ adalah rasio kalor spesifik uap ($c_p/c_v$);
+- $R_g$ adalah konstanta gas spesifik fluida kerja (J/(kg·K)), dengan
+  $R_g=R_u/M_w$;
+- $R_u$ adalah konstanta gas universal (J/(mol·K));
+- $M_w$ adalah massa molar fluida kerja (kg/mol);
+- $T_v$ adalah suhu uap (K).
 
 ### Limit *Entrainment* (Cotter)
 
@@ -103,7 +168,16 @@ Kriteria Weber $We=1$ menghasilkan [@cotter1965; @tien1979]
 $$ Q_e = A_v\,h_{fg}\sqrt{\frac{\sigma\rho_v}{2r_{h,w}}}
    $$ {#eq-entrainment}
 
-dengan $r_{h,w}$ adalah jari-jari hidraulik pori permukaan wick. Limit ini
+dengan:
+
+- $Q_e$ adalah limit daya *entrainment* (W);
+- $A_v$ adalah luas penampang inti uap (m²);
+- $h_{fg}$ adalah kalor laten penguapan (J/kg);
+- $\sigma$ adalah tegangan permukaan fluida kerja (N/m);
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $r_{h,w}$ adalah jari-jari hidraulik pori permukaan wick (m).
+
+Limit ini
 menjadi pembatas utama pada *heat pipe* berdiameter kecil dengan wick
 berpori halus.
 
@@ -114,13 +188,35 @@ Limit kapiler diperoleh dari neraca tekanan Young–Laplace dan Darcy:
 $$ \Delta p_{c,\max} \ge \Delta p_l + \Delta p_v + \Delta p_g
    $$ {#eq-capillary-limit}
 
-dengan
+dengan:
+
+- $\Delta p_{c,\max}$ adalah tekanan kapiler maksimum (Pa);
+- $\Delta p_l$ adalah penurunan tekanan pada aliran cairan (Pa);
+- $\Delta p_v$ adalah penurunan tekanan pada aliran uap (Pa);
+- $\Delta p_g$ adalah penurunan tekanan akibat gravitasi (Pa).
+
+Masing-masing suku dihitung sebagai
 
 $$ \Delta p_l = \frac{\mu_l\,\dot{m}\,\ell_{\mathrm{eff}}}
                      {\rho_l\,K\,A_w}, \qquad
    \Delta p_v = \frac{8\mu_v\,\dot{m}\,\ell_{\mathrm{eff}}}
                      {\pi\rho_v r_v^4}, \qquad
    \Delta p_g = -\rho_l\,g\,L\sin\theta $$ {#eq-dp}
+
+dengan:
+
+- $\mu_l$ adalah viskositas dinamik cairan (Pa·s);
+- $\dot{m}$ adalah laju aliran massa fluida kerja (kg/s);
+- $\ell_{\mathrm{eff}}$ adalah panjang efektif *heat pipe* (m);
+- $\rho_l$ adalah massa jenis cairan (kg/m³);
+- $K$ adalah permeabilitas wick (m²);
+- $A_w$ adalah luas penampang aliran wick (m²);
+- $\mu_v$ adalah viskositas dinamik uap (Pa·s);
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $r_v$ adalah jari-jari inti uap (m);
+- $g$ adalah percepatan gravitasi (m/s²);
+- $L$ adalah panjang *heat pipe* (m);
+- $\theta$ adalah kemiringan sumbu *heat pipe* terhadap horizontal (rad).
 
 Suku $\Delta p_g$ bernilai negatif (membantu) ketika kondensor berada di
 atas evaporator, dan positif (melawan) ketika evaporator berada di atas
@@ -137,8 +233,22 @@ $$ Q_b = \frac{2\pi L_e k_{\mathrm{eff}} T_v}{\ln(r_i/r_v)}
    \left(\frac{1}{r_b}-\frac{1}{r_{\mathrm{eff}}}\right)\right]
    $$ {#eq-boiling}
 
-dengan $r_b \approx 2{,}54\times10^{-7}$ m adalah jari-jari gelembung
-nukleasi kritis. Limit ini biasanya besar pada logam alkali, tetapi dapat
+dengan:
+
+- $Q_b$ adalah limit daya didih (W);
+- $L_e$ adalah panjang bagian evaporator (m);
+- $k_{\mathrm{eff}}$ adalah konduktivitas termal efektif wick jenuh cairan (W/(m·K));
+- $T_v$ adalah suhu uap (K);
+- $r_i$ adalah jari-jari dalam dinding envelope (m);
+- $r_v$ adalah jari-jari inti uap (m);
+- $\sigma$ adalah tegangan permukaan fluida kerja (N/m);
+- $h_{fg}$ adalah kalor laten penguapan (J/kg);
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $r_b$ adalah jari-jari gelembung nukleasi kritis (m), dengan
+  $r_b \approx 2{,}54\times10^{-7}$ m;
+- $r_{\mathrm{eff}}$ adalah jari-jari pori efektif wick (m).
+
+Limit ini biasanya besar pada logam alkali, tetapi dapat
 menjadi relevan pada fluks panas evaporator yang sangat tinggi.
 
 ### Limit *Flooding* pada *Thermosyphon*
@@ -151,10 +261,31 @@ tertahan dan terjadi *flooding*. Korelasi Tien–Chung yang digunakan adalah
 $$ Q_f = C_w^2\,A_v\,h_{fg}\,\sqrt{\rho_v}
    \left[g\sigma(\rho_l-\rho_v)\right]^{1/4} $$ {#eq-flooding}
 
-dengan
+dengan:
+
+- $Q_f$ adalah limit daya *flooding* (W);
+- $C_w$ adalah konstanta korelasi Tien–Chung (tanpa dimensi);
+- $A_v$ adalah luas penampang inti uap (m²);
+- $h_{fg}$ adalah kalor laten penguapan (J/kg);
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $\rho_l$ adalah massa jenis cairan (kg/m³);
+- $g$ adalah percepatan gravitasi (m/s²);
+- $\sigma$ adalah tegangan permukaan fluida kerja (N/m).
+
+Konstanta $C_w$ dan bilangan Bond $Bo$ dihitung sebagai
 
 $$ C_w^2 = 3{,}2\,\tanh^2\!\left(\tfrac{1}{2}Bo^{1/4}\right), \qquad
    Bo = 2r_v\sqrt{\frac{g(\rho_l-\rho_v)}{\sigma}} $$ {#eq-bo}
+
+dengan:
+
+- $C_w$ adalah konstanta korelasi Tien–Chung (tanpa dimensi);
+- $Bo$ adalah bilangan Bond (tanpa dimensi);
+- $r_v$ adalah jari-jari inti uap (m);
+- $g$ adalah percepatan gravitasi (m/s²);
+- $\rho_l$ adalah massa jenis cairan (kg/m³);
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $\sigma$ adalah tegangan permukaan fluida kerja (N/m).
 
 Untuk KRUSTY, model throughput yang dipublikasikan merupakan kecocokan
 kurva empiris terhadap data uji individual, bukan korelasi *flooding*
@@ -175,12 +306,27 @@ $$ \varepsilon = 1-\frac{\pi}{4}Nd, \qquad
    K = \frac{d^2\varepsilon^3}{122(1-\varepsilon)^2}, \qquad
    r_{\mathrm{eff}} = \frac{1}{2N} $$ {#eq-screen}
 
+dengan:
+
+- $\varepsilon$ adalah porositas wick (tanpa dimensi);
+- $N$ adalah kerapatan kawat pada masing-masing arah (kawat/m);
+- $d$ adalah diameter kawat (m);
+- $K$ adalah permeabilitas wick (m²);
+- $r_{\mathrm{eff}}$ adalah jari-jari pori efektif wick (m).
+
 ### Serbuk Sinter
 
 Untuk partikel bola berdiameter $d_p$ dan porositas $\varepsilon$:
 
 $$ K = \frac{d_p^2\varepsilon^3}{180(1-\varepsilon)^2}, \qquad
    r_{\mathrm{eff}} = 0{,}21\,d_p $$ {#eq-sintered}
+
+dengan:
+
+- $K$ adalah permeabilitas wick (m²);
+- $d_p$ adalah diameter partikel bola (m);
+- $\varepsilon$ adalah porositas wick (tanpa dimensi);
+- $r_{\mathrm{eff}}$ adalah jari-jari pori efektif wick (m).
 
 ### Celah Annular
 
@@ -189,6 +335,13 @@ Untuk celah selebar $t$ dengan permukaan berpori halus:
 $$ K = \frac{t^2}{12}, \qquad r_{\mathrm{eff}} = r_{\mathrm{pore}}
    $$ {#eq-annular}
 
+dengan:
+
+- $K$ adalah permeabilitas celah annular (m²);
+- $t$ adalah lebar celah annular (m);
+- $r_{\mathrm{eff}}$ adalah jari-jari pori efektif wick (m);
+- $r_{\mathrm{pore}}$ adalah jari-jari pori permukaan berpori halus (m).
+
 Konduktivitas termal efektif wick jenuh cairan dihitung dengan korelasi
 Maxwell:
 
@@ -196,7 +349,12 @@ $$ k_{\mathrm{eff}} = k_l\,
    \frac{(k_l+k_s)-(1-\varepsilon)(k_l-k_s)}
         {(k_l+k_s)+(1-\varepsilon)(k_l-k_s)} $$ {#eq-keff}
 
-dengan $k_s$ adalah konduktivitas material wick.
+dengan:
+
+- $k_{\mathrm{eff}}$ adalah konduktivitas termal efektif wick jenuh cairan (W/(m·K));
+- $k_l$ adalah konduktivitas termal cairan (W/(m·K));
+- $k_s$ adalah konduktivitas termal material wick (W/(m·K));
+- $\varepsilon$ adalah porositas wick (tanpa dimensi).
 
 ## Sifat Termofisika Fluida Kerja
 
@@ -205,25 +363,59 @@ dinyatakan dengan bentuk Clausius–Clapeyron dua konstanta:
 
 $$ \log_{10} p_{\mathrm{sat}} = A - \frac{B}{T} $$ {#eq-psat}
 
+dengan:
+
+- $p_{\mathrm{sat}}$ adalah tekanan saturasi (Pa);
+- $A$ adalah konstanta Antoine–Clausius (tanpa dimensi);
+- $B$ adalah konstanta Antoine–Clausius (K);
+- $T$ adalah suhu saturasi (K).
+
 Konstanta $A$ dan $B$ untuk Na, K, dan Li diambil dari data Alcock
 [@incropera2007] dan disesuaikan agar tekanan pada titik didih normal sama
 dengan 101,325 kPa. Massa jenis uap dihitung dengan hukum gas ideal:
 
 $$ \rho_v = \frac{p_{\mathrm{sat}}M_w}{R_uT} $$ {#eq-rhov}
 
+dengan:
+
+- $\rho_v$ adalah massa jenis uap (kg/m³);
+- $p_{\mathrm{sat}}$ adalah tekanan saturasi (Pa);
+- $M_w$ adalah massa molar fluida kerja (kg/mol);
+- $R_u$ adalah konstanta gas universal (J/(mol·K));
+- $T$ adalah suhu saturasi (K).
+
 Kalor laten mengikuti korelasi Watson:
 
 $$ h_{fg}(T) = h_{fg,b}\left(\frac{T_c-T}{T_c-T_b}\right)^{0.38}
    $$ {#eq-hfg}
+
+dengan:
+
+- $h_{fg}$ adalah kalor laten penguapan pada suhu $T$ (J/kg);
+- $h_{fg,b}$ adalah kalor laten penguapan pada titik didih normal (J/kg);
+- $T$ adalah suhu saturasi (K);
+- $T_c$ adalah suhu kritis fluida kerja (K);
+- $T_b$ adalah titik didih normal fluida kerja (K).
 
 Tegangan permukaan dan viskositas cairan mengikuti bentuk
 
 $$ \sigma(T)=\sigma_0\left(\frac{T_c-T}{T_c-T_m}\right)^{1.22}, \qquad
    \mu_l(T)=\mu_0\exp\!\left(\frac{B_\mu}{T}\right) $$ {#eq-sigma}
 
-dengan $T_m$ titik leleh, $T_b$ titik didih normal, dan $T_c$ suhu kritis.
+dengan:
+
+- $\sigma$ adalah tegangan permukaan pada suhu $T$ (N/m);
+- $\sigma_0$ adalah konstanta tegangan permukaan referensi (N/m);
+- $\mu_l$ adalah viskositas dinamik cairan pada suhu $T$ (Pa·s);
+- $\mu_0$ adalah konstanta viskositas referensi (Pa·s);
+- $B_\mu$ adalah konstanta viskositas (K);
+- $T$ adalah suhu saturasi (K);
+- $T_m$ adalah titik leleh fluida kerja (K);
+- $T_c$ adalah suhu kritis fluida kerja (K).
+
 Viskositas uap dimodelkan sebagai
-$\mu_v = \mu_{v,0}(T/1000)^{0.7}$.
+$\mu_v = \mu_{v,0}(T/1000)^{0.7}$, dengan $\mu_{v,0}$ adalah konstanta
+viskositas uap referensi (Pa·s).
 
 ## Metode Numerik
 
@@ -235,6 +427,16 @@ Untuk daya $Q$ dan suhu sink $T_{\mathrm{sink}}$ yang diberikan, sistem
 $$ \mathbf{A}(T_v)\,\mathbf{T} = \mathbf{q}
    + \mathbf{G}_{rad}T_v + \mathbf{G}_{sink}T_{\mathrm{sink}}
    $$ {#eq-steady}
+
+dengan:
+
+- $\mathbf{A}(T_v)$ adalah matriks konduktansi tridiagonal yang bergantung pada $T_v$ (W/K);
+- $\mathbf{T}$ adalah vektor suhu node dinding (K);
+- $\mathbf{q}$ adalah vektor sumber panas pada evaporator (W);
+- $\mathbf{G}_{rad}$ adalah vektor konduktansi radial dinding–uap (W/K);
+- $\mathbf{G}_{sink}$ adalah vektor konduktansi ke sink eksternal (W/K);
+- $T_v$ adalah suhu uap (K);
+- $T_{\mathrm{sink}}$ adalah suhu sink eksternal (K).
 
 Karena $\mathbf{A}$ bergantung pada sifat pada $T_v$, solusi dilakukan
 dengan biseksi pada residual @eq-vapor dalam rentang
@@ -249,10 +451,22 @@ tahap:
 
 $$ T_v = \frac{\sum_i G_{rad,i}T_i}{\sum_i G_{rad,i}} $$ {#eq-tv}
 
+dengan:
+
+- $T_v$ adalah suhu uap (K);
+- $G_{rad,i}$ adalah konduktansi radial dinding–uap pada node $i$ (W/K);
+- $T_i$ adalah suhu node dinding ke-$i$ (K).
+
 Langkah waktu dipilih dari batas stabilitas eksplisit
 
 $$ \Delta t \le 0{,}25\,\min_i
    \frac{C_i}{\sum_j |G_{ij}|} $$ {#eq-dt}
+
+dengan:
+
+- $\Delta t$ adalah langkah waktu integrasi (s);
+- $C_i$ adalah kapasitas panas node dinding ke-$i$ (J/K);
+- $G_{ij}$ adalah konduktansi antara node $i$ dan node $j$ (W/K).
 
 Untuk menghindari singularitas pada saat fluida masih beku, konduktansi
 radial dimatikan secara halus ketika $T_v$ berada di bawah titik leleh.
@@ -267,6 +481,12 @@ Galat relatif antara model dan data didefinisikan sebagai
 $$ e = \frac{Q_{\mathrm{model}}-Q_{\mathrm{data}}}{Q_{\mathrm{data}}}
    $$ {#eq-error}
 
+dengan:
+
+- $e$ adalah galat relatif (tanpa dimensi);
+- $Q_{\mathrm{model}}$ adalah daya hasil prediksi model (W);
+- $Q_{\mathrm{data}}$ adalah daya dari data eksperimen (W).
+
 Validasi dinyatakan lulus apabila $|e|\le 0{,}15$ pada seluruh titik
 dalam rentang yang diuji. Ketidakpastian digitalisasi data diperlakukan
 sebagai sumber ketidakpastian utama, di samping ketidakpastian sifat
@@ -276,7 +496,14 @@ Bilangan Reynolds uap
 
 $$ Re_v = \frac{2\dot{m}}{\pi r_v\mu_v} $$ {#eq-re}
 
-dihitung untuk memastikan asumsi aliran laminar Hagen–Poiseuille pada inti
+dengan:
+
+- $Re_v$ adalah bilangan Reynolds aliran uap (tanpa dimensi);
+- $\dot{m}$ adalah laju aliran massa fluida kerja (kg/s);
+- $r_v$ adalah jari-jari inti uap (m);
+- $\mu_v$ adalah viskositas dinamik uap (Pa·s).
+
+Bilangan ini dihitung untuk memastikan asumsi aliran laminar Hagen–Poiseuille pada inti
 uap. Apabila $Re_v$ melebihi sekitar 2300, penurunan tekanan uap
 sesungguhnya lebih besar daripada prediksi laminar, sehingga limit kapiler
 menjadi lebih konservatif.

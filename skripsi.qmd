@@ -35,7 +35,11 @@ lang: id
 
 {{< include appendices/daftar-pustaka.qmd >}}
 
-{{< include appendices/lampiran-a.qmd >}}
+{{< include appendices/appendixA.qmd >}}
 
-{{< include appendices/lampiran-b.qmd >}}
+{{< include appendices/appendixB.qmd >}}
+
+{{< include appendices/appendixC.qmd >}}
+
+
  
