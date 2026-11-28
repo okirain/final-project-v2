@@ -65,6 +65,18 @@
   \let\origaddcontentsline\addcontentsline
   \let\addcontentsline\newaddcontentsline}
 
+% ---------- Lampiran ----------
+% Pindah ke mode lampiran: bab menjadi LAMPIRAN A, B, ... dan
+% gambar/tabel/persamaan memakai huruf lampiran (A.1, A.2, ...).
+\newcommand{\appendixmode}{%
+  \appendix
+  \renewcommand{\thechapter}{LAMPIRAN~\Alph{chapter}}%
+  \renewcommand{\thesection}{\Alph{chapter}.\arabic{section}}%
+  \renewcommand{\thefigure}{\Alph{chapter}.\arabic{figure}}%
+  \renewcommand{\thetable}{\Alph{chapter}.\arabic{table}}%
+  \renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}}%
+}
+
 % ---------- Nomor halaman ----------
 % Tengah bawah di semua halaman (sesuai templat)
 \pagestyle{fancy}

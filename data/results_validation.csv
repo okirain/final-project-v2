@@ -1,0 +1,7 @@
+source,T_C,Q_meas_W,Q_model_W,rel_err,controlling
+KRUSTY (Gibson 2020),500.0,30.00,31.04,0.0345,viscous
+KRUSTY (Gibson 2020),550.0,200.00,197.43,-0.0129,viscous
+KRUSTY (Gibson 2020),600.0,300.00,300.00,0.0000,flooding
+KRUSTY (Gibson 2020),700.0,500.00,500.00,0.0000,flooding
+KRUSTY (Gibson 2020),800.0,700.00,700.00,0.0000,flooding
+Walker2013,725.0,2600.00,2897.75,0.1145,entrainment

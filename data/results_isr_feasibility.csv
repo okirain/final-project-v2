@@ -1,0 +1,10 @@
+fluid,wick,T_K,Q_max_W,ratio_to_8.2kW,controlling
+Sodium,arterial,1200.0,1231.52,0.1502,entrainment
+Sodium,annular,1200.0,1124.22,0.1372,entrainment
+Sodium,sintered,1200.0,8.65,0.0011,capillary
+Potassium,arterial,1200.0,789.32,0.0963,entrainment
+Potassium,annular,1200.0,720.54,0.0879,entrainment
+Potassium,sintered,1200.0,1.54,0.0002,capillary
+Lithium,arterial,1200.0,25.07,0.0031,viscous
+Lithium,annular,1200.0,25.07,0.0031,viscous
+Lithium,sintered,1200.0,25.07,0.0031,viscous

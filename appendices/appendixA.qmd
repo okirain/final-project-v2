@@ -61,9 +61,9 @@ function q_capillary(hp::HeatPipe, T::Real; include_gravity::Bool = true)
 
     dp_g = 0.0
     if include_gravity
-        dp_g = -rho_l(f, T) * hp.g * total_length(hp) * sin(hp.orientation)
+        dp_g = rho_l(f, T) * hp.g * total_length(hp) * sin(hp.orientation)
     end
-    dp_avail = dp_c + dp_g
+    dp_avail = dp_c - dp_g
     dp_avail <= 0.0 && return 0.0
 
     h = h_fg(f, T)

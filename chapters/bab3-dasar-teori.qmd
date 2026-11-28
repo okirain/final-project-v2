@@ -201,7 +201,7 @@ $$ \Delta p_l = \frac{\mu_l\,\dot{m}\,\ell_{\mathrm{eff}}}
                      {\rho_l\,K\,A_w}, \qquad
    \Delta p_v = \frac{8\mu_v\,\dot{m}\,\ell_{\mathrm{eff}}}
                      {\pi\rho_v r_v^4}, \qquad
-   \Delta p_g = -\rho_l\,g\,L\sin\theta $$ {#eq-dp}
+   \Delta p_g = +\rho_l\,g\,L\sin\theta $$ {#eq-dp}
 
 dengan:
 
@@ -216,12 +216,15 @@ dengan:
 - $r_v$ adalah jari-jari inti uap (m);
 - $g$ adalah percepatan gravitasi (m/s²);
 - $L$ adalah panjang *heat pipe* (m);
-- $\theta$ adalah kemiringan sumbu *heat pipe* terhadap horizontal (rad).
+- $\theta$ adalah sudut kemiringan sumbu *heat pipe* terhadap horizontal (rad); bernilai positif ketika evaporator berada di atas kondensor (kondisi *adverse*, melawan) dan negatif ketika kondensor berada di atas evaporator (membantu).
 
-Suku $\Delta p_g$ bernilai negatif (membantu) ketika kondensor berada di
-atas evaporator, dan positif (melawan) ketika evaporator berada di atas
-kondensor. Substitusi $\dot{m}=Q/h_{fg}$ ke @eq-dp menghasilkan limit
-kapiler dalam bentuk tertutup.
+Dengan konvensi tanda ini, $\Delta p_g$ bernilai positif (melawan) ketika
+evaporator berada di atas kondensor ($\theta>0$) dan negatif (membantu)
+ketika kondensor berada di atas evaporator ($\theta<0$). Tekanan yang
+tersedia untuk menggerakkan kondensat adalah
+$\Delta p_{\mathrm{avail}}=\Delta p_{c,\max}-\Delta p_g$. Substitusi
+$\dot{m}=Q/h_{fg}$ ke @eq-dp menghasilkan limit kapiler dalam bentuk
+tertutup.
 
 ### Limit Didih (Chi)
 

@@ -1,0 +1,53 @@
+{
+  "reactor": {
+    "name": "Indonesian Space Reactor (ISR), Khandaq et al. (2020)",
+    "thermal_power_kW": 500.0,
+    "n_pins": 61,
+    "core_active_height_cm": 25.0,
+    "pin_pitch_cm": 3.4,
+    "pin_flat_to_flat_cm": 3.4,
+    "clad_height_cm": 43.2,
+    "T_inlet_K": 750.0,
+    "T_outlet_K": 950.0,
+    "design_life_years": 10.0,
+    "excess_reactivity_pcm": 4023.0,
+    "beta_effective": 0.00642,
+    "reactor_mass_kg": 447.12
+  },
+  "pin": {
+    "clad_material": "Mo-30Re",
+    "fuel_material": "UN",
+    "enrichment_pct": 55.0,
+    "cavity_diameter_cm": 3.265,
+    "fuel_outer_diameter_cm": 3.265,
+    "fuel_inner_diameter_cm": 0.76,
+    "coolant_channel_id_cm": 0.6,
+    "coolant_channel_wall_cm": 0.08
+  },
+  "coolant": {
+    "name": "Na-78K",
+    "density_25C_g_cm3": 0.732,
+    "inlet_K": 750.0,
+    "outlet_K": 950.0,
+    "boiling_point_K": 1000.0
+  },
+  "materials": {
+    "fuel_density_g_cm3": 14.264,
+    "clad_density_g_cm3": 11.963,
+    "envelope_material": "Haynes 230",
+    "envelope_density_kg_m3": 8900.0,
+    "envelope_k_W_mK": 25.0,
+    "envelope_cp_J_kgK": 420.0
+  },
+  "retrofit": {
+    "existing_channel_id_cm": 0.6,
+    "per_pin_power_kW": 8.197,
+    "candidate_fluids": ["Na", "K", "Li"],
+    "T_exit_min_K": 900.0,
+    "T_exit_max_K": 1200.0,
+    "heat_pipe_length_m": 1.0,
+    "evaporator_length_m": 0.25,
+    "adiabatic_length_m": 0.30,
+    "condenser_length_m": 0.45
+  }
+}

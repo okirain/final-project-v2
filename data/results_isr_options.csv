@@ -1,0 +1,10 @@
+option,quantity,value,unit
+A,D_required,0.0155,m
+A,fuel_loss,18.04,%
+A,enrichment_realistic,63.43,%
+B,D_interstitial,0.0142,m
+B,Q_per_pipe,6944.4,W
+B,Q_total,500000.0,W
+B,pitch,0.0502,m
+C,Q_total,75122.9,W
+C,fraction,0.150,-

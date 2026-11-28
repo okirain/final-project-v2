@@ -106,7 +106,8 @@ layar 200 mesh dengan $r_{\mathrm{eff}}=0{,}25$ mm,
 $K=2\times10^{-9}$ m$^2$, dan $\varepsilon=0{,}843$. Panjang evaporator,
 adiabatik, dan kondensor masing-masing 0,25 m, 0,55 m, dan 0,20 m.
 Orientasi vertikal dengan kondensor di atas evaporator diterapkan melalui
-$g=9{,}81$ m/s$^2$ dan $\theta=90^\circ$.
+$g=9{,}81$ m/s$^2$ dan $\theta=-90^\circ$; tanda negatif menyatakan
+gravitasi membantu pengembalian kondensat (lihat @eq-dp).
 
 Karena model *throughput* KRUSTY yang dipublikasikan adalah kecocokan
 kurva empiris, validasi menggunakan cabang *flooding* empiris

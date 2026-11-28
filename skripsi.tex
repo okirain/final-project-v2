@@ -292,6 +292,18 @@
   \let\origaddcontentsline\addcontentsline
   \let\addcontentsline\newaddcontentsline}
 
+% ---------- Lampiran ----------
+% Pindah ke mode lampiran: bab menjadi LAMPIRAN A, B, ... dan
+% gambar/tabel/persamaan memakai huruf lampiran (A.1, A.2, ...).
+\newcommand{\appendixmode}{%
+  \appendix
+  \renewcommand{\thechapter}{LAMPIRAN~\Alph{chapter}}%
+  \renewcommand{\thesection}{\Alph{chapter}.\arabic{section}}%
+  \renewcommand{\thefigure}{\Alph{chapter}.\arabic{figure}}%
+  \renewcommand{\thetable}{\Alph{chapter}.\arabic{table}}%
+  \renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}}%
+}
+
 % ---------- Nomor halaman ----------
 % Tengah bawah di semua halaman (sesuai templat)
 \pagestyle{fancy}
@@ -381,6 +393,322 @@
 
 
 \setstretch{1.43}
+% Bagian Awal memakai angka Romawi kecil (i, ii, ...). Halaman ini = i (nomor tidak dicetak).
+\pagenumbering{roman}
+\thispagestyle{empty}
+\phantomsection\addcontentsline{toc}{chapter}{HALAMAN JUDUL}
+\begin{singlespace}
+\begin{center}
+\vspace*{0.5cm}
+{\bfseries\MakeUppercase{\judul}\par}
+\vspace{1.2cm}
+{\bfseries SKRIPSI\par}
+\vspace{1cm}
+untuk memenuhi sebagian persyaratan\\
+untuk memperoleh derajat Sarjana\\
+Program Studi \prodi
+\vspace{1.2cm}
+
+\logougm
+
+\vspace{1.2cm}
+Diajukan oleh\\
+\MakeUppercase{\nama}\\
+\nim
+\vspace{1.2cm}
+
+Kepada\\
+{\bfseries DEPARTEMEN TEKNIK NUKLIR DAN TEKNIK FISIKA}\\
+{\bfseries FAKULTAS TEKNIK}\\
+{\bfseries UNIVERSITAS GADJAH MADA}\\
+{\bfseries YOGYAKARTA}\\
+{\bfseries \tahun}
+\end{center}
+\end{singlespace}
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{PERNYATAAN BEBAS PLAGIARISME}
+\begin{center}
+{\bfseries PERNYATAAN BEBAS PLAGIASI}
+\end{center}
+\vspace{0.3cm}
+\begin{spacing}{1.15}
+Saya yang bertanda tangan di bawah ini:
+
+\medskip
+\begin{tabular}{@{}l@{\hspace{1.6cm}}l@{\hspace{0.4cm}}l}
+Nama            & : & \nama \\[3pt]
+NIM             & : & \nim \\[3pt]
+Tahun terdaftar & : & \tahundaftar \\[3pt]
+Program Studi   & : & \prodi \\[3pt]
+Fakultas        & : & Teknik \\
+\end{tabular}
+
+\medskip
+menyatakan bahwa dokumen ilmiah skripsi ini tidak terdapat bagian dari karya
+ilmiah lain yang telah diajukan untuk memperoleh gelar akademik di suatu lembaga
+Pendidikan Tinggi, dan juga tidak terdapat karya atau pendapat yang pernah ditulis
+atau diterbitkan oleh orang/lembaga lain, kecuali yang secara tertulis disitasi dalam
+dokumen ini dan disebutkan sumbernya secara lengkap dalam daftar pustaka.
+
+Dengan demikian saya menyatakan bahwa dokumen ilmiah ini bebas dari unsur-unsur
+plagiasi dan apabila dokumen ilmiah Skripsi ini di kemudian hari terbukti merupakan
+plagiasi dari hasil karya penulis lain dan/atau dengan sengaja mengajukan karya atau
+pendapat yang merupakan hasil karya penulis lain, maka penulis bersedia menerima
+sanksi akademik dan/atau sanksi hukum yang berlaku.
+\end{spacing}
+
+\vspace{0.8cm}
+\begin{flushright}
+\begin{minipage}{6.5cm}
+\kotatanggal\\[0.3cm]
+\fcolorbox{red}{red!8}{\parbox[c][2.6cm][c]{5.9cm}{\small Materai ASLI (e-Meterai)\\[2pt] Rp. 10 000\\[2pt] dan tanda tangan}}\\[0.3cm]
+\nama\\
+NIM. \nim
+\end{minipage}
+\end{flushright}
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{HALAMAN PENGESAHAN}
+\begin{singlespace}
+\begin{center}
+{\bfseries HALAMAN PENGESAHAN}\\[0.4cm]
+SKRIPSI\\[0.4cm]
+{\bfseries\MakeUppercase{\judul}}
+\end{center}
+\vspace{0.6cm}
+
+\renewcommand{\arraystretch}{1.9}
+\noindent
+\begin{tabular}{@{}p{4.6cm}@{}l@{\hspace{0.3cm}}l}
+Nama Mahasiswa         & : & \nama \\
+Nomor Mahasiswa        & : & \nim \\
+Pembimbing Utama       & : & \pembimbingutama \\
+Pembimbing Pendamping  & : & \pembimbingpendamping \\
+\end{tabular}
+
+\vspace{0.5cm}
+\begin{center}
+Skripsi ini telah dipertahankan di depan Tim Penguji\\
+pada tanggal \textit{\tglujian}
+\end{center}
+
+\noindent
+\begin{tabular}{@{}p{4.6cm}@{}l@{\hspace{0.3cm}}l}
+Ketua Sidang    & : & \ketuasidang \\
+Penguji Utama   & : & \pengujiutama \\
+Anggota Penguji & : & \anggotapenguji \\
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\vspace{0.5cm}
+\begin{center}
+Skripsi ini telah diterima dan dinyatakan memenuhi\\
+syarat kelulusan pada tanggal \tglpengesahan
+
+\vspace{0.8cm}
+Ketua Departemen Teknik Nuklir dan Teknik Fisika\\
+Fakultas Teknik UGM\\[2.2cm]
+\underline{\ketuadepartemen}\\
+NIP. \nipketua
+\end{center}
+\end{singlespace}
+\clearpage
+
+% Halaman persembahan & motto -- ada di templat 2023/2025. Hapus berkas ini dan baris
+% include-nya di skripsi.qmd bila tidak dipakai.
+\phantomsection\addcontentsline{toc}{chapter}{HALAMAN PERSEMBAHAN}
+\vspace*{1cm}
+\begin{center}
+\itshape \ldots{} Karya ini kupersembahkan untuk \ldots{} \ldots{}
+\end{center}
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{MOTTO}
+\vspace*{1cm}
+\begin{center}
+\itshape \ldots{} Motto hari ini adalah \ldots{} \ldots{}
+\end{center}
+\clearpage
+
+\chapter*{KATA PENGANTAR}\label{kata-pengantar}
+\addcontentsline{toc}{chapter}{KATA PENGANTAR}
+
+Kata Pengantar berisikan uraian yang mengantar pada para pembaca skripsi
+kepada permasalahan yang diteliti. Dalam Kata Pengantar dapat pula
+disertakan ucapan terima kasih dan apresiasi penulis kepada pihak-pihak
+yang telah membantu dalam menyelesaikan tugas akhirnya. Ucapan terima
+kasih disampaikan secara singkat dan harus diungkapkan dengan serius
+dalam tata bahasa yang benar. Gunakan kata ``penulis'', bukan ``saya''.
+
+\vspace{1cm}
+\begin{flushright}
+\kotatanggal\\[1.2cm]
+Penulis
+\end{flushright}
+\clearpage
+
+% Urutan: Daftar Isi, Daftar Tabel, Daftar Gambar (lalu Daftar Lambang & Singkatan).
+\begin{singlespace}
+\renewcommand{\contentsname}{DAFTAR ISI}
+\tableofcontents
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{DAFTAR TABEL}
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\listoftables
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+\listoffigures
+\clearpage
+\end{singlespace}
+
+\chapter*{DAFTAR LAMBANG DAN
+SINGKATAN}\label{daftar-lambang-dan-singkatan}
+\addcontentsline{toc}{chapter}{DAFTAR LAMBANG DAN SINGKATAN}
+
+\textbf{Lambang Romawi}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}clc@{}}
+\toprule\noalign{}
+Lambang & Kuantitas & Satuan \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(A\) & Luas penampang & m² \\
+\(D_v\) & Diameter ruang uap & m \\
+\(f\) & Faktor gesek Darcy & -- \\
+\(g_{\mathrm{eff}}\) & Percepatan efektif & m/s² \\
+\(h_{fg}\) & Kalor laten penguapan & J/kg \\
+\(K\) & Permeabilitas sumbu kapiler & m² \\
+\(L\) & Panjang pipa kalor & m \\
+\(\dot m\) & Laju aliran massa & kg/s \\
+\(P\) & Tekanan & Pa \\
+\(Q\) & Laju transportasi kalor & W \\
+\(r_c\) & Jari-jari pori efektif & m \\
+\(R_c\) & Resistansi termal kondenser & K/W \\
+\(T\) & Temperatur & K \\
+\(u\) & Kecepatan uap & m/s \\
+\(x\) & Koordinat aksial & m \\
+\end{longtable}
+}
+
+\textbf{Lambang Yunani}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}clc@{}}
+\toprule\noalign{}
+Lambang & Kuantitas & Satuan \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\theta\) & Sudut kontak atau kemiringan, sesuai konteks & ° \\
+\(\mu\) & Viskositas dinamis & Pa·s \\
+\(\rho\) & Densitas & kg/m³ \\
+\(\sigma\) & Tegangan permukaan & N/m \\
+\end{longtable}
+}
+
+\textbf{Subskrip dan Singkatan}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}cl@{}}
+\toprule\noalign{}
+Lambang & Deskripsi \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(c\) & Kondenser atau kapiler, sesuai konteks \\
+\(e\) & Evaporator \\
+\(l\) & Fasa cair \\
+\(v\) & Fasa uap \\
+CFD & \emph{Computational Fluid Dynamics} \\
+HPCR & \emph{Heat Pipe Cooled Reactor} \\
+NIM & Nomor Induk Mahasiswa \\
+UGM & Universitas Gadjah Mada \\
+\end{longtable}
+}
+
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{INTISARI}
+\thispagestyle{plain}
+\begin{singlespace}
+\begin{center}
+{\bfseries\MakeUppercase{\judul}}\\[0.4cm]
+\nama\\[0.2cm]
+\nim\\[0.5cm]
+Diajukan kepada Departemen Teknik Nuklir dan Teknik Fisika Fakultas Teknik\\
+Universitas Gadjah Mada pada tanggal \tglujian\\
+untuk memenuhi sebagian persyaratan untuk memperoleh derajat\\
+Sarjana Program Studi \prodi\\[0.6cm]
+{\bfseries INTISARI}
+\end{center}
+\setlength{\parindent}{1.27cm}
+
+Abstrak ditulis dengan maksimum 200 kata yang disusun dalam tiga alinea.
+Alinea pertama berisi tentang latar belakang secara ringkas.
+
+Alinea kedua berisi tentang metodologi secara ringkas.
+
+Alinea ketiga berisi tentang hasil dan kesimpulan secara ringkas.
+
+\vspace{0.3cm}
+\noindent\textbf{\textit{Kata kunci:}} \textit{kata kunci 1, kata kunci 2, kata kunci 3, kata kunci 4}
+
+\bigskip
+\noindent
+\begin{tabular}{@{}l@{\hspace{0.3cm}}l@{\hspace{0.3cm}}l}
+Pembimbing Utama      & : & \pembimbingutama \\[4pt]
+Pembimbing Pendamping & : & \pembimbingpendamping \\
+\end{tabular}
+\end{singlespace}
+\clearpage
+
+\phantomsection\addcontentsline{toc}{chapter}{ABSTRACT}
+\thispagestyle{plain}
+\begin{singlespace}
+\begin{center}
+{\bfseries\MakeUppercase{\judulinggris}}\\[0.4cm]
+\nama\\[0.2cm]
+\nim\\[0.5cm]
+Submitted to the Department of Nuclear Engineering and Engineering Physics\\
+Faculty of Engineering Universitas Gadjah Mada on \textit{\tglujianinggris}\\
+in partial fulfillment of the requirement for the Degree of\\
+Bachelor of Engineering in \prodien\\[0.6cm]
+{\bfseries ABSTRACT}
+\end{center}
+\selectlanguage{english}
+
+Teks dalam bahasa Inggris sangat disarankan dicek tata bahasanya
+misalnya dengan grammarly.com dan cek similarity misalnya dengan
+aplikasi TURNITIN.
+
+First paragraph: background, briefly.
+
+Second paragraph: methodology, briefly.
+
+Third paragraph: results and conclusion, briefly.
+
+\selectlanguage{indonesian}
+\vspace{0.3cm}
+\noindent\textbf{\textit{Keywords:}} \textit{Keyword 1, keyword 2, keyword 3, keyword 4}
+
+\bigskip
+\noindent
+\begin{tabular}{@{}l@{\hspace{0.3cm}}l@{\hspace{0.3cm}}l}
+Supervisor    & : & \pembimbingutama \\[4pt]
+Co-supervisor & : & \pembimbingpendamping \\
+\end{tabular}
+\end{singlespace}
+\clearpage
+
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
@@ -1086,7 +1414,7 @@ Masing-masing suku dihitung sebagai
                      {\rho_l\,K\,A_w}, \qquad
    \Delta p_v = \frac{8\mu_v\,\dot{m}\,\ell_{\mathrm{eff}}}
                      {\pi\rho_v r_v^4}, \qquad
-   \Delta p_g = -\rho_l\,g\,L\sin\theta }\end{equation}
+   \Delta p_g = +\rho_l\,g\,L\sin\theta }\end{equation}
 
 dengan:
 
@@ -1115,14 +1443,19 @@ dengan:
 \item
   \(L\) adalah panjang \emph{heat pipe} (m);
 \item
-  \(\theta\) adalah kemiringan sumbu \emph{heat pipe} terhadap
-  horizontal (rad).
+  \(\theta\) adalah sudut kemiringan sumbu \emph{heat pipe} terhadap
+  horizontal (rad); bernilai positif ketika evaporator berada di atas
+  kondensor (kondisi \emph{adverse}, melawan) dan negatif ketika
+  kondensor berada di atas evaporator (membantu).
 \end{itemize}
 
-Suku \(\Delta p_g\) bernilai negatif (membantu) ketika kondensor berada
-di atas evaporator, dan positif (melawan) ketika evaporator berada di
-atas kondensor. Substitusi \(\dot{m}=Q/h_{fg}\) ke Persamaan~\ref{eq-dp}
-menghasilkan limit kapiler dalam bentuk tertutup.
+Dengan konvensi tanda ini, \(\Delta p_g\) bernilai positif (melawan)
+ketika evaporator berada di atas kondensor (\(\theta>0\)) dan negatif
+(membantu) ketika kondensor berada di atas evaporator (\(\theta<0\)).
+Tekanan yang tersedia untuk menggerakkan kondensat adalah
+\(\Delta p_{\mathrm{avail}}=\Delta p_{c,\max}-\Delta p_g\). Substitusi
+\(\dot{m}=Q/h_{fg}\) ke Persamaan~\ref{eq-dp} menghasilkan limit kapiler
+dalam bentuk tertutup.
 
 \subsection{Limit Didih (Chi)}\label{limit-didih-chi}
 
@@ -1694,7 +2027,9 @@ sebagai layar 200 mesh dengan \(r_{\mathrm{eff}}=0{,}25\) mm,
 \(K=2\times10^{-9}\) m\(^2\), dan \(\varepsilon=0{,}843\). Panjang
 evaporator, adiabatik, dan kondensor masing-masing 0,25 m, 0,55 m, dan
 0,20 m. Orientasi vertikal dengan kondensor di atas evaporator
-diterapkan melalui \(g=9{,}81\) m/s\(^2\) dan \(\theta=90^\circ\).
+diterapkan melalui \(g=9{,}81\) m/s\(^2\) dan \(\theta=-90^\circ\);
+tanda negatif menyatakan gravitasi membantu pengembalian kondensat
+(lihat Persamaan~\ref{eq-dp}).
 
 Karena model \emph{throughput} KRUSTY yang dipublikasikan adalah
 kecocokan kurva empiris, validasi menggunakan cabang \emph{flooding}
@@ -2649,910 +2984,421 @@ Lavine. {``Fundamentals of Heat and Mass Transfer''} 2007.}
 
 \end{CSLReferences}
 
-\chapter{LISTING PROGRAM SIMULATOR}\label{listing-program-simulator}
+\appendixmode
 
-Lampiran ini memuat sumber lengkap \texttt{src/heatpipe\_simulator.py}.
-Program menggunakan satuan SI dan menghasilkan ulang seluruh data serta
-gambar yang dibahas pada Bab V.
+\chapter{LISTING PROGRAM}\label{listing-program}
 
-\begin{codelisting}
+\section{Struktur Modul}\label{struktur-modul}
 
-\caption{\texttt{src/heatpipe\_simulator.py}}
+Paket \texttt{HeatPipeCore} terdiri atas enam modul yang
+di-\emph{include} oleh modul utama:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\#!/usr/bin/env python3}
-\CommentTok{"""Reduced{-}order, steady 1{-}D sodium heat{-}pipe simulator.}
+\KeywordTok{module}\NormalTok{ HeatPipeCore}
 
-\CommentTok{The model couples axial vapor flow, Darcy liquid return through a homogeneous}
-\CommentTok{wick, and capillary pressure. It is intended for transparent thesis case}
-\CommentTok{studies, not design certification or transient/CFD analysis.}
+\FunctionTok{include}\NormalTok{(}\StringTok{"FluidProperties.jl"}\NormalTok{)}
+\FunctionTok{include}\NormalTok{(}\StringTok{"Wick.jl"}\NormalTok{)}
+\FunctionTok{include}\NormalTok{(}\StringTok{"Limits.jl"}\NormalTok{)}
+\FunctionTok{include}\NormalTok{(}\StringTok{"ThermalNetwork.jl"}\NormalTok{)}
+\FunctionTok{include}\NormalTok{(}\StringTok{"Validation.jl"}\NormalTok{)}
+\FunctionTok{include}\NormalTok{(}\StringTok{"ISRDesign.jl"}\NormalTok{)}
 
-\CommentTok{Sodium correlations follow Fink and Leibowitz (1995), ANL/RE{-}95/2.}
-\CommentTok{All internal calculations use SI units.}
-\CommentTok{"""}
-\ImportTok{from}\NormalTok{ \_\_future\_\_ }\ImportTok{import}\NormalTok{ annotations}
+\ImportTok{using} \BuiltInTok{.FluidProperties}
+\ImportTok{using} \BuiltInTok{.Wick}
+\ImportTok{using} \BuiltInTok{.Limits}
+\ImportTok{using} \BuiltInTok{.ThermalNetwork}
+\ImportTok{using} \BuiltInTok{.Validation}
+\ImportTok{using} \BuiltInTok{.ISRDesign}
 
-\ImportTok{import}\NormalTok{ argparse}
-\ImportTok{import}\NormalTok{ csv}
-\ImportTok{import}\NormalTok{ json}
-\ImportTok{import}\NormalTok{ math}
-\ImportTok{import}\NormalTok{ warnings}
-\ImportTok{from}\NormalTok{ dataclasses }\ImportTok{import}\NormalTok{ asdict, dataclass, replace}
-\ImportTok{from}\NormalTok{ pathlib }\ImportTok{import}\NormalTok{ Path}
-\ImportTok{from}\NormalTok{ typing }\ImportTok{import}\NormalTok{ Iterable}
+\KeywordTok{end} \CommentTok{\# module}
+\end{Highlighting}
+\end{Shaded}
 
-\ImportTok{import}\NormalTok{ matplotlib}
-\NormalTok{matplotlib.use(}\StringTok{"Agg"}\NormalTok{)}
-\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\section{\texorpdfstring{Limit Operasional (kutipan
+\texttt{Limits.jl})}{Limit Operasional (kutipan Limits.jl)}}\label{limit-operasional-kutipan-limits.jl}
 
-\NormalTok{R\_UNIVERSAL }\OperatorTok{=} \FloatTok{8.314462618}  \CommentTok{\# J mol{-}1 K{-}1}
-\NormalTok{MOLAR\_MASS\_NA }\OperatorTok{=} \FloatTok{22.98976928e{-}3}  \CommentTok{\# kg mol{-}1}
-\NormalTok{K\_BOLTZMANN }\OperatorTok{=} \FloatTok{1.380649e{-}23}  \CommentTok{\# J K{-}1}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function} \FunctionTok{q\_viscous}\NormalTok{(hp}\OperatorTok{::}\DataTypeTok{HeatPipe}\NormalTok{, T}\OperatorTok{::}\DataTypeTok{Real}\NormalTok{)}
+\NormalTok{    f }\OperatorTok{=}\NormalTok{ hp.fluid}
+\NormalTok{    p }\OperatorTok{=} \FunctionTok{p\_sat}\NormalTok{(f, T)}
+\NormalTok{    h }\OperatorTok{=} \FunctionTok{h\_fg}\NormalTok{(f, T)}
+\NormalTok{    rv }\OperatorTok{=}\NormalTok{ hp.r\_v}
+    \ControlFlowTok{return} \ConstantTok{pi} \OperatorTok{*}\NormalTok{ rv}\OperatorTok{\^{}}\FloatTok{4} \OperatorTok{*}\NormalTok{ h }\OperatorTok{*} \FunctionTok{rho\_v}\NormalTok{(f, T) }\OperatorTok{*}\NormalTok{ p }\OperatorTok{/}
+\NormalTok{           (}\FloatTok{16.0} \OperatorTok{*} \FunctionTok{mu\_v}\NormalTok{(f, T) }\OperatorTok{*} \FunctionTok{effective\_length}\NormalTok{(hp))}
+\KeywordTok{end}
 
+\KeywordTok{function} \FunctionTok{q\_sonic}\NormalTok{(hp}\OperatorTok{::}\DataTypeTok{HeatPipe}\NormalTok{, T}\OperatorTok{::}\DataTypeTok{Real}\NormalTok{)}
+\NormalTok{    f }\OperatorTok{=}\NormalTok{ hp.fluid}
+\NormalTok{    Rg }\OperatorTok{=} \FunctionTok{R\_specific}\NormalTok{(f)}
+\NormalTok{    a }\OperatorTok{=} \FunctionTok{sqrt}\NormalTok{(f.gamma }\OperatorTok{*}\NormalTok{ Rg }\OperatorTok{*}\NormalTok{ T }\OperatorTok{/}\NormalTok{ (}\FloatTok{2.0} \OperatorTok{*}\NormalTok{ (f.gamma }\OperatorTok{+} \FloatTok{1.0}\NormalTok{)))}
+    \ControlFlowTok{return} \FunctionTok{vapour\_area}\NormalTok{(hp) }\OperatorTok{*} \FunctionTok{rho\_v}\NormalTok{(f, T) }\OperatorTok{*} \FunctionTok{h\_fg}\NormalTok{(f, T) }\OperatorTok{*}\NormalTok{ a}
+\KeywordTok{end}
 
-\AttributeTok{@dataclass}\NormalTok{(frozen}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\KeywordTok{class}\NormalTok{ SodiumProperties:}
-    \CommentTok{"""Saturated{-}sodium properties; recommended thesis range: 800{-}{-}1400 K."""}
+\KeywordTok{function} \FunctionTok{q\_entrainment}\NormalTok{(hp}\OperatorTok{::}\DataTypeTok{HeatPipe}\NormalTok{, T}\OperatorTok{::}\DataTypeTok{Real}\NormalTok{)}
+\NormalTok{    f }\OperatorTok{=}\NormalTok{ hp.fluid}
+\NormalTok{    r\_hw }\OperatorTok{=}\NormalTok{ hp.wick.r\_eff}
+    \ControlFlowTok{return} \FunctionTok{vapour\_area}\NormalTok{(hp) }\OperatorTok{*} \FunctionTok{h\_fg}\NormalTok{(f, T) }\OperatorTok{*}
+           \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{sigma}\NormalTok{(f, T) }\OperatorTok{*} \FunctionTok{rho\_v}\NormalTok{(f, T) }\OperatorTok{/}\NormalTok{ (}\FloatTok{2.0} \OperatorTok{*}\NormalTok{ r\_hw))}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
 
-\NormalTok{    temperature: }\BuiltInTok{float}
+\section{Neraca Tekanan Kapiler}\label{neraca-tekanan-kapiler}
 
-    \KeywordTok{def}\NormalTok{ \_\_post\_init\_\_(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-        \ControlFlowTok{if} \KeywordTok{not} \FloatTok{371.0} \OperatorTok{\textless{}=} \VariableTok{self}\NormalTok{.temperature }\OperatorTok{\textless{}} \FloatTok{2503.7}\NormalTok{:}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"Temperature must be in [371, 2503.7) K."}\NormalTok{)}
-        \ControlFlowTok{if} \KeywordTok{not} \FloatTok{800.0} \OperatorTok{\textless{}=} \VariableTok{self}\NormalTok{.temperature }\OperatorTok{\textless{}=} \FloatTok{1400.0}\NormalTok{:}
-\NormalTok{            warnings.warn(}
-                \SpecialStringTok{f"T=}\SpecialCharTok{\{}\VariableTok{self}\SpecialCharTok{.}\NormalTok{temperature}\SpecialCharTok{:.1f\}}\SpecialStringTok{ K is outside the thesis validation "}
-                \StringTok{"target of 800{-}{-}1400 K; check extrapolation."}\NormalTok{,}
-\NormalTok{                stacklevel}\OperatorTok{=}\DecValTok{2}\NormalTok{,}
-\NormalTok{            )}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function} \FunctionTok{q\_capillary}\NormalTok{(hp}\OperatorTok{::}\DataTypeTok{HeatPipe}\NormalTok{, T}\OperatorTok{::}\DataTypeTok{Real}\NormalTok{; include\_gravity}\OperatorTok{::}\DataTypeTok{Bool }\OperatorTok{=} \ConstantTok{true}\NormalTok{)}
+\NormalTok{    f }\OperatorTok{=}\NormalTok{ hp.fluid}
+\NormalTok{    dp\_c }\OperatorTok{=} \FloatTok{2.0} \OperatorTok{*} \FunctionTok{sigma}\NormalTok{(f, T) }\OperatorTok{/}\NormalTok{ hp.wick.r\_eff}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ pressure(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Saturation pressure (Pa), Browning{-}{-}Potter correlation."""}
-\NormalTok{        ln\_p\_mpa }\OperatorTok{=}\NormalTok{ (}
-            \FloatTok{11.9463} \OperatorTok{{-}} \FloatTok{12633.73} \OperatorTok{/} \VariableTok{self}\NormalTok{.temperature}
-            \OperatorTok{{-}} \FloatTok{0.4672} \OperatorTok{*}\NormalTok{ math.log(}\VariableTok{self}\NormalTok{.temperature)}
-\NormalTok{        )}
-        \ControlFlowTok{return}\NormalTok{ math.exp(ln\_p\_mpa) }\OperatorTok{*} \FloatTok{1.0e6}
+\NormalTok{    dp\_g }\OperatorTok{=} \FloatTok{0.0}
+    \ControlFlowTok{if}\NormalTok{ include\_gravity}
+\NormalTok{        dp\_g }\OperatorTok{=} \FunctionTok{rho\_l}\NormalTok{(f, T) }\OperatorTok{*}\NormalTok{ hp.g }\OperatorTok{*} \FunctionTok{total\_length}\NormalTok{(hp) }\OperatorTok{*} \FunctionTok{sin}\NormalTok{(hp.orientation)}
+    \ControlFlowTok{end}
+\NormalTok{    dp\_avail }\OperatorTok{=}\NormalTok{ dp\_c }\OperatorTok{{-}}\NormalTok{ dp\_g}
+\NormalTok{    dp\_avail }\OperatorTok{\textless{}=} \FloatTok{0.0} \OperatorTok{\&\&} \ControlFlowTok{return} \FloatTok{0.0}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ latent\_heat(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Specific enthalpy of vaporization (J kg{-}1)."""}
-\NormalTok{        tau }\OperatorTok{=} \FloatTok{1.0} \OperatorTok{{-}} \VariableTok{self}\NormalTok{.temperature }\OperatorTok{/} \FloatTok{2503.7}
-\NormalTok{        h\_fg\_kj\_kg }\OperatorTok{=} \FloatTok{393.37} \OperatorTok{*}\NormalTok{ tau }\OperatorTok{+} \FloatTok{4398.6} \OperatorTok{*}\NormalTok{ tau}\OperatorTok{**}\FloatTok{0.29302}
-        \ControlFlowTok{return}\NormalTok{ h\_fg\_kj\_kg }\OperatorTok{*} \FloatTok{1000.0}
+\NormalTok{    h }\OperatorTok{=} \FunctionTok{h\_fg}\NormalTok{(f, T)}
+\NormalTok{    cl }\OperatorTok{=} \FunctionTok{mu\_l}\NormalTok{(f, T) }\OperatorTok{*} \FunctionTok{effective\_length}\NormalTok{(hp) }\OperatorTok{/}
+\NormalTok{         (}\FunctionTok{rho\_l}\NormalTok{(f, T) }\OperatorTok{*}\NormalTok{ hp.wick.K }\OperatorTok{*} \FunctionTok{wick\_area}\NormalTok{(hp) }\OperatorTok{*}\NormalTok{ h)}
+\NormalTok{    cv }\OperatorTok{=} \FloatTok{8.0} \OperatorTok{*} \FunctionTok{mu\_v}\NormalTok{(f, T) }\OperatorTok{*} \FunctionTok{effective\_length}\NormalTok{(hp) }\OperatorTok{/}
+\NormalTok{         (}\ConstantTok{pi} \OperatorTok{*} \FunctionTok{rho\_v}\NormalTok{(f, T) }\OperatorTok{*}\NormalTok{ hp.r\_v}\OperatorTok{\^{}}\FloatTok{4} \OperatorTok{*}\NormalTok{ h)}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ liquid\_density(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Saturated liquid density (kg m{-}3)."""}
-\NormalTok{        tau }\OperatorTok{=} \FloatTok{1.0} \OperatorTok{{-}} \VariableTok{self}\NormalTok{.temperature }\OperatorTok{/} \FloatTok{2503.7}
-        \ControlFlowTok{return} \FloatTok{219.0} \OperatorTok{+} \FloatTok{275.32} \OperatorTok{*}\NormalTok{ tau }\OperatorTok{+} \FloatTok{511.58} \OperatorTok{*}\NormalTok{ math.sqrt(tau)}
+    \ControlFlowTok{return}\NormalTok{ dp\_avail }\OperatorTok{/}\NormalTok{ (cl }\OperatorTok{+}\NormalTok{ cv)}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ vapor\_density(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Ideal{-}gas approximation to saturated vapor density (kg m{-}3)."""}
-        \ControlFlowTok{return}\NormalTok{ (}
-            \VariableTok{self}\NormalTok{.pressure }\OperatorTok{*}\NormalTok{ MOLAR\_MASS\_NA}
-            \OperatorTok{/}\NormalTok{ (R\_UNIVERSAL }\OperatorTok{*} \VariableTok{self}\NormalTok{.temperature)}
-\NormalTok{        )}
+\section{\texorpdfstring{Penyelesaian Tunak
+(\texttt{ThermalNetwork.jl})}{Penyelesaian Tunak (ThermalNetwork.jl)}}\label{penyelesaian-tunak-thermalnetwork.jl}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ liquid\_viscosity(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Dynamic viscosity of liquid sodium (Pa s)."""}
-        \ControlFlowTok{return}\NormalTok{ math.exp(}
-            \OperatorTok{{-}}\FloatTok{6.4406} \OperatorTok{{-}} \FloatTok{0.3958} \OperatorTok{*}\NormalTok{ math.log(}\VariableTok{self}\NormalTok{.temperature)}
-            \OperatorTok{+} \FloatTok{556.835} \OperatorTok{/} \VariableTok{self}\NormalTok{.temperature}
-\NormalTok{        )}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function} \FunctionTok{steady\_state}\NormalTok{(hp}\OperatorTok{::}\DataTypeTok{HeatPipe}\NormalTok{, Q}\OperatorTok{::}\DataTypeTok{Real}\NormalTok{; n}\OperatorTok{::}\DataTypeTok{Int }\OperatorTok{=} \FloatTok{60}\NormalTok{,}
+\NormalTok{                      dT\_sink}\OperatorTok{::}\DataTypeTok{Real }\OperatorTok{=} \FloatTok{8.0}\NormalTok{, tol}\OperatorTok{::}\DataTypeTok{Real }\OperatorTok{=} \FloatTok{1e{-}6}\NormalTok{,}
+\NormalTok{                      maxiter}\OperatorTok{::}\DataTypeTok{Int }\OperatorTok{=} \FloatTok{200}\NormalTok{)}
+\NormalTok{    net }\OperatorTok{=} \FunctionTok{build\_network}\NormalTok{(hp; n }\OperatorTok{=}\NormalTok{ n, Q }\OperatorTok{=}\NormalTok{ Q, dT\_sink }\OperatorTok{=}\NormalTok{ dT\_sink)}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ vapor\_viscosity(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Hard{-}sphere dilute{-}gas estimate of vapor viscosity (Pa s).}
+    \KeywordTok{function} \FunctionTok{residual}\NormalTok{(Tv)}
+\NormalTok{        G }\OperatorTok{=} \FunctionTok{conductances}\NormalTok{(net, Tv)}
+\NormalTok{        Tw }\OperatorTok{=} \FunctionTok{solve\_wall}\NormalTok{(net, G, Tv, net.G\_sink)}
+        \ControlFlowTok{return} \FunctionTok{sum}\NormalTok{(G }\OperatorTok{.*}\NormalTok{ (Tw }\OperatorTok{.{-}}\NormalTok{ Tv))}
+    \KeywordTok{end}
 
-\CommentTok{        A 4.0 Angstrom collision diameter is used because the recommended}
-\CommentTok{        liquid{-}property report does not provide a sodium{-}vapor viscosity}
-\CommentTok{        correlation. Replace this approximation for high{-}fidelity studies.}
-\CommentTok{        """}
-\NormalTok{        mass }\OperatorTok{=}\NormalTok{ MOLAR\_MASS\_NA }\OperatorTok{/} \FloatTok{6.02214076e23}
-\NormalTok{        diameter }\OperatorTok{=} \FloatTok{4.0e{-}10}
-        \ControlFlowTok{return}\NormalTok{ (}
-            \FloatTok{5.0} \OperatorTok{/}\NormalTok{ (}\FloatTok{16.0} \OperatorTok{*}\NormalTok{ diameter}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
-            \OperatorTok{*}\NormalTok{ math.sqrt(mass }\OperatorTok{*}\NormalTok{ K\_BOLTZMANN }\OperatorTok{*} \VariableTok{self}\NormalTok{.temperature }\OperatorTok{/}\NormalTok{ math.pi)}
-\NormalTok{        )}
+\NormalTok{    lo }\OperatorTok{=}\NormalTok{ hp.fluid.T\_melt }\OperatorTok{+} \FloatTok{1.0}
+\NormalTok{    hi }\OperatorTok{=} \FunctionTok{min}\NormalTok{(}\FloatTok{0.98} \OperatorTok{*}\NormalTok{ hp.fluid.T\_crit, }\FloatTok{2500.0}\NormalTok{)}
+\NormalTok{    flo }\OperatorTok{=} \FunctionTok{residual}\NormalTok{(lo)}
+\NormalTok{    fhi }\OperatorTok{=} \FunctionTok{residual}\NormalTok{(hi)}
 
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ surface\_tension(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Liquid surface tension (N m{-}1), Van der Waals correlation."""}
-        \ControlFlowTok{return}\NormalTok{ (}
-            \FloatTok{240.5e{-}3} \OperatorTok{*}\NormalTok{ (}\FloatTok{1.0} \OperatorTok{{-}} \VariableTok{self}\NormalTok{.temperature }\OperatorTok{/} \FloatTok{2503.7}\NormalTok{)}\OperatorTok{**}\FloatTok{1.126}
-\NormalTok{        )}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ liquid\_conductivity(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Liquid thermal conductivity (W m{-}1 K{-}1)."""}
-\NormalTok{        t }\OperatorTok{=} \VariableTok{self}\NormalTok{.temperature}
-        \ControlFlowTok{return}\NormalTok{ (}
-            \FloatTok{124.67} \OperatorTok{{-}} \FloatTok{0.11381} \OperatorTok{*}\NormalTok{ t }\OperatorTok{+} \FloatTok{5.5226e{-}5} \OperatorTok{*}\NormalTok{ t}\OperatorTok{**}\DecValTok{2}
-            \OperatorTok{{-}} \FloatTok{1.1842e{-}8} \OperatorTok{*}\NormalTok{ t}\OperatorTok{**}\DecValTok{3}
-\NormalTok{        )}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ specific\_gas\_constant(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \ControlFlowTok{return}\NormalTok{ R\_UNIVERSAL }\OperatorTok{/}\NormalTok{ MOLAR\_MASS\_NA}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ sound\_speed(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Monatomic ideal{-}gas sound{-}speed estimate (m s{-}1)."""}
-        \ControlFlowTok{return}\NormalTok{ math.sqrt((}\FloatTok{5.0} \OperatorTok{/} \FloatTok{3.0}\NormalTok{) }\OperatorTok{*} \VariableTok{self}\NormalTok{.specific\_gas\_constant }\OperatorTok{*} \VariableTok{self}\NormalTok{.temperature)}
-
-    \KeywordTok{def}\NormalTok{ summary(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{dict}\NormalTok{[}\BuiltInTok{str}\NormalTok{, }\BuiltInTok{float}\NormalTok{]:}
-        \ControlFlowTok{return}\NormalTok{ \{}
-            \StringTok{"temperature\_K"}\NormalTok{: }\VariableTok{self}\NormalTok{.temperature,}
-            \StringTok{"saturation\_pressure\_Pa"}\NormalTok{: }\VariableTok{self}\NormalTok{.pressure,}
-            \StringTok{"latent\_heat\_J\_kg"}\NormalTok{: }\VariableTok{self}\NormalTok{.latent\_heat,}
-            \StringTok{"liquid\_density\_kg\_m3"}\NormalTok{: }\VariableTok{self}\NormalTok{.liquid\_density,}
-            \StringTok{"vapor\_density\_kg\_m3"}\NormalTok{: }\VariableTok{self}\NormalTok{.vapor\_density,}
-            \StringTok{"liquid\_viscosity\_Pa\_s"}\NormalTok{: }\VariableTok{self}\NormalTok{.liquid\_viscosity,}
-            \StringTok{"vapor\_viscosity\_Pa\_s"}\NormalTok{: }\VariableTok{self}\NormalTok{.vapor\_viscosity,}
-            \StringTok{"surface\_tension\_N\_m"}\NormalTok{: }\VariableTok{self}\NormalTok{.surface\_tension,}
-            \StringTok{"liquid\_conductivity\_W\_mK"}\NormalTok{: }\VariableTok{self}\NormalTok{.liquid\_conductivity,}
-            \StringTok{"sound\_speed\_m\_s"}\NormalTok{: }\VariableTok{self}\NormalTok{.sound\_speed,}
-\NormalTok{        \}}
-
-
-\AttributeTok{@dataclass}\NormalTok{(frozen}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\KeywordTok{class}\NormalTok{ HeatPipeGeometry:}
-\NormalTok{    evaporator\_length: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.25}
-\NormalTok{    adiabatic\_length: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.15}
-\NormalTok{    condenser\_length: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.60}
-\NormalTok{    vapor\_diameter: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.012}
-\NormalTok{    wick\_thickness: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.001}
-\NormalTok{    pore\_radius: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{75.0e{-}6}
-\NormalTok{    permeability: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{5.0e{-}10}
-\NormalTok{    contact\_angle\_deg: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.0}
-\NormalTok{    effective\_wick\_conductivity: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{10.0}
-\NormalTok{    bubble\_radius: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{5.0e{-}6}
-
-    \KeywordTok{def}\NormalTok{ \_\_post\_init\_\_(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        positive }\OperatorTok{=}\NormalTok{ \{}
-\NormalTok{            key: value }\ControlFlowTok{for}\NormalTok{ key, value }\KeywordTok{in}\NormalTok{ asdict(}\VariableTok{self}\NormalTok{).items()}
-            \ControlFlowTok{if}\NormalTok{ key }\OperatorTok{!=} \StringTok{"contact\_angle\_deg"}
-\NormalTok{        \}}
-        \ControlFlowTok{if} \BuiltInTok{any}\NormalTok{(value }\OperatorTok{\textless{}=} \FloatTok{0.0} \ControlFlowTok{for}\NormalTok{ value }\KeywordTok{in}\NormalTok{ positive.values()):}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"All geometry and wick properties must be positive."}\NormalTok{)}
-        \ControlFlowTok{if} \KeywordTok{not} \FloatTok{0.0} \OperatorTok{\textless{}=} \VariableTok{self}\NormalTok{.contact\_angle\_deg }\OperatorTok{\textless{}} \FloatTok{90.0}\NormalTok{:}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"Contact angle must be in [0, 90) degrees."}\NormalTok{)}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ total\_length(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.evaporator\_length }\OperatorTok{+} \VariableTok{self}\NormalTok{.adiabatic\_length }\OperatorTok{+} \VariableTok{self}\NormalTok{.condenser\_length}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ effective\_length(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \ControlFlowTok{return}\NormalTok{ (}
-            \VariableTok{self}\NormalTok{.evaporator\_length }\OperatorTok{/} \FloatTok{2.0} \OperatorTok{+} \VariableTok{self}\NormalTok{.adiabatic\_length}
-            \OperatorTok{+} \VariableTok{self}\NormalTok{.condenser\_length }\OperatorTok{/} \FloatTok{2.0}
-\NormalTok{        )}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ vapor\_area(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \ControlFlowTok{return}\NormalTok{ math.pi }\OperatorTok{*} \VariableTok{self}\NormalTok{.vapor\_diameter}\OperatorTok{**}\DecValTok{2} \OperatorTok{/} \FloatTok{4.0}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ wick\_area(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-\NormalTok{        r\_v }\OperatorTok{=} \VariableTok{self}\NormalTok{.vapor\_diameter }\OperatorTok{/} \FloatTok{2.0}
-        \ControlFlowTok{return}\NormalTok{ math.pi }\OperatorTok{*}\NormalTok{ ((r\_v }\OperatorTok{+} \VariableTok{self}\NormalTok{.wick\_thickness)}\OperatorTok{**}\DecValTok{2} \OperatorTok{{-}}\NormalTok{ r\_v}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ capillary\_pressure(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \ControlFlowTok{raise} \PreprocessorTok{AttributeError}\NormalTok{(}\StringTok{"Capillary pressure also requires fluid temperature."}\NormalTok{)}
-
-
-\AttributeTok{@dataclass}\NormalTok{(frozen}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\KeywordTok{class}\NormalTok{ OperatingConditions:}
-\NormalTok{    heat\_input: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{800.0}
-\NormalTok{    sink\_temperature: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{700.0}
-\NormalTok{    condenser\_resistance: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.375}
-\NormalTok{    gravity: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.0}
-\NormalTok{    tilt\_deg: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.0}
-\NormalTok{    cells: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{400}
-
-    \KeywordTok{def}\NormalTok{ \_\_post\_init\_\_(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.heat\_input }\OperatorTok{\textless{}} \FloatTok{0.0} \KeywordTok{or} \VariableTok{self}\NormalTok{.sink\_temperature }\OperatorTok{\textless{}=} \FloatTok{0.0}\NormalTok{:}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}
-                \StringTok{"Heat input must be nonnegative and sink temperature positive."}
-\NormalTok{            )}
-        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.condenser\_resistance }\OperatorTok{\textless{}=} \FloatTok{0.0} \KeywordTok{or} \VariableTok{self}\NormalTok{.gravity }\OperatorTok{\textless{}} \FloatTok{0.0}\NormalTok{:}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}
-                \StringTok{"Condenser resistance must be positive and gravity nonnegative."}
-\NormalTok{            )}
-        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.cells }\OperatorTok{\textless{}} \DecValTok{20}\NormalTok{:}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"Use at least 20 axial cells."}\NormalTok{)}
-
-    \AttributeTok{@property}
-    \KeywordTok{def}\NormalTok{ operating\_temperature(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.sink\_temperature }\OperatorTok{+} \VariableTok{self}\NormalTok{.condenser\_resistance }\OperatorTok{*} \VariableTok{self}\NormalTok{.heat\_input}
-
-
-\AttributeTok{@dataclass}
-\KeywordTok{class}\NormalTok{ SimulationResult:}
-\NormalTok{    x: np.ndarray}
-\NormalTok{    section: np.ndarray}
-\NormalTok{    axial\_heat\_flow: np.ndarray}
-\NormalTok{    mass\_flow: np.ndarray}
-\NormalTok{    vapor\_velocity: np.ndarray}
-\NormalTok{    reynolds: np.ndarray}
-\NormalTok{    mach: np.ndarray}
-\NormalTok{    vapor\_pressure\_drop: np.ndarray}
-\NormalTok{    liquid\_pressure\_drop: np.ndarray}
-\NormalTok{    summary: }\BuiltInTok{dict}\NormalTok{[}\BuiltInTok{str}\NormalTok{, }\BuiltInTok{float} \OperatorTok{|} \BuiltInTok{str} \OperatorTok{|} \BuiltInTok{bool}\NormalTok{]}
-
-
-\KeywordTok{def}\NormalTok{ capillary\_pressure(geometry: HeatPipeGeometry, fluid: SodiumProperties) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-    \ControlFlowTok{return}\NormalTok{ (}
-        \FloatTok{2.0} \OperatorTok{*}\NormalTok{ fluid.surface\_tension}
-        \OperatorTok{*}\NormalTok{ math.cos(math.radians(geometry.contact\_angle\_deg))}
-        \OperatorTok{/}\NormalTok{ geometry.pore\_radius}
-\NormalTok{    )}
-
-
-\KeywordTok{def}\NormalTok{ axial\_heat\_profile(}
-\NormalTok{    x: np.ndarray, heat\_input: }\BuiltInTok{float}\NormalTok{, geometry: HeatPipeGeometry,}
-\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ np.ndarray:}
-    \CommentTok{"""Heat carried by vapor; x=0 is the closed evaporator end."""}
-\NormalTok{    le, la, lc }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        geometry.evaporator\_length,}
-\NormalTok{        geometry.adiabatic\_length,}
-\NormalTok{        geometry.condenser\_length,}
-\NormalTok{    )}
-\NormalTok{    q }\OperatorTok{=}\NormalTok{ np.empty\_like(x)}
-\NormalTok{    evap }\OperatorTok{=}\NormalTok{ x }\OperatorTok{\textless{}=}\NormalTok{ le}
-\NormalTok{    adiab }\OperatorTok{=}\NormalTok{ (x }\OperatorTok{\textgreater{}}\NormalTok{ le) }\OperatorTok{\&}\NormalTok{ (x }\OperatorTok{\textless{}=}\NormalTok{ le }\OperatorTok{+}\NormalTok{ la)}
-\NormalTok{    cond }\OperatorTok{=}\NormalTok{ x }\OperatorTok{\textgreater{}}\NormalTok{ le }\OperatorTok{+}\NormalTok{ la}
-\NormalTok{    q[evap] }\OperatorTok{=}\NormalTok{ heat\_input }\OperatorTok{*}\NormalTok{ x[evap] }\OperatorTok{/}\NormalTok{ le}
-\NormalTok{    q[adiab] }\OperatorTok{=}\NormalTok{ heat\_input}
-\NormalTok{    q[cond] }\OperatorTok{=}\NormalTok{ heat\_input }\OperatorTok{*}\NormalTok{ (}\FloatTok{1.0} \OperatorTok{{-}}\NormalTok{ (x[cond] }\OperatorTok{{-}}\NormalTok{ le }\OperatorTok{{-}}\NormalTok{ la) }\OperatorTok{/}\NormalTok{ lc)}
-    \ControlFlowTok{return}\NormalTok{ np.maximum(q, }\FloatTok{0.0}\NormalTok{)}
-
-
-\KeywordTok{def}\NormalTok{ \_cumulative\_trapezoid(y: np.ndarray, x: np.ndarray) }\OperatorTok{{-}\textgreater{}}\NormalTok{ np.ndarray:}
-\NormalTok{    result }\OperatorTok{=}\NormalTok{ np.zeros\_like(y)}
-\NormalTok{    result[}\DecValTok{1}\NormalTok{:] }\OperatorTok{=}\NormalTok{ np.cumsum(}\FloatTok{0.5} \OperatorTok{*}\NormalTok{ (y[}\DecValTok{1}\NormalTok{:] }\OperatorTok{+}\NormalTok{ y[:}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}\NormalTok{ np.diff(x))}
-    \ControlFlowTok{return}\NormalTok{ result}
-
-
-\KeywordTok{def}\NormalTok{ simulate\_at\_temperature(}
-\NormalTok{    geometry: HeatPipeGeometry,}
-\NormalTok{    conditions: OperatingConditions,}
-\NormalTok{    temperature: }\BuiltInTok{float}\NormalTok{,}
-\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ SimulationResult:}
-    \CommentTok{"""Solve the steady axial profile at a prescribed saturation temperature."""}
-\NormalTok{    fluid }\OperatorTok{=}\NormalTok{ SodiumProperties(temperature)}
-\NormalTok{    x }\OperatorTok{=}\NormalTok{ np.linspace(}\FloatTok{0.0}\NormalTok{, geometry.total\_length, conditions.cells }\OperatorTok{+} \DecValTok{1}\NormalTok{)}
-\NormalTok{    q }\OperatorTok{=}\NormalTok{ axial\_heat\_profile(x, conditions.heat\_input, geometry)}
-\NormalTok{    mdot }\OperatorTok{=}\NormalTok{ q }\OperatorTok{/}\NormalTok{ fluid.latent\_heat}
-\NormalTok{    velocity }\OperatorTok{=}\NormalTok{ mdot }\OperatorTok{/}\NormalTok{ (fluid.vapor\_density }\OperatorTok{*}\NormalTok{ geometry.vapor\_area)}
-\NormalTok{    reynolds }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        fluid.vapor\_density }\OperatorTok{*}\NormalTok{ velocity }\OperatorTok{*}\NormalTok{ geometry.vapor\_diameter}
-        \OperatorTok{/}\NormalTok{ fluid.vapor\_viscosity}
-\NormalTok{    )}
-\NormalTok{    mach }\OperatorTok{=}\NormalTok{ velocity }\OperatorTok{/}\NormalTok{ fluid.sound\_speed}
-\NormalTok{    friction }\OperatorTok{=}\NormalTok{ np.where(}
-\NormalTok{        reynolds }\OperatorTok{\textless{}} \FloatTok{2300.0}\NormalTok{,}
-        \FloatTok{64.0} \OperatorTok{/}\NormalTok{ np.maximum(reynolds, }\FloatTok{1.0e{-}12}\NormalTok{),}
-        \FloatTok{0.3164} \OperatorTok{/}\NormalTok{ np.maximum(reynolds, }\FloatTok{1.0e{-}12}\NormalTok{)}\OperatorTok{**}\FloatTok{0.25}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    friction }\OperatorTok{=}\NormalTok{ np.where(reynolds }\OperatorTok{\textless{}} \FloatTok{1.0e{-}12}\NormalTok{, }\FloatTok{0.0}\NormalTok{, friction)}
-\NormalTok{    dpv\_dx }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        friction }\OperatorTok{/}\NormalTok{ geometry.vapor\_diameter}
-        \OperatorTok{*} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ fluid.vapor\_density }\OperatorTok{*}\NormalTok{ velocity}\OperatorTok{**}\DecValTok{2}
-\NormalTok{    )}
-\NormalTok{    dpl\_dx }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        fluid.liquid\_viscosity }\OperatorTok{*}\NormalTok{ mdot}
-        \OperatorTok{/}\NormalTok{ (fluid.liquid\_density }\OperatorTok{*}\NormalTok{ geometry.permeability }\OperatorTok{*}\NormalTok{ geometry.wick\_area)}
-\NormalTok{    )}
-\NormalTok{    dpv }\OperatorTok{=}\NormalTok{ \_cumulative\_trapezoid(dpv\_dx, x)}
-\NormalTok{    dpl }\OperatorTok{=}\NormalTok{ \_cumulative\_trapezoid(dpl\_dx, x)}
-\NormalTok{    dp\_gravity }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        fluid.liquid\_density }\OperatorTok{*}\NormalTok{ conditions.gravity }\OperatorTok{*}\NormalTok{ geometry.total\_length}
-        \OperatorTok{*}\NormalTok{ math.sin(math.radians(conditions.tilt\_deg))}
-\NormalTok{    )}
-\NormalTok{    p\_cap }\OperatorTok{=}\NormalTok{ capillary\_pressure(geometry, fluid)}
-\NormalTok{    margin }\OperatorTok{=}\NormalTok{ p\_cap }\OperatorTok{{-}}\NormalTok{ dpv[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\OperatorTok{{-}}\NormalTok{ dpl[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\OperatorTok{{-}}\NormalTok{ dp\_gravity}
-
-    \CommentTok{\# Engineering screening limits (Faghri/Chi{-}style reduced{-}order expressions).}
-\NormalTok{    q\_sonic }\OperatorTok{=}\NormalTok{ (}
-        \FloatTok{0.474} \OperatorTok{*}\NormalTok{ geometry.vapor\_area }\OperatorTok{*}\NormalTok{ fluid.latent\_heat}
-        \OperatorTok{*}\NormalTok{ math.sqrt(fluid.vapor\_density }\OperatorTok{*}\NormalTok{ fluid.pressure)}
-\NormalTok{    )}
-\NormalTok{    q\_entrainment }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        geometry.vapor\_area }\OperatorTok{*}\NormalTok{ fluid.latent\_heat}
-        \OperatorTok{*}\NormalTok{ math.sqrt(}
-\NormalTok{            fluid.vapor\_density }\OperatorTok{*}\NormalTok{ fluid.surface\_tension}
-            \OperatorTok{/}\NormalTok{ (}\FloatTok{2.0} \OperatorTok{*}\NormalTok{ geometry.pore\_radius)}
-\NormalTok{        )}
-\NormalTok{    )}
-\NormalTok{    r\_v }\OperatorTok{=}\NormalTok{ geometry.vapor\_diameter }\OperatorTok{/} \FloatTok{2.0}
-\NormalTok{    r\_i }\OperatorTok{=}\NormalTok{ r\_v }\OperatorTok{+}\NormalTok{ geometry.wick\_thickness}
-\NormalTok{    nucleation\_pressure }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(}
-        \FloatTok{2.0} \OperatorTok{*}\NormalTok{ fluid.surface\_tension }\OperatorTok{/}\NormalTok{ geometry.bubble\_radius}
-        \OperatorTok{{-}}\NormalTok{ (dpv[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\NormalTok{ dpl[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\NormalTok{ dp\_gravity),}
-        \FloatTok{0.0}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    q\_boiling }\OperatorTok{=}\NormalTok{ (}
-        \FloatTok{2.0} \OperatorTok{*}\NormalTok{ math.pi }\OperatorTok{*}\NormalTok{ geometry.evaporator\_length}
-        \OperatorTok{*}\NormalTok{ geometry.effective\_wick\_conductivity }\OperatorTok{*}\NormalTok{ temperature}
-        \OperatorTok{/}\NormalTok{ (fluid.latent\_heat }\OperatorTok{*}\NormalTok{ fluid.vapor\_density }\OperatorTok{*}\NormalTok{ math.log(r\_i }\OperatorTok{/}\NormalTok{ r\_v))}
-        \OperatorTok{*}\NormalTok{ nucleation\_pressure}
-\NormalTok{    )}
-\NormalTok{    limits }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{"capillary"}\NormalTok{: capillary\_limit\_at\_temperature(geometry, conditions, temperature),}
-        \StringTok{"sonic"}\NormalTok{: q\_sonic,}
-        \StringTok{"entrainment"}\NormalTok{: q\_entrainment,}
-        \StringTok{"boiling"}\NormalTok{: q\_boiling,}
-\NormalTok{    \}}
-\NormalTok{    governing }\OperatorTok{=} \BuiltInTok{min}\NormalTok{(limits, key}\OperatorTok{=}\NormalTok{limits.get)}
-\NormalTok{    utilization }\OperatorTok{=}\NormalTok{ conditions.heat\_input }\OperatorTok{/}\NormalTok{ limits[governing]}
-\NormalTok{    section }\OperatorTok{=}\NormalTok{ np.select(}
-\NormalTok{        [x }\OperatorTok{\textless{}=}\NormalTok{ geometry.evaporator\_length,}
-\NormalTok{         x }\OperatorTok{\textless{}=}\NormalTok{ geometry.evaporator\_length }\OperatorTok{+}\NormalTok{ geometry.adiabatic\_length],}
-\NormalTok{        [}\StringTok{"Evaporator"}\NormalTok{, }\StringTok{"Adiabatic"}\NormalTok{], default}\OperatorTok{=}\StringTok{"Condenser"}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    summary: }\BuiltInTok{dict}\NormalTok{[}\BuiltInTok{str}\NormalTok{, }\BuiltInTok{float} \OperatorTok{|} \BuiltInTok{str} \OperatorTok{|} \BuiltInTok{bool}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{"temperature\_K"}\NormalTok{: temperature,}
-        \StringTok{"heat\_input\_W"}\NormalTok{: conditions.heat\_input,}
-        \StringTok{"max\_mass\_flow\_kg\_s"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(mdot)),}
-        \StringTok{"max\_vapor\_velocity\_m\_s"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(velocity)),}
-        \StringTok{"max\_reynolds"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(reynolds)),}
-        \StringTok{"max\_mach"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(mach)),}
-        \StringTok{"capillary\_pressure\_Pa"}\NormalTok{: p\_cap,}
-        \StringTok{"vapor\_pressure\_drop\_Pa"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(dpv[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]),}
-        \StringTok{"liquid\_pressure\_drop\_Pa"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(dpl[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]),}
-        \StringTok{"gravity\_pressure\_drop\_Pa"}\NormalTok{: dp\_gravity,}
-        \StringTok{"capillary\_margin\_Pa"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(margin),}
-        \StringTok{"capillary\_limit\_W"}\NormalTok{: limits[}\StringTok{"capillary"}\NormalTok{],}
-        \StringTok{"sonic\_limit\_W"}\NormalTok{: q\_sonic,}
-        \StringTok{"entrainment\_limit\_W"}\NormalTok{: q\_entrainment,}
-        \StringTok{"boiling\_limit\_W"}\NormalTok{: q\_boiling,}
-        \StringTok{"governing\_limit"}\NormalTok{: governing,}
-        \StringTok{"limit\_utilization"}\NormalTok{: utilization,}
-        \StringTok{"is\_capillary\_feasible"}\NormalTok{: }\BuiltInTok{bool}\NormalTok{(margin }\OperatorTok{\textgreater{}=} \FloatTok{0.0}\NormalTok{),}
-        \StringTok{"is\_within\_all\_screening\_limits"}\NormalTok{: }\BuiltInTok{bool}\NormalTok{(utilization }\OperatorTok{\textless{}=} \FloatTok{1.0} \KeywordTok{and}\NormalTok{ margin }\OperatorTok{\textgreater{}=} \FloatTok{0.0}\NormalTok{),}
-        \StringTok{"is\_incompressible\_screening\_ok"}\NormalTok{: }\BuiltInTok{bool}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(mach) }\OperatorTok{\textless{}} \FloatTok{0.3}\NormalTok{),}
-        \StringTok{"gravity\_m\_s2"}\NormalTok{: conditions.gravity,}
-        \StringTok{"tilt\_deg"}\NormalTok{: conditions.tilt\_deg,}
-        \StringTok{"cells"}\NormalTok{: conditions.cells,}
-\NormalTok{    \}}
-    \ControlFlowTok{return}\NormalTok{ SimulationResult(}
-\NormalTok{        x, section, q, mdot, velocity, reynolds, mach, dpv, dpl, summary,}
-\NormalTok{    )}
-
-
-\KeywordTok{def}\NormalTok{ simulate(}
-\NormalTok{    geometry: HeatPipeGeometry, conditions: OperatingConditions,}
-\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ SimulationResult:}
-    \ControlFlowTok{return}\NormalTok{ simulate\_at\_temperature(}
-\NormalTok{        geometry, conditions, conditions.operating\_temperature,}
-\NormalTok{    )}
-
-
-\KeywordTok{def}\NormalTok{ capillary\_limit\_at\_temperature(}
-\NormalTok{    geometry: HeatPipeGeometry,}
-\NormalTok{    conditions: OperatingConditions,}
-\NormalTok{    temperature: }\BuiltInTok{float}\NormalTok{,}
-\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-    \CommentTok{"""Find Q for zero capillary margin using monotone bisection."""}
-\NormalTok{    base }\OperatorTok{=}\NormalTok{ replace(conditions, heat\_input}\OperatorTok{=}\FloatTok{1.0}\NormalTok{)}
-
-    \KeywordTok{def}\NormalTok{ margin(q: }\BuiltInTok{float}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{\# Inline the pressure calculation to avoid recursive limit evaluation.}
-\NormalTok{        fluid }\OperatorTok{=}\NormalTok{ SodiumProperties(temperature)}
-\NormalTok{        local }\OperatorTok{=}\NormalTok{ replace(base, heat\_input}\OperatorTok{=}\NormalTok{q)}
-\NormalTok{        x }\OperatorTok{=}\NormalTok{ np.linspace(}\FloatTok{0.0}\NormalTok{, geometry.total\_length, local.cells }\OperatorTok{+} \DecValTok{1}\NormalTok{)}
-\NormalTok{        heat }\OperatorTok{=}\NormalTok{ axial\_heat\_profile(x, q, geometry)}
-\NormalTok{        mdot }\OperatorTok{=}\NormalTok{ heat }\OperatorTok{/}\NormalTok{ fluid.latent\_heat}
-\NormalTok{        velocity }\OperatorTok{=}\NormalTok{ mdot }\OperatorTok{/}\NormalTok{ (fluid.vapor\_density }\OperatorTok{*}\NormalTok{ geometry.vapor\_area)}
-\NormalTok{        reynolds }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{            fluid.vapor\_density }\OperatorTok{*}\NormalTok{ velocity }\OperatorTok{*}\NormalTok{ geometry.vapor\_diameter}
-            \OperatorTok{/}\NormalTok{ fluid.vapor\_viscosity}
-\NormalTok{        )}
-\NormalTok{        friction }\OperatorTok{=}\NormalTok{ np.where(}
-\NormalTok{            reynolds }\OperatorTok{\textless{}} \FloatTok{2300.0}\NormalTok{,}
-            \FloatTok{64.0} \OperatorTok{/}\NormalTok{ np.maximum(reynolds, }\FloatTok{1.0e{-}12}\NormalTok{),}
-            \FloatTok{0.3164} \OperatorTok{/}\NormalTok{ np.maximum(reynolds, }\FloatTok{1.0e{-}12}\NormalTok{)}\OperatorTok{**}\FloatTok{0.25}\NormalTok{,}
-\NormalTok{        )}
-\NormalTok{        friction }\OperatorTok{=}\NormalTok{ np.where(reynolds }\OperatorTok{\textless{}} \FloatTok{1.0e{-}12}\NormalTok{, }\FloatTok{0.0}\NormalTok{, friction)}
-\NormalTok{        dpv\_dx }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{            friction }\OperatorTok{/}\NormalTok{ geometry.vapor\_diameter}
-            \OperatorTok{*} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ fluid.vapor\_density }\OperatorTok{*}\NormalTok{ velocity}\OperatorTok{**}\DecValTok{2}
-\NormalTok{        )}
-\NormalTok{        dpl\_dx }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{            fluid.liquid\_viscosity }\OperatorTok{*}\NormalTok{ mdot}
-            \OperatorTok{/}\NormalTok{ (fluid.liquid\_density }\OperatorTok{*}\NormalTok{ geometry.permeability }\OperatorTok{*}\NormalTok{ geometry.wick\_area)}
-\NormalTok{        )}
-\NormalTok{        dpv }\OperatorTok{=}\NormalTok{ np.trapezoid(dpv\_dx, x)}
-\NormalTok{        dpl }\OperatorTok{=}\NormalTok{ np.trapezoid(dpl\_dx, x)}
-\NormalTok{        dpg }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{            fluid.liquid\_density }\OperatorTok{*}\NormalTok{ local.gravity }\OperatorTok{*}\NormalTok{ geometry.total\_length}
-            \OperatorTok{*}\NormalTok{ math.sin(math.radians(local.tilt\_deg))}
-\NormalTok{        )}
-        \ControlFlowTok{return}\NormalTok{ capillary\_pressure(geometry, fluid) }\OperatorTok{{-}}\NormalTok{ dpv }\OperatorTok{{-}}\NormalTok{ dpl }\OperatorTok{{-}}\NormalTok{ dpg}
-
-    \ControlFlowTok{if}\NormalTok{ margin(}\FloatTok{0.0}\NormalTok{) }\OperatorTok{\textless{}=} \FloatTok{0.0}\NormalTok{:}
-        \ControlFlowTok{return} \FloatTok{0.0}
-\NormalTok{    low, high }\OperatorTok{=} \FloatTok{0.0}\NormalTok{, }\FloatTok{100.0}
-    \ControlFlowTok{for}\NormalTok{ \_ }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{30}\NormalTok{):}
-        \ControlFlowTok{if}\NormalTok{ margin(high) }\OperatorTok{\textless{}} \FloatTok{0.0}\NormalTok{:}
+\NormalTok{    T\_v }\OperatorTok{=} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ (lo }\OperatorTok{+}\NormalTok{ hi)}
+    \ControlFlowTok{for}\NormalTok{ \_ }\KeywordTok{in} \FloatTok{1}\OperatorTok{:}\NormalTok{maxiter}
+\NormalTok{        T\_v }\OperatorTok{=} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ (lo }\OperatorTok{+}\NormalTok{ hi)}
+\NormalTok{        fr }\OperatorTok{=} \FunctionTok{residual}\NormalTok{(T\_v)}
+        \ControlFlowTok{if} \FunctionTok{abs}\NormalTok{(fr) }\OperatorTok{\textless{}} \FloatTok{1e{-}6} \OperatorTok{||}\NormalTok{ (hi }\OperatorTok{{-}}\NormalTok{ lo) }\OperatorTok{\textless{}}\NormalTok{ tol}
             \ControlFlowTok{break}
-\NormalTok{        high }\OperatorTok{*=} \FloatTok{2.0}
-    \ControlFlowTok{else}\NormalTok{:}
-        \ControlFlowTok{raise} \PreprocessorTok{RuntimeError}\NormalTok{(}\StringTok{"Could not bracket the capillary limit."}\NormalTok{)}
-    \ControlFlowTok{for}\NormalTok{ \_ }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{55}\NormalTok{):}
-\NormalTok{        mid }\OperatorTok{=} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ (low }\OperatorTok{+}\NormalTok{ high)}
-        \ControlFlowTok{if}\NormalTok{ margin(mid) }\OperatorTok{\textgreater{}=} \FloatTok{0.0}\NormalTok{:}
-\NormalTok{            low }\OperatorTok{=}\NormalTok{ mid}
-        \ControlFlowTok{else}\NormalTok{:}
-\NormalTok{            high }\OperatorTok{=}\NormalTok{ mid}
-    \ControlFlowTok{return} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ (low }\OperatorTok{+}\NormalTok{ high)}
+        \ControlFlowTok{end}
+        \ControlFlowTok{if} \FunctionTok{sign}\NormalTok{(fr) }\OperatorTok{==} \FunctionTok{sign}\NormalTok{(flo)}
+\NormalTok{            lo }\OperatorTok{=}\NormalTok{ T\_v}
+\NormalTok{            flo }\OperatorTok{=}\NormalTok{ fr}
+        \ControlFlowTok{else}
+\NormalTok{            hi }\OperatorTok{=}\NormalTok{ T\_v}
+        \ControlFlowTok{end}
+    \ControlFlowTok{end}
 
-
-\KeywordTok{def}\NormalTok{ operating\_limits(}
-\NormalTok{    geometry: HeatPipeGeometry,}
-\NormalTok{    conditions: OperatingConditions,}
-\NormalTok{    temperatures: Iterable[}\BuiltInTok{float}\NormalTok{],}
-\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{list}\NormalTok{[}\BuiltInTok{dict}\NormalTok{[}\BuiltInTok{str}\NormalTok{, }\BuiltInTok{float} \OperatorTok{|} \BuiltInTok{str}\NormalTok{]]:}
-\NormalTok{    rows }\OperatorTok{=}\NormalTok{ []}
-    \ControlFlowTok{for}\NormalTok{ temperature }\KeywordTok{in}\NormalTok{ temperatures:}
-        \CommentTok{\# A small reference heat input makes boiling a property{-}based screening}
-        \CommentTok{\# value; the other three limits are independent of the imposed load.}
-\NormalTok{        probe }\OperatorTok{=}\NormalTok{ replace(conditions, heat\_input}\OperatorTok{=}\FloatTok{1.0}\NormalTok{)}
-\NormalTok{        result }\OperatorTok{=}\NormalTok{ simulate\_at\_temperature(geometry, probe, }\BuiltInTok{float}\NormalTok{(temperature))}
-\NormalTok{        limits }\OperatorTok{=}\NormalTok{ \{}
-            \StringTok{"capillary"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"capillary\_limit\_W"}\NormalTok{]),}
-            \StringTok{"sonic"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"sonic\_limit\_W"}\NormalTok{]),}
-            \StringTok{"entrainment"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"entrainment\_limit\_W"}\NormalTok{]),}
-            \StringTok{"boiling"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"boiling\_limit\_W"}\NormalTok{]),}
-\NormalTok{        \}}
-\NormalTok{        governing }\OperatorTok{=} \BuiltInTok{min}\NormalTok{(limits, key}\OperatorTok{=}\NormalTok{limits.get)}
-\NormalTok{        rows.append(\{}
-            \StringTok{"temperature\_K"}\NormalTok{: }\BuiltInTok{float}\NormalTok{(temperature),}
-            \OperatorTok{**}\NormalTok{limits,}
-            \StringTok{"maximum\_transport\_W"}\NormalTok{: limits[governing],}
-            \StringTok{"governing\_limit"}\NormalTok{: governing,}
-\NormalTok{        \})}
-    \ControlFlowTok{return}\NormalTok{ rows}
-
-
-\KeywordTok{def}\NormalTok{ write\_csv(}
-\NormalTok{    path: Path, rows: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{dict}\NormalTok{], fieldnames: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{] }\OperatorTok{|} \VariableTok{None} \OperatorTok{=} \VariableTok{None}\NormalTok{,}
-\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{    path.parent.mkdir(parents}\OperatorTok{=}\VariableTok{True}\NormalTok{, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ rows:}
-        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"No rows supplied."}\NormalTok{)}
-    \ControlFlowTok{with}\NormalTok{ path.}\BuiltInTok{open}\NormalTok{(}\StringTok{"w"}\NormalTok{, newline}\OperatorTok{=}\StringTok{""}\NormalTok{, encoding}\OperatorTok{=}\StringTok{"utf{-}8"}\NormalTok{) }\ImportTok{as}\NormalTok{ handle:}
-\NormalTok{        writer }\OperatorTok{=}\NormalTok{ csv.DictWriter(handle, fieldnames}\OperatorTok{=}\NormalTok{fieldnames }\KeywordTok{or} \BuiltInTok{list}\NormalTok{(rows[}\DecValTok{0}\NormalTok{]))}
-\NormalTok{        writer.writeheader()}
-\NormalTok{        writer.writerows(rows)}
-
-
-\KeywordTok{def}\NormalTok{ configure\_plots() }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{    plt.rcParams.update(\{}
-        \StringTok{"font.size"}\NormalTok{: }\DecValTok{10}\NormalTok{,}
-        \StringTok{"axes.grid"}\NormalTok{: }\VariableTok{True}\NormalTok{,}
-        \StringTok{"grid.alpha"}\NormalTok{: }\FloatTok{0.25}\NormalTok{,}
-        \StringTok{"figure.dpi"}\NormalTok{: }\DecValTok{150}\NormalTok{,}
-        \StringTok{"savefig.dpi"}\NormalTok{: }\DecValTok{300}\NormalTok{,}
-        \StringTok{"savefig.bbox"}\NormalTok{: }\StringTok{"tight"}\NormalTok{,}
-\NormalTok{    \})}
-
-
-\KeywordTok{def}\NormalTok{ plot\_axial(result: SimulationResult, path: Path) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{    configure\_plots()}
-\NormalTok{    fig, axes }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, figsize}\OperatorTok{=}\NormalTok{(}\FloatTok{7.0}\NormalTok{, }\FloatTok{8.2}\NormalTok{), sharex}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{0}\NormalTok{].plot(result.x, result.axial\_heat\_flow, color}\OperatorTok{=}\StringTok{"\#9b2226"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{0}\NormalTok{].set\_ylabel(}\StringTok{"Aliran kalor aksial (W)"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{1}\NormalTok{].plot(result.x, result.vapor\_velocity, color}\OperatorTok{=}\StringTok{"\#005f73"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{1}\NormalTok{].set\_ylabel(}\StringTok{"Kecepatan uap (m/s)"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{2}\NormalTok{].plot(result.x, result.vapor\_pressure\_drop, label}\OperatorTok{=}\StringTok{"Uap"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#ca6702"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{2}\NormalTok{].plot(result.x, result.liquid\_pressure\_drop, label}\OperatorTok{=}\StringTok{"Cairan"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#0a9396"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{2}\NormalTok{].set\_ylabel(}\StringTok{"Rugi tekanan kumulatif (Pa)"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{2}\NormalTok{].set\_xlabel(}\StringTok{"Posisi dari ujung evaporator, x (m)"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{2}\NormalTok{].legend()}
-    \ControlFlowTok{for}\NormalTok{ ax }\KeywordTok{in}\NormalTok{ axes:}
-        \ControlFlowTok{for}\NormalTok{ boundary }\KeywordTok{in}\NormalTok{ (}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.40}\NormalTok{):}
-\NormalTok{            ax.axvline(boundary, color}\OperatorTok{=}\StringTok{"0.45"}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{"{-}{-}"}\NormalTok{, linewidth}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}
-\NormalTok{    fig.tight\_layout()}
-\NormalTok{    fig.savefig(path)}
-\NormalTok{    plt.close(fig)}
-
-
-\KeywordTok{def}\NormalTok{ plot\_limits(rows: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{dict}\NormalTok{], reference\_q: }\BuiltInTok{float}\NormalTok{, path: Path) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{    configure\_plots()}
-\NormalTok{    temperature }\OperatorTok{=}\NormalTok{ [row[}\StringTok{"temperature\_K"}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ rows]}
-\NormalTok{    fig, axes }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, figsize}\OperatorTok{=}\NormalTok{(}\FloatTok{7.2}\NormalTok{, }\FloatTok{6.4}\NormalTok{), sharex}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{    styles }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{"capillary"}\NormalTok{: (}\StringTok{"Kapiler"}\NormalTok{, }\StringTok{"\#9b2226"}\NormalTok{),}
-        \StringTok{"sonic"}\NormalTok{: (}\StringTok{"Sonik"}\NormalTok{, }\StringTok{"\#005f73"}\NormalTok{),}
-        \StringTok{"entrainment"}\NormalTok{: (}\StringTok{"Entrainment"}\NormalTok{, }\StringTok{"\#ca6702"}\NormalTok{),}
-\NormalTok{    \}}
-    \ControlFlowTok{for}\NormalTok{ key, (label, color) }\KeywordTok{in}\NormalTok{ styles.items():}
-\NormalTok{        axes[}\DecValTok{0}\NormalTok{].plot(temperature, [row[key] }\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ rows], label}\OperatorTok{=}\NormalTok{label, color}\OperatorTok{=}\NormalTok{color)}
-\NormalTok{    axes[}\DecValTok{0}\NormalTok{].axhline(}
-\NormalTok{        reference\_q, color}\OperatorTok{=}\StringTok{"black"}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{"{-}{-}"}\NormalTok{, label}\OperatorTok{=}\StringTok{"Beban kasus acuan"}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    axes[}\DecValTok{0}\NormalTok{].set\_ylabel(}\StringTok{"Batas kalor (W)"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{0}\NormalTok{].legend(ncol}\OperatorTok{=}\DecValTok{2}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{1}\NormalTok{].plot(temperature, [row[}\StringTok{"boiling"}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ rows], color}\OperatorTok{=}\StringTok{"\#0a9396"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{1}\NormalTok{].set\_yscale(}\StringTok{"log"}\NormalTok{)}
-\NormalTok{    axes[}\DecValTok{1}\NormalTok{].}\BuiltInTok{set}\NormalTok{(}
-\NormalTok{        xlabel}\OperatorTok{=}\StringTok{"Temperatur operasi (K)"}\NormalTok{,}
-\NormalTok{        ylabel}\OperatorTok{=}\StringTok{"Batas pendidihan (W)"}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    fig.tight\_layout()}
-\NormalTok{    fig.savefig(path)}
-\NormalTok{    plt.close(fig)}
-
-
-\KeywordTok{def}\NormalTok{ plot\_schematic(geometry: HeatPipeGeometry, path: Path) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-    \CommentTok{"""Draw the modeled control volume and counter{-}current phase paths."""}
-\NormalTok{    configure\_plots()}
-\NormalTok{    fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots(figsize}\OperatorTok{=}\NormalTok{(}\FloatTok{8.0}\NormalTok{, }\FloatTok{3.2}\NormalTok{))}
-\NormalTok{    le, la, lc }\OperatorTok{=}\NormalTok{ (}
-\NormalTok{        geometry.evaporator\_length, geometry.adiabatic\_length,}
-\NormalTok{        geometry.condenser\_length,}
-\NormalTok{    )}
-\NormalTok{    length }\OperatorTok{=}\NormalTok{ geometry.total\_length}
-\NormalTok{    ax.add\_patch(plt.Rectangle((}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{), length, }\FloatTok{1.5}\NormalTok{, fill}\OperatorTok{=}\VariableTok{False}\NormalTok{, linewidth}\OperatorTok{=}\FloatTok{2.0}\NormalTok{))}
-\NormalTok{    ax.add\_patch(plt.Rectangle((}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{), length, }\FloatTok{0.22}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#0a9396"}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.75}\NormalTok{))}
-\NormalTok{    ax.add\_patch(plt.Rectangle((}\DecValTok{0}\NormalTok{, }\FloatTok{1.53}\NormalTok{), length, }\FloatTok{0.22}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#0a9396"}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.75}\NormalTok{))}
-\NormalTok{    ax.axvline(le, color}\OperatorTok{=}\StringTok{"0.35"}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{"{-}{-}"}\NormalTok{)}
-\NormalTok{    ax.axvline(le }\OperatorTok{+}\NormalTok{ la, color}\OperatorTok{=}\StringTok{"0.35"}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{"{-}{-}"}\NormalTok{)}
-\NormalTok{    ax.text(le }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{2.02}\NormalTok{, }\StringTok{"Evaporator"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, weight}\OperatorTok{=}\StringTok{"bold"}\NormalTok{)}
-\NormalTok{    ax.text(le }\OperatorTok{+}\NormalTok{ la }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{2.02}\NormalTok{, }\StringTok{"Adiabatik"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, weight}\OperatorTok{=}\StringTok{"bold"}\NormalTok{)}
-\NormalTok{    ax.text(le }\OperatorTok{+}\NormalTok{ la }\OperatorTok{+}\NormalTok{ lc }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{2.02}\NormalTok{, }\StringTok{"Kondenser"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, weight}\OperatorTok{=}\StringTok{"bold"}\NormalTok{)}
-\NormalTok{    ax.text(le }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{2.22}\NormalTok{, }\StringTok{"Q masuk"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#9b2226"}\NormalTok{)}
-\NormalTok{    ax.text(le }\OperatorTok{+}\NormalTok{ la }\OperatorTok{+}\NormalTok{ lc }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{2.22}\NormalTok{, }\StringTok{"Q keluar"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#005f73"}\NormalTok{)}
-    \ControlFlowTok{for}\NormalTok{ start }\KeywordTok{in}\NormalTok{ (}\FloatTok{0.04}\NormalTok{, }\FloatTok{0.22}\NormalTok{):}
-\NormalTok{        ax.annotate(}\StringTok{""}\NormalTok{, xy}\OperatorTok{=}\NormalTok{(le }\OperatorTok{{-}} \FloatTok{0.02}\NormalTok{, start }\OperatorTok{+} \FloatTok{0.65}\NormalTok{), xytext}\OperatorTok{=}\NormalTok{(start, start }\OperatorTok{+} \FloatTok{0.65}\NormalTok{),}
-\NormalTok{                    arrowprops}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(arrowstyle}\OperatorTok{=}\StringTok{"{-}\textgreater{}"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#ca6702"}\NormalTok{, lw}\OperatorTok{=}\FloatTok{1.8}\NormalTok{))}
-\NormalTok{    ax.annotate(}\StringTok{""}\NormalTok{, xy}\OperatorTok{=}\NormalTok{(le }\OperatorTok{+}\NormalTok{ la }\OperatorTok{+}\NormalTok{ lc }\OperatorTok{{-}} \FloatTok{0.05}\NormalTok{, }\FloatTok{1.0}\NormalTok{), xytext}\OperatorTok{=}\NormalTok{(le }\OperatorTok{+} \FloatTok{0.02}\NormalTok{, }\FloatTok{1.0}\NormalTok{),}
-\NormalTok{                arrowprops}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(arrowstyle}\OperatorTok{=}\StringTok{"{-}\textgreater{}"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#ca6702"}\NormalTok{, lw}\OperatorTok{=}\FloatTok{1.8}\NormalTok{))}
-\NormalTok{    ax.annotate(}\StringTok{""}\NormalTok{, xy}\OperatorTok{=}\NormalTok{(le }\OperatorTok{+}\NormalTok{ la }\OperatorTok{+} \FloatTok{0.05}\NormalTok{, }\FloatTok{0.78}\NormalTok{), xytext}\OperatorTok{=}\NormalTok{(length }\OperatorTok{{-}} \FloatTok{0.05}\NormalTok{, }\FloatTok{0.78}\NormalTok{),}
-\NormalTok{                arrowprops}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(arrowstyle}\OperatorTok{=}\StringTok{"{-}\textgreater{}"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#ca6702"}\NormalTok{, lw}\OperatorTok{=}\FloatTok{1.8}\NormalTok{))}
-\NormalTok{    ax.annotate(}\StringTok{""}\NormalTok{, xy}\OperatorTok{=}\NormalTok{(}\FloatTok{0.05}\NormalTok{, }\FloatTok{0.36}\NormalTok{), xytext}\OperatorTok{=}\NormalTok{(length }\OperatorTok{{-}} \FloatTok{0.05}\NormalTok{, }\FloatTok{0.36}\NormalTok{),}
-\NormalTok{                arrowprops}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(arrowstyle}\OperatorTok{=}\StringTok{"{-}\textgreater{}"}\NormalTok{, color}\OperatorTok{=}\StringTok{"white"}\NormalTok{, lw}\OperatorTok{=}\FloatTok{1.5}\NormalTok{))}
-\NormalTok{    ax.annotate(}\StringTok{""}\NormalTok{, xy}\OperatorTok{=}\NormalTok{(}\FloatTok{0.05}\NormalTok{, }\FloatTok{1.64}\NormalTok{), xytext}\OperatorTok{=}\NormalTok{(length }\OperatorTok{{-}} \FloatTok{0.05}\NormalTok{, }\FloatTok{1.64}\NormalTok{),}
-\NormalTok{                arrowprops}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(arrowstyle}\OperatorTok{=}\StringTok{"{-}\textgreater{}"}\NormalTok{, color}\OperatorTok{=}\StringTok{"white"}\NormalTok{, lw}\OperatorTok{=}\FloatTok{1.5}\NormalTok{))}
-\NormalTok{    ax.text(length }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{1.18}\NormalTok{, }\StringTok{"Uap jenuh"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#8c510a"}\NormalTok{)}
-\NormalTok{    ax.text(}
-\NormalTok{        length }\OperatorTok{/} \DecValTok{2}\NormalTok{, }\FloatTok{0.05}\NormalTok{,}
-        \StringTok{"Kapiler: cairan kembali melalui wick (arah berlawanan)"}\NormalTok{,}
-\NormalTok{        ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#075b5d"}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    ax.text(}\DecValTok{0}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.18}\NormalTok{, }\StringTok{"x = 0"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{)}
-\NormalTok{    ax.text(length, }\OperatorTok{{-}}\FloatTok{0.18}\NormalTok{, }\StringTok{"x = L"}\NormalTok{, ha}\OperatorTok{=}\StringTok{"center"}\NormalTok{)}
-\NormalTok{    ax.}\BuiltInTok{set}\NormalTok{(xlim}\OperatorTok{=}\NormalTok{(}\OperatorTok{{-}}\FloatTok{0.08}\NormalTok{, length }\OperatorTok{+} \FloatTok{0.08}\NormalTok{), ylim}\OperatorTok{=}\NormalTok{(}\OperatorTok{{-}}\FloatTok{0.3}\NormalTok{, }\FloatTok{2.45}\NormalTok{))}
-\NormalTok{    ax.axis(}\StringTok{"off"}\NormalTok{)}
-\NormalTok{    fig.tight\_layout()}
-\NormalTok{    fig.savefig(path)}
-\NormalTok{    plt.close(fig)}
-
-
-\KeywordTok{def}\NormalTok{ plot\_gravity(rows: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{dict}\NormalTok{], path: Path) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{    configure\_plots()}
-\NormalTok{    labels }\OperatorTok{=}\NormalTok{ [row[}\StringTok{"label"}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ rows]}
-\NormalTok{    values }\OperatorTok{=}\NormalTok{ [row[}\StringTok{"capillary\_limit\_W"}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ rows]}
-\NormalTok{    fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots(figsize}\OperatorTok{=}\NormalTok{(}\FloatTok{7.2}\NormalTok{, }\FloatTok{4.2}\NormalTok{))}
-\NormalTok{    bars }\OperatorTok{=}\NormalTok{ ax.bar(}
-\NormalTok{        labels, values,}
-\NormalTok{        color}\OperatorTok{=}\NormalTok{[}\StringTok{"\#0a9396"}\NormalTok{, }\StringTok{"\#0a9396"}\NormalTok{, }\StringTok{"\#ca6702"}\NormalTok{, }\StringTok{"\#ca6702"}\NormalTok{, }\StringTok{"\#9b2226"}\NormalTok{],}
-\NormalTok{    )}
-\NormalTok{    ax.set\_ylabel(}\StringTok{"Batas kapiler (W)"}\NormalTok{)}
-\NormalTok{    ax.set\_xlabel(}\StringTok{"Percepatan efektif dan orientasi"}\NormalTok{)}
-\NormalTok{    ax.tick\_params(axis}\OperatorTok{=}\StringTok{"x"}\NormalTok{, rotation}\OperatorTok{=}\DecValTok{20}\NormalTok{)}
-\NormalTok{    ax.bar\_label(bars, fmt}\OperatorTok{=}\StringTok{"\%.0f"}\NormalTok{)}
-\NormalTok{    fig.tight\_layout()}
-\NormalTok{    fig.savefig(path)}
-\NormalTok{    plt.close(fig)}
-
-
-\KeywordTok{def}\NormalTok{ run\_analysis(project\_root: Path) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{dict}\NormalTok{:}
-\NormalTok{    geometry }\OperatorTok{=}\NormalTok{ HeatPipeGeometry()}
-\NormalTok{    conditions }\OperatorTok{=}\NormalTok{ OperatingConditions()}
-\NormalTok{    result }\OperatorTok{=}\NormalTok{ simulate(geometry, conditions)}
-\NormalTok{    data\_dir }\OperatorTok{=}\NormalTok{ project\_root }\OperatorTok{/} \StringTok{"data"}
-\NormalTok{    figure\_dir }\OperatorTok{=}\NormalTok{ project\_root }\OperatorTok{/} \StringTok{"figures"}
-\NormalTok{    data\_dir.mkdir(parents}\OperatorTok{=}\VariableTok{True}\NormalTok{, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{    figure\_dir.mkdir(parents}\OperatorTok{=}\VariableTok{True}\NormalTok{, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-
-\NormalTok{    axial\_rows }\OperatorTok{=}\NormalTok{ []}
-    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(result.x)):}
-\NormalTok{        axial\_rows.append(\{}
-            \StringTok{"x\_m"}\NormalTok{: result.x[i], }\StringTok{"section"}\NormalTok{: result.section[i],}
-            \StringTok{"axial\_heat\_flow\_W"}\NormalTok{: result.axial\_heat\_flow[i],}
-            \StringTok{"mass\_flow\_kg\_s"}\NormalTok{: result.mass\_flow[i],}
-            \StringTok{"vapor\_velocity\_m\_s"}\NormalTok{: result.vapor\_velocity[i],}
-            \StringTok{"reynolds"}\NormalTok{: result.reynolds[i], }\StringTok{"mach"}\NormalTok{: result.mach[i],}
-            \StringTok{"vapor\_pressure\_drop\_Pa"}\NormalTok{: result.vapor\_pressure\_drop[i],}
-            \StringTok{"liquid\_pressure\_drop\_Pa"}\NormalTok{: result.liquid\_pressure\_drop[i],}
-\NormalTok{        \})}
-\NormalTok{    write\_csv(data\_dir }\OperatorTok{/} \StringTok{"profil\_aksial.csv"}\NormalTok{, axial\_rows)}
-
-\NormalTok{    temperatures }\OperatorTok{=}\NormalTok{ np.arange(}\FloatTok{800.0}\NormalTok{, }\FloatTok{1200.1}\NormalTok{, }\FloatTok{25.0}\NormalTok{)}
-\NormalTok{    limit\_rows }\OperatorTok{=}\NormalTok{ operating\_limits(geometry, conditions, temperatures)}
-\NormalTok{    write\_csv(data\_dir }\OperatorTok{/} \StringTok{"batas\_operasi.csv"}\NormalTok{, limit\_rows)}
-
-\NormalTok{    load\_rows }\OperatorTok{=}\NormalTok{ []}
-    \ControlFlowTok{for}\NormalTok{ heat\_input }\KeywordTok{in}\NormalTok{ (}\DecValTok{300}\NormalTok{, }\DecValTok{400}\NormalTok{, }\DecValTok{600}\NormalTok{, }\DecValTok{800}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{1200}\NormalTok{, }\DecValTok{1400}\NormalTok{, }\DecValTok{1600}\NormalTok{):}
-\NormalTok{        local }\OperatorTok{=}\NormalTok{ replace(conditions, heat\_input}\OperatorTok{=}\NormalTok{heat\_input)}
-\NormalTok{        row }\OperatorTok{=}\NormalTok{ simulate(geometry, local).summary}
-\NormalTok{        load\_rows.append(}\BuiltInTok{dict}\NormalTok{(row))}
-\NormalTok{    write\_csv(data\_dir }\OperatorTok{/} \StringTok{"studi\_beban.csv"}\NormalTok{, load\_rows)}
-
-\NormalTok{    gravity\_rows }\OperatorTok{=}\NormalTok{ []}
-    \ControlFlowTok{for}\NormalTok{ label, gravity, tilt }\KeywordTok{in}\NormalTok{ (}
-\NormalTok{        (}\StringTok{"Mikrogravitasi}\CharTok{\textbackslash{}n}\StringTok{0"}\NormalTok{, }\FloatTok{0.0}\NormalTok{, }\FloatTok{0.0}\NormalTok{),}
-\NormalTok{        (}\StringTok{"Akselerasi kecil}\CharTok{\textbackslash{}n}\StringTok{0,01; 90°"}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{90.0}\NormalTok{),}
-\NormalTok{        (}\StringTok{"Akselerasi}\CharTok{\textbackslash{}n}\StringTok{0,1; 90°"}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{90.0}\NormalTok{),}
-\NormalTok{        (}\StringTok{"Akselerasi}\CharTok{\textbackslash{}n}\StringTok{1; 90°"}\NormalTok{, }\FloatTok{1.0}\NormalTok{, }\FloatTok{90.0}\NormalTok{),}
-\NormalTok{        (}\StringTok{"Bumi}\CharTok{\textbackslash{}n}\StringTok{9,81; 90°"}\NormalTok{, }\FloatTok{9.81}\NormalTok{, }\FloatTok{90.0}\NormalTok{),}
-\NormalTok{    ):}
-\NormalTok{        local }\OperatorTok{=}\NormalTok{ replace(conditions, gravity}\OperatorTok{=}\NormalTok{gravity, tilt\_deg}\OperatorTok{=}\NormalTok{tilt)}
-\NormalTok{        q\_cap }\OperatorTok{=}\NormalTok{ capillary\_limit\_at\_temperature(geometry, local, }\FloatTok{1000.0}\NormalTok{)}
-\NormalTok{        gravity\_rows.append(\{}
-            \StringTok{"label"}\NormalTok{: label, }\StringTok{"gravity\_m\_s2"}\NormalTok{: gravity, }\StringTok{"tilt\_deg"}\NormalTok{: tilt,}
-            \StringTok{"capillary\_limit\_W"}\NormalTok{: q\_cap,}
-\NormalTok{        \})}
-\NormalTok{    write\_csv(data\_dir }\OperatorTok{/} \StringTok{"studi\_gravitasi.csv"}\NormalTok{, gravity\_rows)}
-
-\NormalTok{    mesh\_rows }\OperatorTok{=}\NormalTok{ []}
-\NormalTok{    reference\_dp }\OperatorTok{=} \VariableTok{None}
-    \ControlFlowTok{for}\NormalTok{ cells }\KeywordTok{in}\NormalTok{ (}\DecValTok{50}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{400}\NormalTok{, }\DecValTok{800}\NormalTok{, }\DecValTok{1600}\NormalTok{):}
-\NormalTok{        local }\OperatorTok{=}\NormalTok{ replace(conditions, cells}\OperatorTok{=}\NormalTok{cells)}
-\NormalTok{        summary }\OperatorTok{=}\NormalTok{ simulate(geometry, local).summary}
-\NormalTok{        total\_dp }\OperatorTok{=}\NormalTok{ (}
-            \BuiltInTok{float}\NormalTok{(summary[}\StringTok{"vapor\_pressure\_drop\_Pa"}\NormalTok{])}
-            \OperatorTok{+} \BuiltInTok{float}\NormalTok{(summary[}\StringTok{"liquid\_pressure\_drop\_Pa"}\NormalTok{])}
-\NormalTok{        )}
-        \ControlFlowTok{if}\NormalTok{ cells }\OperatorTok{==} \DecValTok{1600}\NormalTok{:}
-\NormalTok{            reference\_dp }\OperatorTok{=}\NormalTok{ total\_dp}
-\NormalTok{        mesh\_rows.append(\{}\StringTok{"cells"}\NormalTok{: cells, }\StringTok{"total\_pressure\_drop\_Pa"}\NormalTok{: total\_dp\})}
-    \ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ mesh\_rows:}
-\NormalTok{        row[}\StringTok{"relative\_difference\_percent"}\NormalTok{] }\OperatorTok{=}\NormalTok{ (}
-            \BuiltInTok{abs}\NormalTok{(row[}\StringTok{"total\_pressure\_drop\_Pa"}\NormalTok{] }\OperatorTok{{-}}\NormalTok{ reference\_dp)}
-            \OperatorTok{/}\NormalTok{ reference\_dp }\OperatorTok{*} \FloatTok{100.0}
-\NormalTok{        )}
-\NormalTok{    write\_csv(data\_dir }\OperatorTok{/} \StringTok{"konvergensi\_grid.csv"}\NormalTok{, mesh\_rows)}
-
-\NormalTok{    pore\_rows }\OperatorTok{=}\NormalTok{ []}
-    \ControlFlowTok{for}\NormalTok{ pore\_um }\KeywordTok{in}\NormalTok{ (}\DecValTok{25}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{150}\NormalTok{):}
-\NormalTok{        local\_geometry }\OperatorTok{=}\NormalTok{ replace(geometry, pore\_radius}\OperatorTok{=}\NormalTok{pore\_um }\OperatorTok{*} \FloatTok{1.0e{-}6}\NormalTok{)}
-\NormalTok{        pore\_rows.append(\{}
-            \StringTok{"pore\_radius\_um"}\NormalTok{: pore\_um,}
-            \StringTok{"capillary\_limit\_W"}\NormalTok{: capillary\_limit\_at\_temperature(}
-\NormalTok{                local\_geometry, conditions, }\FloatTok{1000.0}\NormalTok{,}
-\NormalTok{            ),}
-            \StringTok{"entrainment\_limit\_W"}\NormalTok{: simulate\_at\_temperature(}
-\NormalTok{                local\_geometry, replace(conditions, heat\_input}\OperatorTok{=}\FloatTok{1.0}\NormalTok{), }\FloatTok{1000.0}\NormalTok{,}
-\NormalTok{            ).summary[}\StringTok{"entrainment\_limit\_W"}\NormalTok{],}
-\NormalTok{        \})}
-\NormalTok{    write\_csv(data\_dir }\OperatorTok{/} \StringTok{"studi\_pori.csv"}\NormalTok{, pore\_rows)}
-
-\NormalTok{    plot\_schematic(geometry, figure\_dir }\OperatorTok{/} \StringTok{"skema{-}model.png"}\NormalTok{)}
-\NormalTok{    plot\_axial(result, figure\_dir }\OperatorTok{/} \StringTok{"profil{-}aksial.png"}\NormalTok{)}
-\NormalTok{    plot\_limits(limit\_rows, conditions.heat\_input, figure\_dir }\OperatorTok{/} \StringTok{"batas{-}operasi.png"}\NormalTok{)}
-\NormalTok{    plot\_gravity(gravity\_rows, figure\_dir }\OperatorTok{/} \StringTok{"pengaruh{-}gravitasi.png"}\NormalTok{)}
-
-\NormalTok{    output }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{"model"}\NormalTok{: }\StringTok{"Steady 1{-}D vapor/Darcy{-}wick capillary model"}\NormalTok{,}
-        \StringTok{"geometry"}\NormalTok{: asdict(geometry),}
-        \StringTok{"conditions"}\NormalTok{: asdict(conditions),}
-        \StringTok{"fluid"}\NormalTok{: SodiumProperties(conditions.operating\_temperature).summary(),}
-        \StringTok{"results"}\NormalTok{: result.summary,}
-        \StringTok{"derived\_geometry"}\NormalTok{: \{}
-            \StringTok{"total\_length\_m"}\NormalTok{: geometry.total\_length,}
-            \StringTok{"effective\_length\_m"}\NormalTok{: geometry.effective\_length,}
-            \StringTok{"vapor\_area\_m2"}\NormalTok{: geometry.vapor\_area,}
-            \StringTok{"wick\_area\_m2"}\NormalTok{: geometry.wick\_area,}
-\NormalTok{        \},}
-\NormalTok{    \}}
-    \ControlFlowTok{with}\NormalTok{ (data\_dir }\OperatorTok{/} \StringTok{"ringkasan\_kasus.json"}\NormalTok{).}\BuiltInTok{open}\NormalTok{(}\StringTok{"w"}\NormalTok{, encoding}\OperatorTok{=}\StringTok{"utf{-}8"}\NormalTok{) }\ImportTok{as}\NormalTok{ handle:}
-\NormalTok{        json.dump(output, handle, indent}\OperatorTok{=}\DecValTok{2}\NormalTok{, ensure\_ascii}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
-    \ControlFlowTok{return}\NormalTok{ output}
-
-
-\KeywordTok{def}\NormalTok{ main() }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{    parser }\OperatorTok{=}\NormalTok{ argparse.ArgumentParser(description}\OperatorTok{=}\NormalTok{\_\_doc\_\_)}
-\NormalTok{    parser.add\_argument(}
-        \StringTok{"{-}{-}output{-}dir"}\NormalTok{, }\BuiltInTok{type}\OperatorTok{=}\NormalTok{Path, default}\OperatorTok{=}\NormalTok{Path(}\VariableTok{\_\_file\_\_}\NormalTok{).resolve().parents[}\DecValTok{1}\NormalTok{],}
-        \BuiltInTok{help}\OperatorTok{=}\StringTok{"Project directory receiving data/ and figures/ (default: project root)."}\NormalTok{,}
-\NormalTok{    )}
-\NormalTok{    args }\OperatorTok{=}\NormalTok{ parser.parse\_args()}
-\NormalTok{    output }\OperatorTok{=}\NormalTok{ run\_analysis(args.output\_dir.resolve())}
-    \BuiltInTok{print}\NormalTok{(json.dumps(output[}\StringTok{"results"}\NormalTok{], indent}\OperatorTok{=}\DecValTok{2}\NormalTok{, ensure\_ascii}\OperatorTok{=}\VariableTok{False}\NormalTok{))}
-
-
-\ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
-\NormalTok{    main()}
+\NormalTok{    G\_rad }\OperatorTok{=} \FunctionTok{conductances}\NormalTok{(net, T\_v)}
+\NormalTok{    T\_wall }\OperatorTok{=} \FunctionTok{solve\_wall}\NormalTok{(net, G\_rad, T\_v, net.G\_sink)}
+    \ControlFlowTok{return}\NormalTok{ (T\_v }\OperatorTok{=}\NormalTok{ T\_v, T\_wall }\OperatorTok{=}\NormalTok{ T\_wall, z }\OperatorTok{=}\NormalTok{ net.z,}
+\NormalTok{            dT\_ec }\OperatorTok{=} \FunctionTok{maximum}\NormalTok{(T\_wall[net.region }\OperatorTok{.==} \OperatorTok{:}\NormalTok{evaporator]) }\OperatorTok{{-}}
+                    \FunctionTok{minimum}\NormalTok{(T\_wall[net.region }\OperatorTok{.==} \OperatorTok{:}\NormalTok{condenser]),}
+\NormalTok{            R\_eq }\OperatorTok{=}\NormalTok{ (T\_v }\OperatorTok{{-}}\NormalTok{ hp.T\_sink) }\OperatorTok{/}\NormalTok{ Q)}
+\KeywordTok{end}
 \end{Highlighting}
 \end{Shaded}
 
-\end{codelisting}
-
-\chapter{PENGUJIAN DAN PANDUAN
-PENGGUNAAN}\label{pengujian-dan-panduan-penggunaan}
-
-\section{Listing Pengujian}\label{listing-pengujian}
-
-Berkas \texttt{tests/test\_simulator.py} berisi sepuluh pengujian
-berbasis \texttt{unittest}.
-
-\begin{codelisting}
-
-\caption{\texttt{tests/test\_simulator.py}}
+\section{Contoh Penggunaan}\label{contoh-penggunaan}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{"""Regression and physical{-}consistency tests for the heat{-}pipe model."""}
-\ImportTok{from}\NormalTok{ \_\_future\_\_ }\ImportTok{import}\NormalTok{ annotations}
+\ImportTok{using} \BuiltInTok{HeatPipeCore}
 
-\ImportTok{import}\NormalTok{ math}
-\ImportTok{import}\NormalTok{ sys}
-\ImportTok{import}\NormalTok{ unittest}
-\ImportTok{from}\NormalTok{ dataclasses }\ImportTok{import}\NormalTok{ replace}
-\ImportTok{from}\NormalTok{ pathlib }\ImportTok{import}\NormalTok{ Path}
+\CommentTok{\# Validasi KRUSTY}
+\NormalTok{v }\OperatorTok{=} \FunctionTok{krusty\_validation}\NormalTok{()}
+\FunctionTok{println}\NormalTok{(v.max\_err, }\StringTok{" "}\NormalTok{, v.pass)}
+\FunctionTok{println}\NormalTok{(}\FunctionTok{nominal\_point\_validation}\NormalTok{())}
 
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\CommentTok{\# Kelayakan ISR pada 1200 K}
+\ControlFlowTok{for}\NormalTok{ r }\KeywordTok{in} \FunctionTok{isr\_feasibility}\NormalTok{(T }\OperatorTok{=} \FloatTok{1200.0}\NormalTok{)}
+    \FunctionTok{println}\NormalTok{(r.fluid, }\StringTok{" "}\NormalTok{, r.wick, }\StringTok{" "}\NormalTok{, r.Q\_max)}
+\ControlFlowTok{end}
 
-\NormalTok{sys.path.insert(}\DecValTok{0}\NormalTok{, }\BuiltInTok{str}\NormalTok{(Path(}\VariableTok{\_\_file\_\_}\NormalTok{).resolve().parents[}\DecValTok{1}\NormalTok{] }\OperatorTok{/} \StringTok{"src"}\NormalTok{))}
+\CommentTok{\# Diameter yang diperlukan untuk 8,2 kW}
+\FunctionTok{println}\NormalTok{(}\FunctionTok{isr\_required\_diameter}\NormalTok{(Na; T }\OperatorTok{=} \FloatTok{1200.0}\NormalTok{, wick }\OperatorTok{=} \OperatorTok{:}\NormalTok{arterial))}
 
-\ImportTok{from}\NormalTok{ heatpipe\_simulator }\ImportTok{import}\NormalTok{ (  }\CommentTok{\# noqa: E402}
-\NormalTok{    HeatPipeGeometry,}
-\NormalTok{    OperatingConditions,}
-\NormalTok{    SodiumProperties,}
-\NormalTok{    axial\_heat\_profile,}
-\NormalTok{    capillary\_limit\_at\_temperature,}
-\NormalTok{    simulate,}
-\NormalTok{)}
-
-
-\KeywordTok{class}\NormalTok{ TestSodiumProperties(unittest.TestCase):}
-    \KeywordTok{def}\NormalTok{ test\_normal\_boiling\_point(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-        \CommentTok{\# Recommended correlation gives approximately 1 atm at 1156 K.}
-\NormalTok{        pressure }\OperatorTok{=}\NormalTok{ SodiumProperties(}\FloatTok{1156.0}\NormalTok{).pressure}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(pressure }\OperatorTok{/} \FloatTok{101325.0}\NormalTok{, }\FloatTok{1.0}\NormalTok{, delta}\OperatorTok{=}\FloatTok{0.03}\NormalTok{)}
-
-    \KeywordTok{def}\NormalTok{ test\_property\_values\_at\_1000\_k(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        fluid }\OperatorTok{=}\NormalTok{ SodiumProperties(}\FloatTok{1000.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(fluid.surface\_tension, }\FloatTok{0.1354}\NormalTok{, delta}\OperatorTok{=}\FloatTok{0.0002}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(fluid.liquid\_viscosity, }\FloatTok{1.81e{-}4}\NormalTok{, delta}\OperatorTok{=}\FloatTok{2.0e{-}6}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertGreater(fluid.latent\_heat, }\FloatTok{3.8e6}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertLess(fluid.latent\_heat, }\FloatTok{4.3e6}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertGreater(fluid.liquid\_density, }\FloatTok{750.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertLess(fluid.liquid\_density, }\FloatTok{810.0}\NormalTok{)}
-
-    \KeywordTok{def}\NormalTok{ test\_positive\_properties(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        fluid }\OperatorTok{=}\NormalTok{ SodiumProperties(}\FloatTok{1000.0}\NormalTok{)}
-        \ControlFlowTok{for}\NormalTok{ value }\KeywordTok{in}\NormalTok{ fluid.summary().values():}
-            \VariableTok{self}\NormalTok{.assertTrue(math.isfinite(value) }\KeywordTok{and}\NormalTok{ value }\OperatorTok{\textgreater{}} \FloatTok{0.0}\NormalTok{)}
-
-
-\KeywordTok{class}\NormalTok{ TestHeatPipeModel(unittest.TestCase):}
-    \KeywordTok{def}\NormalTok{ setUp(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-        \VariableTok{self}\NormalTok{.geometry }\OperatorTok{=}\NormalTok{ HeatPipeGeometry()}
-        \VariableTok{self}\NormalTok{.conditions }\OperatorTok{=}\NormalTok{ OperatingConditions()}
-
-    \KeywordTok{def}\NormalTok{ test\_axial\_energy\_profile(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        x }\OperatorTok{=}\NormalTok{ np.linspace(}\FloatTok{0.0}\NormalTok{, }\VariableTok{self}\NormalTok{.geometry.total\_length, }\DecValTok{1001}\NormalTok{)}
-\NormalTok{        heat }\OperatorTok{=}\NormalTok{ axial\_heat\_profile(x, }\FloatTok{800.0}\NormalTok{, }\VariableTok{self}\NormalTok{.geometry)}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(heat[}\DecValTok{0}\NormalTok{], }\FloatTok{0.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(heat[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{], }\FloatTok{0.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(}\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(heat)), }\FloatTok{800.0}\NormalTok{)}
-        \CommentTok{\# Heat is generated only in the evaporator and removed in the condenser.}
-\NormalTok{        derivative }\OperatorTok{=}\NormalTok{ np.diff(heat) }\OperatorTok{/}\NormalTok{ np.diff(x)}
-        \VariableTok{self}\NormalTok{.assertGreater(}\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(derivative[:}\DecValTok{250}\NormalTok{])), }\FloatTok{0.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertLess(}\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{min}\NormalTok{(derivative[}\OperatorTok{{-}}\DecValTok{600}\NormalTok{:])), }\FloatTok{0.0}\NormalTok{)}
-
-    \KeywordTok{def}\NormalTok{ test\_microgravity\_removes\_hydrostatic\_term(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        result }\OperatorTok{=}\NormalTok{ simulate(}\VariableTok{self}\NormalTok{.geometry, }\VariableTok{self}\NormalTok{.conditions)}
-        \VariableTok{self}\NormalTok{.assertEqual(result.summary[}\StringTok{"gravity\_pressure\_drop\_Pa"}\NormalTok{], }\FloatTok{0.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertTrue(result.summary[}\StringTok{"is\_capillary\_feasible"}\NormalTok{])}
-
-    \KeywordTok{def}\NormalTok{ test\_reference\_case\_is\_capillary\_limited(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        result }\OperatorTok{=}\NormalTok{ simulate(}\VariableTok{self}\NormalTok{.geometry, }\VariableTok{self}\NormalTok{.conditions)}
-        \VariableTok{self}\NormalTok{.assertEqual(result.summary[}\StringTok{"governing\_limit"}\NormalTok{], }\StringTok{"capillary"}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertLess(}\BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"limit\_utilization"}\NormalTok{]), }\FloatTok{1.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertLess(}\BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"max\_mach"}\NormalTok{]), }\FloatTok{0.3}\NormalTok{)}
-
-    \KeywordTok{def}\NormalTok{ test\_capillary\_limit\_has\_zero\_margin(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        q\_cap }\OperatorTok{=}\NormalTok{ capillary\_limit\_at\_temperature(}\VariableTok{self}\NormalTok{.geometry, }\VariableTok{self}\NormalTok{.conditions, }\FloatTok{1000.0}\NormalTok{)}
-\NormalTok{        local }\OperatorTok{=}\NormalTok{ replace(}
-            \VariableTok{self}\NormalTok{.conditions,}
-\NormalTok{            heat\_input}\OperatorTok{=}\NormalTok{q\_cap,}
-\NormalTok{            sink\_temperature}\OperatorTok{=}\FloatTok{1000.0} \OperatorTok{{-}} \VariableTok{self}\NormalTok{.conditions.condenser\_resistance }\OperatorTok{*}\NormalTok{ q\_cap,}
-\NormalTok{        )}
-\NormalTok{        result }\OperatorTok{=}\NormalTok{ simulate(}\VariableTok{self}\NormalTok{.geometry, local)}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(}
-            \BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"temperature\_K"}\NormalTok{]), }\FloatTok{1000.0}\NormalTok{, delta}\OperatorTok{=}\FloatTok{1e{-}8}\NormalTok{,}
-\NormalTok{        )}
-        \VariableTok{self}\NormalTok{.assertAlmostEqual(}
-            \BuiltInTok{float}\NormalTok{(result.summary[}\StringTok{"capillary\_margin\_Pa"}\NormalTok{]) }\OperatorTok{/} \FloatTok{3612.0}\NormalTok{,}
-            \FloatTok{0.0}\NormalTok{, delta}\OperatorTok{=}\FloatTok{1e{-}6}\NormalTok{,}
-\NormalTok{        )}
-
-    \KeywordTok{def}\NormalTok{ test\_adverse\_gravity\_reduces\_capacity(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        q\_micro }\OperatorTok{=}\NormalTok{ capillary\_limit\_at\_temperature(}\VariableTok{self}\NormalTok{.geometry, }\VariableTok{self}\NormalTok{.conditions, }\FloatTok{1000.0}\NormalTok{)}
-\NormalTok{        adverse }\OperatorTok{=}\NormalTok{ replace(}\VariableTok{self}\NormalTok{.conditions, gravity}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, tilt\_deg}\OperatorTok{=}\FloatTok{90.0}\NormalTok{)}
-\NormalTok{        q\_adverse }\OperatorTok{=}\NormalTok{ capillary\_limit\_at\_temperature(}\VariableTok{self}\NormalTok{.geometry, adverse, }\FloatTok{1000.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertLess(q\_adverse, q\_micro)}
-\NormalTok{        earth }\OperatorTok{=}\NormalTok{ replace(}\VariableTok{self}\NormalTok{.conditions, gravity}\OperatorTok{=}\FloatTok{9.81}\NormalTok{, tilt\_deg}\OperatorTok{=}\FloatTok{90.0}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertEqual(}
-\NormalTok{            capillary\_limit\_at\_temperature(}\VariableTok{self}\NormalTok{.geometry, earth, }\FloatTok{1000.0}\NormalTok{), }\FloatTok{0.0}\NormalTok{,}
-\NormalTok{        )}
-
-    \KeywordTok{def}\NormalTok{ test\_grid\_convergence(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-\NormalTok{        coarse }\OperatorTok{=}\NormalTok{ simulate(}\VariableTok{self}\NormalTok{.geometry, replace(}\VariableTok{self}\NormalTok{.conditions, cells}\OperatorTok{=}\DecValTok{100}\NormalTok{))}
-\NormalTok{        fine }\OperatorTok{=}\NormalTok{ simulate(}\VariableTok{self}\NormalTok{.geometry, replace(}\VariableTok{self}\NormalTok{.conditions, cells}\OperatorTok{=}\DecValTok{1600}\NormalTok{))}
-\NormalTok{        dp\_coarse }\OperatorTok{=}\NormalTok{ (}
-            \BuiltInTok{float}\NormalTok{(coarse.summary[}\StringTok{"vapor\_pressure\_drop\_Pa"}\NormalTok{])}
-            \OperatorTok{+} \BuiltInTok{float}\NormalTok{(coarse.summary[}\StringTok{"liquid\_pressure\_drop\_Pa"}\NormalTok{])}
-\NormalTok{        )}
-\NormalTok{        dp\_fine }\OperatorTok{=}\NormalTok{ (}
-            \BuiltInTok{float}\NormalTok{(fine.summary[}\StringTok{"vapor\_pressure\_drop\_Pa"}\NormalTok{])}
-            \OperatorTok{+} \BuiltInTok{float}\NormalTok{(fine.summary[}\StringTok{"liquid\_pressure\_drop\_Pa"}\NormalTok{])}
-\NormalTok{        )}
-        \VariableTok{self}\NormalTok{.assertLess(}\BuiltInTok{abs}\NormalTok{(dp\_coarse }\OperatorTok{{-}}\NormalTok{ dp\_fine) }\OperatorTok{/}\NormalTok{ dp\_fine, }\FloatTok{0.005}\NormalTok{)}
-
-    \KeywordTok{def}\NormalTok{ test\_invalid\_geometry\_rejected(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
-        \ControlFlowTok{with} \VariableTok{self}\NormalTok{.assertRaises(}\PreprocessorTok{ValueError}\NormalTok{):}
-\NormalTok{            HeatPipeGeometry(permeability}\OperatorTok{=}\FloatTok{0.0}\NormalTok{)}
-
-
-\ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
-\NormalTok{    unittest.main()}
+\CommentTok{\# Opsi arsitektur dan neraca massa}
+\NormalTok{o }\OperatorTok{=} \FunctionTok{isr\_options}\NormalTok{()}
+\FunctionTok{println}\NormalTok{(o.A, o.B, o.C)}
+\FunctionTok{println}\NormalTok{(}\FunctionTok{isr\_mass\_balance}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
-\end{codelisting}
+\chapter{DATA DAN PARAMETER}\label{data-dan-parameter}
 
-\section{Menjalankan Program}\label{menjalankan-program}
+\section{Data Benchmark}\label{data-benchmark}
 
-Dari direktori proyek, gunakan perintah berikut.
+\begin{longtable}[]{@{}lllrrr@{}}
+\caption{Data benchmark lengkap
+(\protect\texttt{data/benchmark.csv}).}\label{tbl-benchB}\tabularnewline
+\toprule\noalign{}
+Sumber & Kasus & Fluida & \(T\) (°C) & \(Q\) (W) & \(u_Q\) (W) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Sumber & Kasus & Fluida & \(T\) (°C) & \(Q\) (W) & \(u_Q\) (W) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Gibson dkk. (2020) & Limit KRUSTY & Na & 500 & 30 & 5 \\
+Gibson dkk. (2020) & Limit KRUSTY & Na & 550 & 200 & 20 \\
+Gibson dkk. (2020) & Limit KRUSTY & Na & 600 & 300 & 30 \\
+Gibson dkk. (2020) & Limit KRUSTY & Na & 700 & 500 & 50 \\
+Gibson dkk. (2020) & Limit KRUSTY & Na & 800 & 700 & 70 \\
+Poston dkk. (2020) & Operasi nominal & Na & 800 & 310 & 15 \\
+Walker dkk. (2013) & Arterial 1,91 cm & Na & 725 & 2600 & 200 \\
+\end{longtable}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{python} \AttributeTok{{-}m}\NormalTok{ pip install }\AttributeTok{{-}r}\NormalTok{ requirements.txt}
-\ExtensionTok{python}\NormalTok{ src/heatpipe\_simulator.py}
-\ExtensionTok{python} \AttributeTok{{-}m}\NormalTok{ unittest discover }\AttributeTok{{-}s}\NormalTok{ tests }\AttributeTok{{-}v}
-\end{Highlighting}
-\end{Shaded}
+\section{Parameter ISR}\label{parameter-isr}
 
-Keluaran konsol merangkum kasus acuan dalam JSON. Berkas ringkasan kasus
-pada direktori data menyimpan masukan, sifat fluida, geometri turunan,
-dan hasil. Berkas CSV lain menyimpan profil aksial serta studi
-parameter. Jika parameter pada dataclass diubah, seluruh data dan gambar
-harus dihasilkan ulang sebelum angka dalam naskah diperbarui.
+\begin{longtable}[]{@{}lrl@{}}
+\caption{Parameter ISR Mark 1
+(\protect\texttt{data/isr\_specs.json}).}\label{tbl-isrB}\tabularnewline
+\toprule\noalign{}
+Parameter & Nilai & Satuan \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Parameter & Nilai & Satuan \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Daya termal & 500 & kWth \\
+Jumlah pin & 61 & - \\
+Pengayaan U-235 & 55 & \% \\
+Tinggi aktif & 25 & cm \\
+Pitch pin & 3,4 & cm \\
+\emph{Flat-to-flat} pin & 3,4 & cm \\
+Diameter rongga & 3,265 & cm \\
+Diameter kanal & 0,6 & cm \\
+Tebal dinding kanal & 0,08 & cm \\
+Suhu masuk & 750 & K \\
+Suhu keluar & 950 & K \\
+Massa reaktor & 447,12 & kg \\
+Reaktivitas berlebih & 4023 & pcm \\
+\(\beta_{\mathrm{eff}}\) & 0,00642 & - \\
+\end{longtable}
 
-\section{Interpretasi Status Program}\label{interpretasi-status-program}
+\section{Sifat Termofisika Fluida
+Kerja}\label{sifat-termofisika-fluida-kerja-1}
 
-\begin{description}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0620}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0698}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1938}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1395}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1395}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1395}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1240}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1318}}@{}}
+\caption{Sifat termofisika pada suhu
+saturasi.}\label{tbl-props}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Fluida
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(T\) (K)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(p_{\mathrm{sat}}\) (Pa)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\rho_l\) (kg/m\(^3\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\rho_v\) (kg/m\(^3\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(h_{fg}\) (MJ/kg)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\sigma\) (N/m)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\mu_l\) (mPa\(\cdot\)s)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Fluida
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(T\) (K)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(p_{\mathrm{sat}}\) (Pa)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\rho_l\) (kg/m\(^3\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\rho_v\) (kg/m\(^3\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(h_{fg}\) (MJ/kg)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\sigma\) (N/m)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\mu_l\) (mPa\(\cdot\)s)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Na & 1000 & 18 700 & 779,2 & 0,0517 & 4,41 & 0,137 & 0,242 \\
+Na & 1200 & 151 000 & 732,2 & 0,347 & 4,19 & 0,116 & 0,215 \\
+K & 1000 & 73 300 & 648,9 & 0,345 & 1,97 & 0,0648 & 0,223 \\
+K & 1200 & 419 000 & 594,9 & 1,64 & 1,84 & 0,0521 & 0,195 \\
+Li & 1000 & 78,9 & 477,6 & \(6,59\times10^{-5}\) & 23,6 & 0,306 &
+0,0996 \\
+Li & 1200 & 1810 & 456,6 & \(1,26\times10^{-3}\) & 22,8 & 0,273 &
+0,0815 \\
+\end{longtable}
+
+\section{Parameter Wick}\label{parameter-wick}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1045}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3731}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1493}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2239}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1493}}@{}}
+\caption{Parameter wick yang digunakan pada model ISR dan
+KRUSTY.}\label{tbl-wickB}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Jenis
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(r_{\mathrm{eff}}\) (\(\mu\)m)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(K\) (m\(^2\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\varepsilon\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(t\) (mm)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Jenis
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(r_{\mathrm{eff}}\) (\(\mu\)m)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(K\) (m\(^2\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(\varepsilon\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\(t\) (mm)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Layar 200 mesh & 250 & \(2,0\times10^{-9}\) & 0,843 & 1,46 \\
+Sinter 50 \(\mu\)m & 10,5 & \(2,5\times10^{-12}\) & 0,40 & 0,48 \\
+Annular 0,48 mm & 60 & \(1,9\times10^{-8}\) & 1,00 & 0,48 \\
+Arterial & 50 & \(1,0\times10^{-7}\) & 0,70 & 0,48 \\
+\end{longtable}
+
+\chapter{VERIFIKASI NUMERIK}\label{verifikasi-numerik}
+
+\section{Konvergensi Mesh}\label{konvergensi-mesh}
+
+Pengaruh jumlah node aksial terhadap suhu uap dan beda suhu
+evaporator--kondensor pada KRUSTY 310 W ditunjukkan pada
+Tabel~\ref{tbl-mesh}. Perbedaan suhu uap antara \(n=20\) dan \(n=240\)
+hanya 0,075 K, sehingga \(n=60\) yang digunakan dalam studi sudah
+memadai.
+
+\begin{longtable}[]{@{}rrr@{}}
+\caption{Konvergensi mesh pada KRUSTY 310
+W.}\label{tbl-mesh}\tabularnewline
+\toprule\noalign{}
+\(n\) & \(T_v\) (K) & \(\Delta T_{ec}\) (K) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\(n\) & \(T_v\) (K) & \(\Delta T_{ec}\) (K) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+20 & 1083,446 & 14,153 \\
+30 & 1083,442 & 14,044 \\
+60 & 1083,430 & 14,143 \\
+120 & 1083,407 & 14,129 \\
+240 & 1083,371 & 14,108 \\
+\end{longtable}
+
+\section{Keseimbangan Energi}\label{keseimbangan-energi}
+
+Pada kondisi tunak, daya sumber \(Q\) harus sama dengan daya yang
+dibuang ke sink. Untuk KRUSTY 310 W, model memberikan \(T_v=1083{,}43\)
+K, \(T_{\mathrm{sink}}=1063\) K, dan \(R_{eq}=0{,}0659\) K/W, sehingga
+daya yang dibuang adalah \((T_v-T_{\mathrm{sink}})/R_{eq}=310\) W.
+Keseimbangan ini dipenuhi secara numerik hingga galat di bawah
+\(10^{-6}\) W.
+
+\section{Uji Satuan}\label{uji-satuan}
+
+\texttt{test/runtests.jl} menjalankan 74 asersi dalam lima kelompok:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
-\item[\texttt{is\_capillary\_feasible}]
-Margin kapiler tidak negatif.
-\item[\texttt{is\_within\_all\_screening\_limits}]
-Daya berada di bawah batas pengatur dan kapiler layak menurut model.
-\item[\texttt{is\_incompressible\_screening\_ok}]
-Mach maksimum lebih kecil dari 0,3.
-\item[\texttt{governing\_limit}]
-Batas yang bernilai minimum pada kasus tersebut.
-\item[\texttt{limit\_utilization}]
-Rasio daya terhadap batas pengatur.
-\end{description}
+\item
+  \textbf{Properti fluida (26 asersi):} monotonisitas
+  \(p_{\mathrm{sat}}\), positivitas \(h_{fg}\), \(\rho\), \(\sigma\),
+  dan \(\mu\); tekanan pada titik didih normal.
+\item
+  \textbf{Korelasi wick (5 asersi):} porositas, permeabilitas, dan
+  jari-jari pori untuk layar, sinter, dan annular.
+\item
+  \textbf{Limit operasional (13 asersi):} positivitas dan kemonotonan
+  limit; limit \emph{flooding} tak hingga untuk pipa tanpa gravitasi.
+\item
+  \textbf{Validasi (11 asersi):} KRUSTY \(\le15\%\), titik nominal
+  \(\Delta T\le20\) K, Walker \(\le15\%\), dan limit \emph{entrainment}
+  sebagai pengendali.
+\item
+  \textbf{Jaringan dan desain ISR (19 asersi):} keseimbangan energi,
+  konvergensi mesh, respons transien, kelayakan 0,6 cm, ketiga opsi, dan
+  penghematan massa.
+\end{enumerate}
 
-Status bernilai benar tidak berarti desain telah tervalidasi. Pengguna
-harus memeriksa rentang sifat, asumsi geometri, kondisi batas, dan
-ketidakpastian korelasi.
+Seluruh 74 asersi lulus dalam waktu sekitar 6 detik.
+
+\section{Perintah Reproduksi}\label{perintah-reproduksi}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1. Uji satuan}
+\ExtensionTok{julia} \AttributeTok{{-}{-}project}\OperatorTok{=}\NormalTok{. }\AttributeTok{{-}e} \StringTok{\textquotesingle{}using Pkg; Pkg.test()\textquotesingle{}}
+
+\CommentTok{\# 2. Hasilkan gambar dan tabel}
+\ExtensionTok{julia} \AttributeTok{{-}{-}project}\OperatorTok{=}\NormalTok{. scripts/run\_study.jl}
+
+\CommentTok{\# 3. Render laporan}
+\ExtensionTok{quarto}\NormalTok{ render report/skripsi.qmd }\AttributeTok{{-}{-}to}\NormalTok{ pdf}
+\end{Highlighting}
+\end{Shaded}
+
+Keluaran numerik tersimpan pada \texttt{data/results\_summary.json},
+\texttt{data/results\_validation.csv},
+\texttt{data/results\_isr\_feasibility.csv}, dan
+\texttt{data/results\_isr\_options.csv}.
 
 
 

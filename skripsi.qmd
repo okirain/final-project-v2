@@ -2,7 +2,6 @@
 lang: id
 ---
 
-<!-- 
 {{< include frontmatter/halaman-judul.qmd >}}
 
 {{< include frontmatter/pernyataan.qmd >}}
@@ -20,7 +19,7 @@ lang: id
 {{< include frontmatter/intisari.qmd >}}
 
 {{< include frontmatter/abstract.qmd >}}
--->
+
 {{< include chapters/bab1-pendahuluan.qmd >}}
 
 {{< include chapters/bab2-tinjauan-pustaka.qmd >}}
@@ -34,6 +33,10 @@ lang: id
 {{< include chapters/bab6-kesimpulan-saran.qmd >}}
 
 {{< include appendices/daftar-pustaka.qmd >}}
+
+```{=latex}
+\appendixmode
+```
 
 {{< include appendices/appendixA.qmd >}}
 

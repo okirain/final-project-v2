@@ -3,6 +3,7 @@ project:
   output-dir: _output
   render:
     - skripsi.qmd
+  post-render: scripts/rename-output.sh
 
 lang: id
 bibliography: appendices/references.bib

@@ -1,0 +1,8 @@
+source,case,fluid,T_C,Q_W,uncertainty_W,note
+Gibson2020,KRUSTY thermosyphon power limit,Na,500,30,5,"Operating point at T=0.7 below the limit; not used in the 550-800 degC assertion"
+Gibson2020,KRUSTY thermosyphon power limit,Na,550,200,20,"Knee of the empirical throughput envelope (Poston et al. 2020 Fig. 7)"
+Gibson2020,KRUSTY thermosyphon power limit,Na,600,300,30,"Measured transport limit, flooding-controlled"
+Gibson2020,KRUSTY thermosyphon power limit,Na,700,500,50,"Measured transport limit"
+Gibson2020,KRUSTY thermosyphon power limit,Na,800,700,70,"Nominal 800 degC capacity; 8 pipes x ~625 W = 5 kWth"
+Poston2020,KRUSTY nominal operating point,Na,800,310,15,"Per-pipe throughput during nominal 2.5 kWth operation; dT < 20 K"
+Walker2013,Self-venting arterial HP 0.75 in,Na,725,2600,200,"1 m long, 1.91 cm OD, 0.25 cm adverse elevation, dry-out limit"

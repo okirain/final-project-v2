@@ -1,0 +1,99 @@
+\babel@toc {indonesian}{}\relax 
+\contentsline {chapter}{HALAMAN JUDUL}{i}{section*.1}%
+\contentsline {chapter}{PERNYATAAN BEBAS PLAGIARISME}{ii}{section*.2}%
+\contentsline {chapter}{HALAMAN PENGESAHAN}{iii}{section*.3}%
+\contentsline {chapter}{HALAMAN PERSEMBAHAN}{iv}{section*.4}%
+\contentsline {chapter}{MOTTO}{v}{section*.5}%
+\contentsline {chapter}{KATA PENGANTAR}{vi}{chapter*.6}%
+\contentsline {chapter}{DAFTAR TABEL}{x}{section*.8}%
+\contentsline {chapter}{DAFTAR GAMBAR}{xi}{section*.10}%
+\contentsline {chapter}{DAFTAR LAMBANG DAN SINGKATAN}{xii}{chapter*.12}%
+\contentsline {chapter}{INTISARI}{xiv}{section*.13}%
+\contentsline {chapter}{ABSTRACT}{xv}{section*.14}%
+\babel@toc {english}{}\relax 
+\babel@toc {indonesian}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {indonesian}{}\relax 
+\contentsline {chapter}{\numberline {BAB~I}PENDAHULUAN}{1}{chapter.1}%
+\contentsline {section}{\numberline {I.1}Latar Belakang}{1}{section.1.1}%
+\contentsline {section}{\numberline {I.2}Perumusan Masalah}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {I.2.1}Batasan Masalah}{2}{subsection.1.2.1}%
+\contentsline {section}{\numberline {I.3}Tujuan Penelitian}{3}{section.1.3}%
+\contentsline {section}{\numberline {I.4}Manfaat Penelitian}{3}{section.1.4}%
+\contentsline {chapter}{\numberline {BAB~II}TINJAUAN PUSTAKA}{4}{chapter.2}%
+\contentsline {section}{\numberline {II.1}Reaktor Nuklir Luar Angkasa}{4}{section.2.1}%
+\contentsline {section}{\numberline {II.2}Indonesian Space Reactor (ISR)}{5}{section.2.2}%
+\contentsline {section}{\numberline {II.3}Prinsip dan Sejarah \emph {Heat Pipe}}{6}{section.2.3}%
+\contentsline {section}{\numberline {II.4}Jenis Wick dan Limit Operasional}{6}{section.2.4}%
+\contentsline {section}{\numberline {II.5}\emph {Heat Pipe} Logam Alkali untuk Reaktor Luar Angkasa}{7}{section.2.5}%
+\contentsline {section}{\numberline {II.6}Desain dan Simulasi Reaktor Berpendingin \emph {Heat Pipe}}{8}{section.2.6}%
+\contentsline {section}{\numberline {II.7}Celah Penelitian}{8}{section.2.7}%
+\contentsline {chapter}{\numberline {BAB~III}DASAR TEORI}{10}{chapter.3}%
+\contentsline {section}{\numberline {III.1}Prinsip Operasi \emph {Heat Pipe}}{10}{section.3.1}%
+\contentsline {section}{\numberline {III.2}Jaringan Resistansi Termal 1D}{11}{section.3.2}%
+\contentsline {section}{\numberline {III.3}Limit Operasional}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {III.3.1}Limit Viskos (Busse)}{12}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {III.3.2}Limit Sonik (Levy)}{13}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {III.3.3}Limit \emph {Entrainment} (Cotter)}{14}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {III.3.4}Limit Kapiler}{14}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {III.3.5}Limit Didih (Chi)}{15}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {III.3.6}Limit \emph {Flooding} pada \emph {Thermosyphon}}{16}{subsection.3.3.6}%
+\contentsline {section}{\numberline {III.4}Korelasi Wick}{17}{section.3.4}%
+\contentsline {subsection}{\numberline {III.4.1}Layar (\emph {Screen})}{17}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {III.4.2}Serbuk Sinter}{18}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {III.4.3}Celah Annular}{18}{subsection.3.4.3}%
+\contentsline {section}{\numberline {III.5}Sifat Termofisika Fluida Kerja}{19}{section.3.5}%
+\contentsline {section}{\numberline {III.6}Metode Numerik}{20}{section.3.6}%
+\contentsline {subsection}{\numberline {III.6.1}Kondisi Tunak}{20}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {III.6.2}Kondisi Transien}{21}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {III.6.3}Kriteria Validasi}{22}{subsection.3.6.3}%
+\contentsline {chapter}{\numberline {BAB~IV}PELAKSANAAN PENELITIAN}{23}{chapter.4}%
+\contentsline {section}{\numberline {IV.1}Alat dan Bahan}{23}{section.4.1}%
+\contentsline {section}{\numberline {IV.2}Arsitektur Perangkat Lunak}{24}{section.4.2}%
+\contentsline {section}{\numberline {IV.3}Data dan Digitalisasi}{24}{section.4.3}%
+\contentsline {section}{\numberline {IV.4}Model KRUSTY}{25}{section.4.4}%
+\contentsline {section}{\numberline {IV.5}Model Walker}{26}{section.4.5}%
+\contentsline {section}{\numberline {IV.6}Model ISR Mark 2}{26}{section.4.6}%
+\contentsline {section}{\numberline {IV.7}Definisi Opsi Arsitektur}{27}{section.4.7}%
+\contentsline {section}{\numberline {IV.8}Model Massa dan Daya Parasitik}{27}{section.4.8}%
+\contentsline {section}{\numberline {IV.9}Verifikasi dan Reproduksibilitas}{28}{section.4.9}%
+\contentsline {chapter}{\numberline {BAB~V}HASIL DAN PEMBAHASAN}{29}{chapter.5}%
+\contentsline {section}{\numberline {V.1}Validasi Model terhadap Data Eksperimen}{29}{section.5.1}%
+\contentsline {subsection}{\numberline {V.1.1}KRUSTY}{29}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {V.1.2}\emph {Heat Pipe} Arterial Walker}{30}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {V.1.3}Catatan tentang Sifat Validasi}{30}{subsection.5.1.3}%
+\contentsline {section}{\numberline {V.2}Perilaku Limit dan Sensitivitas}{31}{section.5.2}%
+\contentsline {subsection}{\numberline {V.2.1}Pengaruh Fluida Kerja}{31}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {V.2.2}Pengaruh Arsitektur Wick}{31}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {V.2.3}Diameter yang Diperlukan}{32}{subsection.5.2.3}%
+\contentsline {section}{\numberline {V.3}Kelayakan Kanal 0,6 cm}{33}{section.5.3}%
+\contentsline {section}{\numberline {V.4}Opsi Arsitektur ISR Mark 2}{33}{section.5.4}%
+\contentsline {subsection}{\numberline {V.4.1}Opsi A --- Perluasan Kanal}{33}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {V.4.2}Opsi B --- Matriks \emph {Heat Pipe} Interstitial}{34}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {V.4.3}Opsi C --- Penurunan Daya}{34}{subsection.5.4.3}%
+\contentsline {section}{\numberline {V.5}Profil Suhu dan Kinerja Termal}{36}{section.5.5}%
+\contentsline {section}{\numberline {V.6}Respons Transien dan Start-up}{36}{section.5.6}%
+\contentsline {section}{\numberline {V.7}Massa, Daya Parasitik, dan Keandalan}{37}{section.5.7}%
+\contentsline {section}{\numberline {V.8}Rekomendasi Desain}{38}{section.5.8}%
+\contentsline {section}{\numberline {V.9}Keterbatasan Penelitian}{38}{section.5.9}%
+\contentsline {chapter}{\numberline {BAB~VI}KESIMPULAN DAN SARAN}{40}{chapter.6}%
+\contentsline {section}{\numberline {VI.1}Kesimpulan}{40}{section.6.1}%
+\contentsline {section}{\numberline {VI.2}Saran}{41}{section.6.2}%
+\contentsline {chapter}{DAFTAR PUSTAKA}{43}{chapter*.52}%
+\contentsline {chapter}{\numberline {LAMPIRAN~A}LISTING PROGRAM}{46}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Struktur Modul}{46}{appendix.A.1}%
+\contentsline {section}{\numberline {A.2}Limit Operasional (kutipan \texttt {Limits.jl})}{46}{appendix.A.2}%
+\contentsline {section}{\numberline {A.3}Neraca Tekanan Kapiler}{47}{appendix.A.3}%
+\contentsline {section}{\numberline {A.4}Penyelesaian Tunak (\texttt {ThermalNetwork.jl})}{48}{appendix.A.4}%
+\contentsline {section}{\numberline {A.5}Contoh Penggunaan}{49}{appendix.A.5}%
+\contentsline {chapter}{\numberline {LAMPIRAN~B}DATA DAN PARAMETER}{51}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Data Benchmark}{51}{appendix.B.1}%
+\contentsline {section}{\numberline {B.2}Parameter ISR}{51}{appendix.B.2}%
+\contentsline {section}{\numberline {B.3}Sifat Termofisika Fluida Kerja}{52}{appendix.B.3}%
+\contentsline {section}{\numberline {B.4}Parameter Wick}{52}{appendix.B.4}%
+\contentsline {chapter}{\numberline {LAMPIRAN~C}VERIFIKASI NUMERIK}{54}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Konvergensi Mesh}{54}{appendix.C.1}%
+\contentsline {section}{\numberline {C.2}Keseimbangan Energi}{54}{appendix.C.2}%
+\contentsline {section}{\numberline {C.3}Uji Satuan}{54}{appendix.C.3}%
+\contentsline {section}{\numberline {C.4}Perintah Reproduksi}{55}{appendix.C.4}%
+\contentsfinish 
