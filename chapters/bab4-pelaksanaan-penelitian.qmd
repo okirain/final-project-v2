@@ -101,8 +101,10 @@ pengembalian kondensat di adiabatik dan kondensor terjadi secara
 *thermosyphon*.
 
 Untuk model 1D, jari-jari inti uap efektif ditetapkan 4,5 mm untuk
-mewakili wick layar dan film cairan yang kembali. Wick dimodelkan sebagai
-layar 200 mesh dengan $r_{\mathrm{eff}}=0{,}25$ mm,
+mewakili wick layar dan film cairan yang kembali; dengan $r_i=5{,}46$ mm,
+ketebalan lapisan wick–film efektif menjadi $r_i-r_v=0{,}96$ mm. Wick
+dimodelkan sebagai layar kasar—setara sekitar 50 mesh dengan kawat
+0,1 mm menurut $r_{\mathrm{eff}}=1/(2N)$—dengan $r_{\mathrm{eff}}=0{,}25$ mm,
 $K=2\times10^{-9}$ m$^2$, dan $\varepsilon=0{,}843$. Panjang evaporator,
 adiabatik, dan kondensor masing-masing 0,25 m, 0,55 m, dan 0,20 m.
 Orientasi vertikal dengan kondensor di atas evaporator diterapkan melalui
@@ -168,12 +170,14 @@ $A_f=\pi(r_{f,o}^2-r_{f,i}^2)$. Fraksi bahan bakar yang tersisa dan
 perkiraan pengayaan yang diperlukan dihitung secara orde pertama.
 
 **Opsi B — matriks interstitial.** Kanal 0,6 cm dipertahankan, dan
-*heat pipe* tambahan ditempatkan di celah antar-pin. Untuk susunan
-heksagonal 61 pin (empat cincin), terdapat 72 situs interstitial interior.
-Diameter *heat pipe* dipilih agar total 72 pipa membawa 500 kWth. Pitch
-baru dihitung dari *flat-to-flat* pin ditambah diameter pipa dan celah
-perakitan 2 mm. Massa blok teras diskalakan dengan luas, sedangkan massa
-reflektor dan drum diskalakan dengan keliling (tebal tetap).
+*heat pipe* tambahan ditempatkan di celah antar-pin. Susunan heksagonal
+61 pin (empat cincin, $R=4$) memiliki $6R^2=96$ situs interstitial
+segitiga; sebanyak $6R=24$ situs terletak di batas terluar (berimpit dengan
+keliling susunan), sehingga tersisa $96-24=72$ situs interior penuh untuk
+menampung pipa. Diameter *heat pipe* dipilih agar total 72 pipa membawa
+500 kWth. Pitch baru dihitung dari *flat-to-flat* pin ditambah diameter
+pipa dan celah perakitan 2 mm. Massa blok teras diskalakan dengan luas,
+sedangkan massa reflektor dan drum diskalakan dengan keliling (tebal tetap).
 
 **Opsi C — penurunan daya.** Geometri dipertahankan; hanya 61 *heat pipe*
 0,6 cm yang dipasang. Total daya yang dapat dibuang menjadi

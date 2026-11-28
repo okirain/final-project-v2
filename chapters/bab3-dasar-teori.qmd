@@ -506,7 +506,12 @@ dengan:
 - $r_v$ adalah jari-jari inti uap (m);
 - $\mu_v$ adalah viskositas dinamik uap (Pa·s).
 
-Bilangan ini dihitung untuk memastikan asumsi aliran laminar Hagen–Poiseuille pada inti
-uap. Apabila $Re_v$ melebihi sekitar 2300, penurunan tekanan uap
-sesungguhnya lebih besar daripada prediksi laminar, sehingga limit kapiler
-menjadi lebih konservatif.
+Bilangan ini dihitung untuk memeriksa validitas asumsi aliran laminar
+Hagen–Poiseuille pada inti uap. Apabila $Re_v$ melebihi sekitar 2300, aliran
+uap menjadi turbulen sehingga penurunan tekanan uap sesungguhnya **lebih
+besar** daripada prediksi laminar. Model yang tetap memakai korelasi laminar
+akan **melebih-lebihkan** (*overpredict*) limit kapiler—yakni bersifat
+**non-konservatif (optimistis)**, bukan konservatif, karena kapasitas
+sesungguhnya lebih rendah daripada prediksi. Oleh sebab itu nilai $Re_v$ pada
+setiap kasus desain dilaporkan pada Bab V dan dibahas sebagai keterbatasan
+model.

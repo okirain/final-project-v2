@@ -1885,10 +1885,15 @@ dengan:
   \(\mu_v\) adalah viskositas dinamik uap (Pa·s).
 \end{itemize}
 
-Bilangan ini dihitung untuk memastikan asumsi aliran laminar
+Bilangan ini dihitung untuk memeriksa validitas asumsi aliran laminar
 Hagen--Poiseuille pada inti uap. Apabila \(Re_v\) melebihi sekitar 2300,
-penurunan tekanan uap sesungguhnya lebih besar daripada prediksi
-laminar, sehingga limit kapiler menjadi lebih konservatif.
+aliran uap menjadi turbulen sehingga penurunan tekanan uap sesungguhnya
+\textbf{lebih besar} daripada prediksi laminar. Model yang tetap memakai
+korelasi laminar akan \textbf{melebih-lebihkan} (\emph{overpredict})
+limit kapiler---yakni bersifat \textbf{non-konservatif (optimistis)},
+bukan konservatif, karena kapasitas sesungguhnya lebih rendah daripada
+prediksi. Oleh sebab itu nilai \(Re_v\) pada setiap kasus desain
+dilaporkan pada Bab V dan dibahas sebagai keterbatasan model.
 
 \chapter{PELAKSANAAN PENELITIAN}\label{sec-research-methodology}
 
@@ -2022,14 +2027,16 @@ Wick layar nikel hanya terdapat di evaporator; pengembalian kondensat di
 adiabatik dan kondensor terjadi secara \emph{thermosyphon}.
 
 Untuk model 1D, jari-jari inti uap efektif ditetapkan 4,5 mm untuk
-mewakili wick layar dan film cairan yang kembali. Wick dimodelkan
-sebagai layar 200 mesh dengan \(r_{\mathrm{eff}}=0{,}25\) mm,
-\(K=2\times10^{-9}\) m\(^2\), dan \(\varepsilon=0{,}843\). Panjang
-evaporator, adiabatik, dan kondensor masing-masing 0,25 m, 0,55 m, dan
-0,20 m. Orientasi vertikal dengan kondensor di atas evaporator
-diterapkan melalui \(g=9{,}81\) m/s\(^2\) dan \(\theta=-90^\circ\);
-tanda negatif menyatakan gravitasi membantu pengembalian kondensat
-(lihat Persamaan~\ref{eq-dp}).
+mewakili wick layar dan film cairan yang kembali; dengan \(r_i=5{,}46\)
+mm, ketebalan lapisan wick--film efektif menjadi \(r_i-r_v=0{,}96\) mm.
+Wick dimodelkan sebagai layar kasar---setara sekitar 50 mesh dengan
+kawat 0,1 mm menurut \(r_{\mathrm{eff}}=1/(2N)\)---dengan
+\(r_{\mathrm{eff}}=0{,}25\) mm, \(K=2\times10^{-9}\) m\(^2\), dan
+\(\varepsilon=0{,}843\). Panjang evaporator, adiabatik, dan kondensor
+masing-masing 0,25 m, 0,55 m, dan 0,20 m. Orientasi vertikal dengan
+kondensor di atas evaporator diterapkan melalui \(g=9{,}81\) m/s\(^2\)
+dan \(\theta=-90^\circ\); tanda negatif menyatakan gravitasi membantu
+pengembalian kondensat (lihat Persamaan~\ref{eq-dp}).
 
 Karena model \emph{throughput} KRUSTY yang dipublikasikan adalah
 kecocokan kurva empiris, validasi menggunakan cabang \emph{flooding}
@@ -2112,13 +2119,15 @@ yang tersisa dan perkiraan pengayaan yang diperlukan dihitung secara
 orde pertama.
 
 \textbf{Opsi B --- matriks interstitial.} Kanal 0,6 cm dipertahankan,
-dan \emph{heat pipe} tambahan ditempatkan di celah antar-pin. Untuk
-susunan heksagonal 61 pin (empat cincin), terdapat 72 situs interstitial
-interior. Diameter \emph{heat pipe} dipilih agar total 72 pipa membawa
-500 kWth. Pitch baru dihitung dari \emph{flat-to-flat} pin ditambah
-diameter pipa dan celah perakitan 2 mm. Massa blok teras diskalakan
-dengan luas, sedangkan massa reflektor dan drum diskalakan dengan
-keliling (tebal tetap).
+dan \emph{heat pipe} tambahan ditempatkan di celah antar-pin. Susunan
+heksagonal 61 pin (empat cincin, \(R=4\)) memiliki \(6R^2=96\) situs
+interstitial segitiga; sebanyak \(6R=24\) situs terletak di batas
+terluar (berimpit dengan keliling susunan), sehingga tersisa
+\(96-24=72\) situs interior penuh untuk menampung pipa. Diameter
+\emph{heat pipe} dipilih agar total 72 pipa membawa 500 kWth. Pitch baru
+dihitung dari \emph{flat-to-flat} pin ditambah diameter pipa dan celah
+perakitan 2 mm. Massa blok teras diskalakan dengan luas, sedangkan massa
+reflektor dan drum diskalakan dengan keliling (tebal tetap).
 
 \textbf{Opsi C --- penurunan daya.} Geometri dipertahankan; hanya 61
 \emph{heat pipe} 0,6 cm yang dipasang. Total daya yang dapat dibuang
@@ -2435,6 +2444,20 @@ sehingga daya yang dapat dibawa jauh di bawah kebutuhan. Konsekuensinya,
 retrofit pasif penuh tidak mungkin dilakukan tanpa mengubah geometri
 atau menambah jumlah pipa.
 
+Perlu dicatat bahwa pada kapasitas ini aliran uap sudah
+\textbf{turbulen}: untuk pipa 0,6 cm pada 1232 W (\(T_v=1200\) K),
+\(Re_v\approx5{,}1\times10^3\), jauh melampaui batas transisi sekitar
+2300. Untuk Opsi A (\(D=1{,}55\) cm, 8,2 kW)
+\(Re_v\approx1{,}3\times10^4\) dan untuk Opsi B (\(D=1{,}42\) cm, 6,9
+kW) \(Re_v\approx1{,}2\times10^4\). Karena Persamaan~\ref{eq-dp} memakai
+korelasi laminar Hagen--Poiseuille, penurunan tekanan uap dan limit
+kapiler \textbf{sesungguhnya lebih rendah} daripada prediksi; nilai
+limit kapiler yang dilaporkan bersifat \textbf{optimistis
+(non-konservatif)} dan perlu dikoreksi dengan korelasi turbulen (mis.
+Blasius) untuk desain akhir. Limit yang mengendalikan pada studi ini
+(\emph{entrainment}), bagaimanapun, tidak bergantung pada asumsi laminar
+tersebut.
+
 \section{Opsi Arsitektur ISR Mark 2}\label{opsi-arsitektur-isr-mark-2}
 
 \subsection{Opsi A --- Perluasan Kanal}\label{opsi-a-perluasan-kanal}
@@ -2461,11 +2484,14 @@ operasi harus mendekati 1200 K.
 Interstitial}{Opsi B --- Matriks Heat Pipe Interstitial}}\label{opsi-b-matriks-heat-pipe-interstitial}
 
 Dengan mempertahankan kanal 0,6 cm dan menempatkan \emph{heat pipe} di
-celah antar-pin, 72 situs interstitial interior tersedia untuk susunan
-61 pin. Setiap pipa harus membawa \(500\,000/72=6944\) W. Pada 1200 K,
-diameter yang diperlukan adalah \textbf{1,42 cm}, sehingga pitch
-meningkat dari 3,4 cm menjadi \textbf{5,02 cm} dan lebar teras dari 30,6
-cm menjadi \textbf{45,2 cm} (faktor 1,48).
+celah antar-pin, susunan 61 pin (empat cincin) memiliki \(6R^2=96\)
+situs interstitial segitiga. Sebanyak \(6R=24\) di antaranya berada di
+batas terluar sehingga tidak dikitari tiga pin penuh, menyisakan
+\textbf{72 situs interior} yang dapat menampung pipa. Setiap pipa harus
+membawa \(500\,000/72=6944\) W. Pada 1200 K, diameter yang diperlukan
+adalah \textbf{1,42 cm}, sehingga pitch meningkat dari 3,4 cm menjadi
+\textbf{5,02 cm} dan lebar teras dari 30,6 cm menjadi \textbf{45,2 cm}
+(faktor 1,48).
 
 Total daya yang dapat dibawa adalah \textbf{500 kWth} dengan margin
 desain mendekati nol; penambahan satu atau dua pipa cadangan disarankan
@@ -2691,6 +2717,15 @@ Keterbatasan utama penelitian ini adalah:
 \item
   \textbf{Transien belum mencakup panas laten dan massa teras.} Analisis
   start-up dan \emph{freeze--thaw} memerlukan model entalpi.
+\item
+  \textbf{Asumsi aliran uap laminar tidak terpenuhi pada kasus ISR.}
+  Nilai \(Re_v\) mencapai \(5{,}1\times10^3\) (kanal 0,6 cm),
+  \(1{,}3\times10^4\) (Opsi A), dan \(1{,}2\times10^4\) (Opsi B),
+  semuanya di atas ambang transisi sekitar 2300. Karena limit kapiler
+  dihitung dengan korelasi Hagen--Poiseuille laminar, nilainya bersifat
+  optimistis; koreksi turbulen (Blasius) atau model aliran uap yang
+  lebih lengkap diperlukan untuk desain akhir. Limit \emph{entrainment}
+  yang mengendalikan pada studi ini tidak terpengaruh asumsi tersebut.
 \item
   \textbf{Tidak ada analisis radiator, perisai, dan konversi daya.}
   Massa total yang dilaporkan hanya mencakup reaktor dan sistem
@@ -3324,7 +3359,8 @@ Jenis
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Layar 200 mesh & 250 & \(2,0\times10^{-9}\) & 0,843 & 1,46 \\
+Layar sekitar 50 mesh (0,1 mm) & 250 & \(2,0\times10^{-9}\) & 0,843 &
+0,96 \\
 Sinter 50 \(\mu\)m & 10,5 & \(2,5\times10^{-12}\) & 0,40 & 0,48 \\
 Annular 0,48 mm & 60 & \(1,9\times10^{-8}\) & 1,00 & 0,48 \\
 Arterial & 50 & \(1,0\times10^{-7}\) & 0,70 & 0,48 \\

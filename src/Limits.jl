@@ -281,8 +281,10 @@ limit_names() = _LIMIT_ORDER
 """
     vapour_reynolds(hp, T, Q)
 
-Vapour-core Reynolds number at throughput `Q`, used to flag transition from
-the laminar (Hagen-Poiseuille) to the turbulent (Blasius) regime.
+Vapour-core Reynolds number at throughput `Q`, used to check the laminar
+(Hagen-Poiseuille) assumption of `q_capillary`.  When `Re > ~2300` the vapour
+is turbulent, the true pressure drop exceeds the laminar prediction, and the
+reported capillary limit is *optimistic* (non-conservative).
 """
 function vapour_reynolds(hp::HeatPipe, T::Real, Q::Real)
     f = hp.fluid

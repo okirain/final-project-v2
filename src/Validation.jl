@@ -91,11 +91,12 @@ Geometry taken from Poston et al. (2020) and Gibson et al. (2020):
 ~100 cm long, screen wick only in the evaporator, gravity return.
 
 The vapour-core radius is an *effective* value that lumps the screen wick and
-the returning liquid film (4.0 mm), while the wick's pore radius and
-permeability are those of a 200-mesh nickel screen.
+the returning liquid film (4.5 mm); the wick's effective pore radius and
+permeability correspond to a coarse (~50-mesh, 0.1 mm wire) nickel screen
+(`r_eff = 250 micrometre`, `K = 2e-9 m^2`, `epsilon = 0.843`).
 """
 function krusty_heatpipe(; T_sink::Real = 300.0)
-    wick = WickGeometry(:screen, 2.5e-4, 2.0e-9, 0.843, 1.46e-3, 90.0)
+    wick = WickGeometry(:screen, 2.5e-4, 2.0e-9, 0.843, 0.96e-3, 90.0)
     return HeatPipe(Na, 1.27e-2, 0.089e-2, wick;
                     L_e = 0.25, L_a = 0.55, L_c = 0.20,
                     r_v = 4.5e-3,

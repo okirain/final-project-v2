@@ -271,6 +271,9 @@ function isr_options(; T::Real = 1200.0)
                       "restoring reactivity needs ~30 % more U-235 or a longer core.")
 
     # ---- Option B ---------------------------------------------------------
+    # A 4-ring (61-pin) hexagonal array has 6R^2 = 96 triangular interstices;
+    # the 6R = 24 sites on the outer boundary are excluded (not fully ringed by
+    # three pins), leaving 72 fully interior sites for interstitial heat pipes.
     n_int = 72                       # interior interstitial sites, 61-pin array
     Q_int_req = c.P_th / n_int
     bsize = isr_required_diameter(Na; T = T, Q_req = Q_int_req,
