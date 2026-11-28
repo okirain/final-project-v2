@@ -32,8 +32,10 @@ export HeatPipe, vapour_area, wick_area, effective_length, total_length,
 
 Geometric and material description of a cylindrical heat pipe.
 
-Fields are in SI units.  `orientation` is the angle of the condenser axis
-above the evaporator (radians); `thermosyphon = true` enables the
+Fields are in SI units.  `orientation` is the tilt of the pipe axis above the
+horizontal (radians), positive when the evaporator is above the condenser
+(adverse, gravity opposes the liquid return) and negative when the condenser
+is above the evaporator (assisting); `thermosyphon = true` enables the
 gravity-assisted flooding limit.
 """
 struct HeatPipe
@@ -51,7 +53,7 @@ struct HeatPipe
     T_sink::Float64       # external sink temperature, K
     C_flood::Float64      # flooding coefficient; NaN -> Tien-Chung correlation
     g::Float64            # gravitational acceleration, m/s^2
-    orientation::Float64  # radians, positive when condenser is above evaporator
+    orientation::Float64  # radians, positive when evaporator is above condenser
     thermosyphon::Bool
 end
 
@@ -157,19 +159,21 @@ with
     dp_v = 8 mu_v mdot l_eff / (pi rho_v r_v^4)
     dp_g = rho_l g L_total sin(orientation)
 
-and `mdot = Q / h_fg`.
+and `mdot = Q / h_fg`.  `orientation` is positive when the evaporator is above
+the condenser (adverse), so `dp_g > 0` opposes the flow; the available driving
+pressure is `dp_avail = dp_c,max - dp_g`.
 """
 function q_capillary(hp::HeatPipe, T::Real; include_gravity::Bool = true)
     f = hp.fluid
     dp_c = 2.0 * sigma(f, T) / hp.wick.r_eff
 
-    # Positive orientation = condenser above evaporator, so the hydrostatic
-    # head assists the liquid return (gravity-assisted thermosyphon).
+    # Positive orientation = evaporator above condenser, so the hydrostatic
+    # head opposes the liquid return (adverse); negative orientation assists.
     dp_g = 0.0
     if include_gravity
-        dp_g = -rho_l(f, T) * hp.g * total_length(hp) * sin(hp.orientation)
+        dp_g = rho_l(f, T) * hp.g * total_length(hp) * sin(hp.orientation)
     end
-    dp_avail = dp_c + dp_g
+    dp_avail = dp_c - dp_g
     dp_avail <= 0.0 && return 0.0
 
     h = h_fg(f, T)
@@ -223,7 +227,9 @@ function q_flooding(hp::HeatPipe, T::Real)
     drho = max(rl - rv, 0.1 * rl)
     Bo = 2.0 * hp.r_v * sqrt(hp.g * drho / s)
     C2 = isnan(hp.C_flood) ? 3.2 * tanh(0.5 * Bo^0.25)^2 : hp.C_flood
-    C2 *= max(sin(hp.orientation), 0.0)
+    # Flooding requires the condenser above the evaporator (assist), i.e. a
+    # negative orientation under the adverse-positive convention.
+    C2 *= max(-sin(hp.orientation), 0.0)
     return C2 * vapour_area(hp) * h_fg(f, T) * sqrt(rv) *
            (hp.g * s * drho)^0.25
 end

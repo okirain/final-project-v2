@@ -24,14 +24,16 @@ dapat disimpulkan bahwa:
    sekitar 1400 K.
 
 3. **Tiga opsi arsitektur telah dikuantifikasi.** Opsi A (perluasan kanal
-   menjadi 1,55 cm) memberikan massa total 453,0 kg dan massa spesifik
-   0,906 kg/kWth, tetapi kehilangan 18,0% volume bahan bakar dan menuntut
+   menjadi 1,55 cm) memberikan massa total 453,7 kg dan massa spesifik
+   0,907 kg/kWth, tetapi kehilangan 18,0% volume bahan bakar dan menuntut
    pengayaan sekitar 63,4%, melampaui target 60%. Opsi B (matriks 72
    *heat pipe* interstitial 1,42 cm) mampu membawa 500 kWth secara pasif
    dengan pitch 5,02 cm, massa total 634,8 kg, dan massa spesifik
-   1,270 kg/kWth (+11,9% dari Mark 1). Opsi C (61 pipa 0,6 cm) hanya
-   menangani 75,1 kWth, tetapi cukup untuk panas peluruhan dan cocok sebagai
-   sistem cadangan hibrida.
+   1,270 kg/kWth (+11,9% dari Mark 1). Opsi C (61 pipa 0,6 cm) yang
+   diturunkan dayanya hanya menangani 75,1 kWth (massa total 452,3 kg;
+   6,021 kg/kWth), tetapi cukup untuk panas peluruhan dan cocok sebagai
+   sistem cadangan hibrida; varian hibridanya berdaya 500 kWth dengan massa
+   total sekitar 572,3 kg (1,145 kg/kWth).
 
 4. **Eliminasi pompa mengurangi massa subsistem pendingin dan titik
    tunggal kegagalan.** Sistem pompa Na-78K membutuhkan daya 286 W dan

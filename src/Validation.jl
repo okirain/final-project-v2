@@ -101,7 +101,7 @@ function krusty_heatpipe(; T_sink::Real = 300.0)
                     r_v = 4.5e-3,
                     k_wall = 25.0, rho_wall = 8900.0, cp_wall = 420.0,
                     T_sink = T_sink,
-                    g = 9.81, orientation = pi / 2, thermosyphon = true)
+                    g = 9.81, orientation = -pi / 2, thermosyphon = true)
 end
 
 """
@@ -117,7 +117,7 @@ function walker_heatpipe(; T_sink::Real = 300.0)
     return HeatPipe(Na, 1.91e-2, 0.09e-2, wick;
                     L_e = 0.25, L_a = 0.30, L_c = 0.45,
                     k_wall = 16.0, rho_wall = 8000.0, cp_wall = 500.0,
-                    T_sink = T_sink, g = 9.81, orientation = -0.0025,
+                    T_sink = T_sink, g = 9.81, orientation = 0.0025,
                     thermosyphon = false)
 end
 

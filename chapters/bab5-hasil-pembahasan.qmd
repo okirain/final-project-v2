@@ -157,8 +157,8 @@ menjadi sekitar **63,4%** (estimasi realistis) atau 67,1% (estimasi
 konservatif). Kedua nilai melampaui target desain ISR sebesar kurang dari
 60% [@khandaq2020].
 
-Opsi A memberikan massa total sekitar **453,0 kg** dan massa spesifik
-**0,906 kg/kWth**, lebih ringan 20% dari Mark 1 (567,1 kg; 1,134 kg/kWth),
+Opsi A memberikan massa total sekitar **453,7 kg** dan massa spesifik
+**0,907 kg/kWth**, lebih ringan 20% dari Mark 1 (567,1 kg; 1,134 kg/kWth),
 tetapi dengan kompromi pengayaan yang signifikan. Alternatif untuk
 mempertahankan pengayaan adalah memperpanjang teras sekitar 20–25% atau
 menurunkan daya. Pada 900 K, diameter yang diperlukan mencapai 2,92 cm
@@ -193,32 +193,40 @@ pendingin, bukan untuk seluruh reaktor.
 
 Dengan geometri yang dipertahankan, 61 *heat pipe* 0,6 cm hanya mampu
 membuang **75,1 kWth**, atau **15,0%** dari 500 kWth. Massa total menjadi
-455,6 kg, tetapi massa spesifiknya **6,06 kg/kWth**, sekitar 5,3 kali lebih
-buruk dari Mark 1. Opsi ini tidak layak untuk misi daya penuh.
+**452,3 kg**, tetapi massa spesifiknya **6,02 kg/kWth**, sekitar 5,3 kali
+lebih buruk dari Mark 1. Opsi ini tidak layak untuk misi daya penuh.
 
-Namun, 75 kWth masih jauh di atas panas peluruhan ISR segera setelah
+Namun, 75,1 kWth masih jauh di atas panas peluruhan ISR segera setelah
 padam—sekitar 6–7% dari 500 kWth, atau 30–35 kWth. Oleh karena itu, opsi C
 memiliki nilai sebagai **sistem pendingin pasif cadangan** (*decay-heat
 removal*) yang dapat dipertahankan bersama sistem pompa. Dalam konfigurasi
 hibrida, 61 *heat pipe* 0,6 cm memberikan jalur pendinginan darurat yang
-tidak bergantung pada pompa, sementara pompa menangani daya nominal.
-Konfigurasi ini menambah sekitar 5,3 kg massa *heat pipe* dan menghilangkan
-risiko kehilangan pendinginan total akibat kegagalan pompa.
+tidak bergantung pada pompa, sementara pompa menangani daya nominal
+500 kWth. Konfigurasi hibrida ini menambah sekitar **5,2 kg** massa *heat
+pipe* pada Mark 1, sehingga massa totalnya sekitar **572,3 kg** dengan massa
+spesifik **1,145 kg/kWth**, dan menghilangkan risiko kehilangan pendinginan
+total akibat kegagalan pompa.
 
 | Besaran | Mark 1 | Opsi A | Opsi B | Opsi C |
 |:--------|-------:|-------:|-------:|-------:|
 | Daya tertangani (kWth) | 500 | 500 | 500 | 75,1 |
 | Diameter pipa (cm) | 0,6 (kanal) | 1,55 | 1,42 | 0,6 |
 | Jumlah pipa | 0 (pompa) | 61 | 72 | 61 |
-| Massa total (kg) | 567,1 | 453,0 | 634,8 | 455,6 |
-| Massa spesifik (kg/kWth) | 1,134 | 0,906 | 1,270 | 6,065 |
+| Massa total (kg) | 567,1 | 453,7 | 634,8 | 452,3 |
+| Massa spesifik (kg/kWth) | 1,134 | 0,907 | 1,270 | 6,021 |
 | Pengayaan | 55% | $\approx$ 63% | 55–60%* | 55% |
-| Status | aktif | pasif | pasif | hibrida |
+| Status | aktif | pasif | pasif | pasif (*derated*) |
 
 : Perbandingan opsi arsitektur ISR Mark 2. *Perlu verifikasi neutronik. {#tbl-opsi}
 
-![Kapasitas pendinginan ketiga opsi pada 1200 K dibandingkan dengan daya
-nominal 500 kWth.](figures/isr_options.png){#fig-opsi width=80%}
+Varian **hibrida** Opsi C—mempertahankan sistem pompa Na-78K untuk daya
+nominal dan menambahkan 61 *heat pipe* 0,6 cm sebagai jalur cadangan—menangani
+500 kWth dengan massa total sekitar **572,3 kg** dan massa spesifik
+**1,145 kg/kWth** (Mark 1 ditambah 5,2 kg pipa).
+
+![Kapasitas pendinginan ketiga opsi (A, B, C) pada 1200 K dibandingkan
+dengan daya nominal 500 kWth. Opsi A dan B membawa daya penuh, sedangkan
+Opsi C diturunkan dayanya.](figures/isr_options.png){#fig-opsi width=80%}
 
 ## Profil Suhu dan Kinerja Termal
 
@@ -238,7 +246,8 @@ ISR 0,6 cm pada 1,0 kW.](figures/core_temp_profile.png){#fig-profil width=95%}
 ## Respons Transien dan Start-up
 
 @fig-transien menunjukkan respons pipa KRUSTY terhadap langkah daya
-310 W. Suhu uap mencapai nilai tunak dalam waktu sekitar satu menit.
+310 W dengan suhu sink 1063 K yang sama seperti kasus tunak acuan, sehingga
+suhu uap mencapai dataran tunak 810,3 °C dalam waktu sekitar satu menit.
 Model ini **tidak** menunjukkan dataran peleburan (*melting plateau*)
 karena panas laten peleburan natrium (15 g, sekitar 1,7 kJ) dan massa
 teras 32 kg tidak dimasukkan. Start-up KRUSTY yang sebenarnya memerlukan
@@ -267,7 +276,7 @@ Sistem pompa (dua pompa EM, pengontrol, dan manifold) diperkirakan
 **120 kg**. Sistem *heat pipe* Opsi B sebesar **34,6 kg**, sehingga
 penghematan subsistem pendingin adalah **85,4 kg (71%)**. Namun, setelah
 memperhitungkan pembesaran teras dan reflektor, massa total Opsi B justru
-naik 67,7 kg. Untuk Opsi A, massa total turun 114,1 kg, tetapi dengan
+naik 67,7 kg. Untuk Opsi A, massa total turun 113,4 kg, tetapi dengan
 pengayaan 63,4%.
 
 Dari sisi keandalan, Mark 1 memiliki dua pompa EM yang keduanya harus
@@ -292,10 +301,11 @@ Berdasarkan hasil di atas, rekomendasi untuk ISR Mark 2 adalah:
 2. **Untuk mempertahankan pengayaan di bawah 60%:** gunakan **Opsi C
    hibrida**—pertahankan pompa Na-78K untuk daya nominal dan tambahkan 61
    *heat pipe* 0,6 cm sebagai sistem pendingin pasif cadangan. Kapasitas
-   75 kWth cukup untuk panas peluruhan dan memberikan waktu tambahan
-   dalam skenario kehilangan aliran.
+   75,1 kWth cukup untuk panas peluruhan dan memberikan waktu tambahan
+   dalam skenario kehilangan aliran; varian hibrida ini berdaya 500 kWth
+   dengan massa total sekitar 572,3 kg (1,145 kg/kWth).
 3. **Untuk mempertahankan daya 500 kWth dan menurunkan massa:** **Opsi A**
-   dengan kanal 1,55 cm memberikan massa terendah (453 kg; 0,906 kg/kWth),
+   dengan kanal 1,55 cm memberikan massa terendah (453,7 kg; 0,907 kg/kWth),
    tetapi memerlukan pengayaan sekitar 63% atau perpanjangan teras. Opsi ini
    hanya layak jika batas pengayaan 60% dilonggarkan.
 

@@ -137,20 +137,24 @@ savefig(plt4, joinpath(FIG, "core_temp_profile.png"))
 # 5. ISR options
 # ---------------------------------------------------------------------------
 o = isr_options()
+# The three architectural options A, B and C, compared with the 500 kWth
+# nominal power.  Option A (enlarged channel) and Option B (interstitial
+# matrix) both carry the full 500 kWth; only the derated Option C falls short.
 capacities = [o.C.Q_total, o.B.Q_total, 500e3]
-names = ["C: 0.6 cm\nchannels", "B: interstitial\nmatrix", "Mark 1\n(pumped)"]
-plt5 = bar(names, capacities ./ 1e3, color = [:gray60, :seagreen, :royalblue],
+names = ["C: 0.6 cm\n(down-rated)", "B: interstitial\nmatrix",
+         "A: enlarged\nchannel"]
+plt5 = bar(names, capacities ./ 1e3, color = [:gray60, :seagreen, :firebrick],
            ylabel = "Thermal power (kWth)", legend = false,
            title = "ISR Mark 2 cooling capacity at 1200 K",
            ylims = (0, 600))
 hline!(plt5, [500.0], ls = :dash, color = :black)
-annotate!(plt5, 1, 520, text("500 kWth", 8, :black))
+annotate!(plt5, 1.5, 520, text("500 kWth", 8, :black))
 savefig(plt5, joinpath(FIG, "isr_options.png"))
 
 # ---------------------------------------------------------------------------
 # 6. Start-up transient from a frozen state
 # ---------------------------------------------------------------------------
-hp_tr = krusty_heatpipe(T_sink = 1000.0)
+hp_tr = krusty_heatpipe(T_sink = 1063.0)
 tr = transient_response(hp_tr, t -> 310.0, (0.0, 600.0); n = 20, dt = 0.1)
 plt6 = plot(tr.t ./ 60, tr.T_v .- 273.15, lw = 2.5, color = :firebrick,
             xlabel = "Time (min)", ylabel = "Vapour temperature (°C)",

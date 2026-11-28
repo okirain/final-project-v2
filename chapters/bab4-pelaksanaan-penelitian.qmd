@@ -177,7 +177,8 @@ reflektor dan drum diskalakan dengan keliling (tebal tetap).
 
 **Opsi C — penurunan daya.** Geometri dipertahankan; hanya 61 *heat pipe*
 0,6 cm yang dipasang. Total daya yang dapat dibuang menjadi
-$61\times Q_{0.6}$.
+$61\times Q_{0.6}$. Varian hibridanya mempertahankan sistem pompa untuk daya
+nominal dan memakai 61 pipa ini sebagai jalur pendinginan pasif cadangan.
 
 ## Model Massa dan Daya Parasitik
 
@@ -194,10 +195,12 @@ pengontrol (20 kg), dan manifold (40 kg).
 
 Massa *heat pipe* dihitung dari volume envelope dan wick:
 
-$$ m_{HP} = n\left[\rho_w\pi(r_o^2-r_i^2)L + m_{wick}\right]\times1{,}3
+$$ m_{HP} = n\left[\rho_w\pi(r_o^2-r_i^2)L + m_{wick}(D)\right]\times1{,}3
    $$ {#eq-hpmass}
 
-Faktor 1,3 merupakan cadangan untuk header dan pemasangan. Daya parasitik
+dengan $m_{wick}(D)$ adalah massa wick per pipa yang berskala dengan luas
+penampang wick, yaitu sebanding dengan $D^2$ (acuan 0,05 kg untuk pipa
+1,425 cm). Faktor 1,3 merupakan cadangan untuk header dan pemasangan. Daya parasitik
 *heat pipe* adalah nol karena tidak ada komponen bergerak.
 
 ## Verifikasi dan Reproduksibilitas

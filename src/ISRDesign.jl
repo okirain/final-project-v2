@@ -345,7 +345,10 @@ function isr_mass_balance(; T::Real = 1200.0)
         r_o, r_i = D / 2, D / 2 - t_wall
         A_metal = pi * (r_o^2 - r_i^2)
         m_tube = 8900.0 * A_metal * 1.0
-        m_wick = 0.05
+        # The wick is a thin annular layer (8 % of D thick), so both its
+        # cross-section and its mass scale with D^2; 0.05 kg is the allowance
+        # for the 1.425 cm Option-B pipe.
+        m_wick = 0.05 * (D / 0.01425)^2
         n * (m_tube + m_wick) * 1.30
     end
 

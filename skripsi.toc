@@ -71,11 +71,11 @@
 \contentsline {subsection}{\numberline {V.4.1}Opsi A --- Perluasan Kanal}{33}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {V.4.2}Opsi B --- Matriks \emph {Heat Pipe} Interstitial}{34}{subsection.5.4.2}%
 \contentsline {subsection}{\numberline {V.4.3}Opsi C --- Penurunan Daya}{34}{subsection.5.4.3}%
-\contentsline {section}{\numberline {V.5}Profil Suhu dan Kinerja Termal}{36}{section.5.5}%
+\contentsline {section}{\numberline {V.5}Profil Suhu dan Kinerja Termal}{35}{section.5.5}%
 \contentsline {section}{\numberline {V.6}Respons Transien dan Start-up}{36}{section.5.6}%
 \contentsline {section}{\numberline {V.7}Massa, Daya Parasitik, dan Keandalan}{37}{section.5.7}%
 \contentsline {section}{\numberline {V.8}Rekomendasi Desain}{38}{section.5.8}%
-\contentsline {section}{\numberline {V.9}Keterbatasan Penelitian}{38}{section.5.9}%
+\contentsline {section}{\numberline {V.9}Keterbatasan Penelitian}{39}{section.5.9}%
 \contentsline {chapter}{\numberline {BAB~VI}KESIMPULAN DAN SARAN}{40}{chapter.6}%
 \contentsline {section}{\numberline {VI.1}Kesimpulan}{40}{section.6.1}%
 \contentsline {section}{\numberline {VI.2}Saran}{41}{section.6.2}%
